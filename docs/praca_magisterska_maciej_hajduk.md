@@ -7,6 +7,7 @@ numbersections: true
 indent: true
 header-includes: |
   \usepackage{tcolorbox}
+  \usepackage{algorithmic}
   \usepackage{pdfpages}
   \usepackage[]{algorithm2e}
   \newcommand\qed{\hfill\rule{1em}{1em}}
@@ -128,7 +129,21 @@ Przedstawione poniżej algorytmy należą do tradycyjnych, szeroko używanych me
 
 ### Correlation coefficient
 
-Korelacja to miara liniowej zależności pomiędzy dwoma zmiennymi. Jest to więc poniekąt miara tego, jak silnie jedna zmienna zależy od drugiej. Jest to zazwyczaj bardzo użyteczna właściwość - w przypadku dwóch, silnie skorelowanych zmiennych, posiadając informacje o jednej zmiennej można przewidzieć dane innej zmiennej. W przypadku liniowych modeli uczenia maszynowego, częstym celem będzie znalezienie elementów silnie skorelowanych z celem. Jednakże, dwie silnie skorelowane ze sobą zmienne dostarczają też zbędnych, podwójnych informacji. Zasadniczo można dokonać poprawnego sklasyfikowania z pomocą tylko jednej z tych zmiennych. Usunięcie drugiej może więc pomóc w zmniejszeniu wymiarowości i zbędnego szumu.
+Korelacja to miara liniowej zależności pomiędzy dwoma zmiennymi. Jest to więc poniekąt miara tego, jak silnie jedna zmienna zależy od drugiej. Jest to zazwyczaj bardzo użyteczna właściwość - w przypadku dwóch, silnie skorelowanych zmiennych, posiadając informacje o jednej zmiennej można przewidzieć dane innej zmiennej. W przypadku liniowych modeli uczenia maszynowego, częstym celem będzie znalezienie elementów silnie skorelowanych z celem. Jednakże, dwie silnie skorelowane ze sobą zmienne dostarczają też zbędnych, podwójnych informacji. Zasadniczo można dokonać poprawnego sklasyfikowania z pomocą tylko jednej z tych zmiennych. Usunięcie drugiej może więc pomóc w zmniejszeniu wymiarowości i zbędnego szumu [32].
+
+Współczynnik korelacji Pearsona to test statystyczny, który określa poziom zbieżnośli liniowej pomiędzy zmiennymi. Wynikiem tej metody są wartości od -1 do 1. Bezwzględna wartość współczynnika określa siłę zależności liniowej - wartości bliższe 1 wskazują na silniejszy związek. Znak współczynnika wskazuje kierunek zależności: znak dodatni wskazuje, że dwie zmienne rosną lub maleją względem siebie (pod wsględem korelacji), a znak ujemny wskazuje, że jedna zmienna rośnie, a druga maleje [8].
+
+Ogólna postać testu wygląda następująco:
+
+$$ r={\frac {\sum _{i=1}^{n}(x_{i}-{\overline {x}})(y_{i}-{\overline {y}})}{{\sqrt {\sum _{i=1}^{n}(x_{i}-{\overline {x}})^{2}}}{\sqrt {\sum _{i=1}^{n}(y_{i}-{\overline {y}})^{2}}}}}, $$
+
+gdzie:
+
+* $n$ jest wymiarem próbki
+* $x_i$ oraz $y_i$ są indywidualnymi próbkami ideksowanymi po $i$
+* ${\bar {x}}={\frac {1}{n}}\sum _{i=1}^{n}x_{i}$ - jest średnią (podobnie dla ${\bar {y}}$)
+
+W przypadku problemów związanych z uczeniem maszynowym, cechy zbioru są szeregowane na podstawie wyniku korelacji.
 
 ### Chi-square
 Chi-kwadrat jest testem statystycznym mierzącym niezalożność cechy od etykiety klasy. Test chi-kwadrat mierzy zależność między zmiennymi stochastycznymi, więc użycie tej metody "usuwa: cechy, które z największym prawdopodobieństwem są niezależne od klasy, a zatem nie mają znaczenia dla klasyfikacji. Metoda polega na wykoaniu metryki $\chi^2$ pomiędzy wartością docelową a zmienną numeryczną i wyborze zmienniej o maksymalnym wyniku testu [30, 31].
@@ -137,7 +152,11 @@ Ogólna postać testu wygląda następująco:
 
 $$ \chi^{2}=\sum _{i=1}^{n}\left({\frac {O_{i}-E_{i}}{E_{i}}}\right)^{2}, $$
 
-gdzie $O_i$ jest wartością mierzoną, $E_i$ jest wartością oczekiwaną wynikającą z hipotezy a $n$ - liczbą pomiarów.
+gdzie:
+
+* $O_i$ jest wartością mierzoną
+* $E_i$ jest wartością oczekiwaną wynikającą z hipotezy
+* $n$ jest liczbą pomiarów.
 
 Forman zauważył, że ten test może zachowywać się nieprawidłowo, gdy spodziewana jest niewielka liczba cech; jest to dość powszechne w przypadku niezrównoważonych zbiorów danych [28]. Chociaż test chi-kwadrat dobrze uogólnia dane dyskretne, nie radzi sobie dobrze się podczas testowania danych ciągłych [12]. 
 
@@ -183,98 +202,69 @@ Pod uwagę brane będą funkcja straty (loss), która informuje o dopasowaniu mo
 # Bibliografia
 
 [1] \hspace{3mm} Feature Selection for High-Dimensional and Imbalanced Biomedical Data Based on Robust Correlation Based Redundancy and Binary Grasshopper Optimization Algorithm, Garba Abdulrauf Sharifai and Zurinahni Zaino; 2020.
-\vspace{3mm}
 
 [2] \hspace{3mm} A Survey on Evolutionary Computation Approaches to Feature Selection, Bing Xue; Mengjie Zhang; Will N. Browne; Xin Yao, 2015.
-\vspace{3mm}
 
 [3] \hspace{3mm} Correlation-based Feature Selection for Machine Learning, Mark A Hall, University of Waikato, 1999.
-\vspace{3mm}
 
 [4] \hspace{3mm} Efektywne metody selekcji cech i rozwiazywania problemu wieloklasowego w nadzorowanej klasyfikacji danych, Wieszław Chmielnicki, IPPT PAN, 2012
-\vspace{3mm}
 
 [6] \hspace{3mm} Zastosowanie wybranych metod przekształcania i selekcji danych oraz konstrukcji cech w zadaniach klasyfikacji i klasteryzacji, Piotr Płoński, Politechnika Warszawka, 2016.
-\vspace{3mm}
 
 [7] \hspace{3mm} Analiza i rozwój metod selekcji cech dla dużych problemów klasyfikacyjnych, Jakub Piątkowski, Uniwersytet Mikołaja Kopernika, 2006.
-\vspace{3mm}
 
 [8] \hspace{3mm} Feature Selection in Imbalance data sets, International Journal of Computer Science Issues, 2013.
-\vspace{3mm}
 
 [9] \hspace{3mm} G. Weiss and F. Provost, “Learning when Training Data Are Costly: The Effect of Class Distribution on Tree Induction,” J. Artificial Intelligence Research, vol. 19, pp. 315-354, 2003
-\vspace{3mm}
 
 [10] \hspace{3mm} Paweł Ziemba, Redukcja  wymiarowości  i  selekcja  cech  w zadaniach klasyfikacji i regresji z wykorzystaniem uczenia maszynowego, 2012
-\vspace{3mm}
 
 [11] \hspace{3mm} Wasikowski, M.; Chen, X.-w. Combating the small sample class imbalance problem using feature selection. IEEE Trans. Knowl. Data Eng. 2009, 22, 1388–1400.
-\vspace{3mm}
 
 [12] \hspace{3mm} Deepika Tiwari, Handling Class Imbalance Problem Using Feature Selection. International Journal of Advanced Research in
 Computer Science & Technology, June 2014
-\vspace{3mm}
 
 [13] \hspace{3mm} C. Elkan, "Magical Thinking in Data Mining: Lessons from CoIL Challenge 2000" Proc. ACM SIGKDD ’01, pp. 426-431, 2001.
-\vspace{3mm}
 
 [14] \hspace{3mm} Isabelle Guyon & Andre Elisseeff, An Introduction to Variable and Feature Selection, Journal of Machine Learning Research, 2003.
-\vspace{3mm}
 
 [15] \hspace{3mm} Moayedikia, A.; Ong, K.-L.; Boo, Y.L.; Yeoh, W.G.; Jensen, R. Feature selection for high dimensional imbalanced class data using harmony search. Eng. Appl. Artif. Intell. 2017, 57, 38–49.
-\vspace{3mm}
 
 [16] \hspace{3mm} Miron Bartosz Kursa, Stabilne i wydajne metody selekcji cech z wykorzystaniem systemów uczących się, 13 października 2016
-\vspace{3mm}
 
 [17] \hspace{3mm} Wiesław Chmielnicki, Katarzyna Stąpor, Efektywne metody selekcji cech i rozwiązywania problemu wieloklasowego w nadzorowanej klasyfikacji danych, Kraków 2012
-\vspace{3mm}
 
 [18] \hspace{3mm} Wiesław Chmielnicki, Katarzyna Stąpor, Efektywne metody selekcji cech i rozwiązywania problemu wieloklasowego w nadzorowanej klasyfikacji danych, Kraków 2012
-\vspace{3mm}
 
 [19] \hspace{3mm} Silva, D.A.; Souza, L.C.; Motta, G.H. An instance selection method for large datasets based on markov geometric diffusion. Data Knowl. Eng. 2016, 101, 24–41.
-\vspace{3mm}
 
 [20] \hspace{3mm} Han, H.; Wang, W.-Y.; Mao, B.-H. Borderline-SMOTE: A new over-sampling method in imbalanced data sets learning. In Proceedings of the International Conference on Intelligent Computing, Hefei, China, 23–26 August 2005; Springer: Berlin/Heidelberg, Germany, 2005; pp. 878–887.
-\vspace{3mm}
 
 [21] \hspace{3mm} Chawla, N.V.; Bowyer, K.W.; Hall, L.O.; Kegelmeyer, W.P. SMOTE: Synthetic minority over-sampling technique. J. Artif. Intell. Res. 2002, 16, 321–357.
-\vspace{3mm}
 
 [22] \hspace{3mm} Yen, S.-J.; Lee, Y.-S. Cluster-based under-sampling approaches for imbalanced data distributions. Expert Syst. Appl. 2009, 36, 5718–5727.
-\vspace{3mm}
 
 [23] \hspace{3mm} He, H.; Bai, Y.; Garcia, E.; Li, S.A. Adaptive synthetic sampling approach for imbalanced learning. In Proceedings of the IEEE International Joint Conference on Neural Networks, 2008 (IEEE World Congress on Computational Intelligence), Hong Kong, China, 1–8 June 2008.
-\vspace{3mm}
 
 [24] \hspace{3mm} Hempstalk, K.; Frank, E.; Witten, I.H. One-class classification by combining density and class probability estimation. In Proceedings of the Joint European Conference on Machine Learning and Knowledge Discovery in Databases, Antwerp, Belgium, 14–18 September 2008; Springer: Berlin/Heidelberg, Germany, 2008; pp. 505–519.
-\vspace{3mm}
 
 [25] \hspace{3mm} Shin, H.J.; Eom, D.-H.; Kim, S.-S. One-class support vector machines—an application in machine fault detection and classification. Comput. Ind. Eng. 2005, 48, 395–408.
-\vspace{3mm}
 
 [26] \hspace{3mm} Ertekin, S.; Huang, J.; Bottou, L.; Giles, L. Learning on the border: Active learning in imbalanced data classification. In Proceedings of the Sixteenth ACM Conference on Information and Knowledge Management, Lisbon, Portugal, 6–10 November 2007; ACM: New York, NY, USA, 2007; pp. 127–136.
-\vspace{3mm}
 
 [26] \hspace{3mm} P.V. der Putten and M. van Someren, “A Bias-Variance Analysis of a Real World Learning Problem: The CoIL Challenge 2000,” Machine Learning, vol. 57, nos. 1/2, pp. 177-195, 2004.
-\vspace{3mm}
 
 [27] \hspace{3mm} D. Mladeni_c and M. Grobelnik, “Feature Selection for Unbalanced Class Distribution and Naive Bayes,” Proc. 16th Int’l Conf. Machine Learning, pp. 258-267, 1999.
-\vspace{3mm}
 
 [28] \hspace{3mm} G. Forman, “An Extensive Empirical Study of Feature Selection Metrics for Text Classification,” J. Machine Learning Research, vol. 3, pp. 1289-1305, 2003.
-\vspace{3mm}
 
 [29] \hspace{3mm} Z. Zheng, X. Wu, and R. Srihari, “Feature Selection for Text Categorization on Imbalanced Data,” ACM SIGKDD Explorations Newsletter, vol. 6, pp. 80-89, 2004.
-\vspace{3mm}
 
 [30] \hspace{3mm} Jacek Biesiada and Włodzisław Duch, Feature Selection for High-Dimensional Data: A Pearson Redundancy Based Filter
-\vspace{3mm}
 
 [31] \hspace{3mm} Rahul Agarwal, Popularne metody selekcji cech w Data Science, 09.2019
-\vspace{3mm}
+
+[32] \hspace{3mm} Younes Charfaoui, Hands-on with Feature Selection Techniques: Filter Methods, 01.2020
 
 \newpage\null\newpage
 
