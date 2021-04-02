@@ -1,44 +1,100 @@
-
-\documentclass{book}
+\documentclass[a4paper,onecolumn,oneside,12pt,extrafontsizes]{memoir}
+\usepackage[T1]{fontenc}
 \usepackage[polish]{babel}
-\let\lll\undefined
 \usepackage[utf8]{inputenc}
-\usepackage{amssymb}
-\usepackage{mathtools}
-\usepackage[headheight=18pt, top=25mm, bottom=25mm, left=25mm, right=25mm]{geometry}
+\usepackage{setspace}
+\usepackage{color,calc}
+\usepackage{ebgaramond}
+\usepackage{tgtermes}   
+\renewcommand*\ttdefault{txtt}
+
+\setlength{\headsep}{10pt} 
+\setlength{\headheight}{13.6pt}
+\setlength{\footskip}{\headsep+\headheight}
+\setlength{\uppermargin}{\headheight+\headsep+1cm}
+\setlength{\textheight}{\paperheight-\uppermargin-\footskip-1.5cm}
+\setlength{\textwidth}{\paperwidth-5cm}
+\setlength{\spinemargin}{2.5cm}
+\setlength{\foremargin}{2.5cm}
+\setlength{\marginparsep}{2mm}
+\setlength{\marginparwidth}{2.3mm}
+\checkandfixthelayout[fixed]
+\linespread{1}
+\setlength{\parindent}{14.5pt}
+
+
 \makeatletter
-\setlength\@fptop{0\p@}	
-\makeatother
+\newcommand\uczelnia[1]{\renewcommand\@uczelnia{#1}}
+\newcommand\@uczelnia{}
+\newcommand\wydzial[1]{\renewcommand\@wydzial{#1}}
+\newcommand\@wydzial{}
+\newcommand\kierunek[1]{\renewcommand\@kierunek{#1}}
+\newcommand\@kierunek{}
+\newcommand\specjalnosc[1]{\renewcommand\@specjalnosc{#1}}
+\newcommand\@specjalnosc{}
+\newcommand\titleEN[1]{\renewcommand\@titleEN{#1}}
+\newcommand\@titleEN{}
+\newcommand\titleShort[1]{\renewcommand\@titleShort{#1}}
+\newcommand\@titleShort{}
+\newcommand\promotor[1]{\renewcommand\@promotor{#1}}
+\newcommand\@promotor{}
 
-
-\usepackage{titling}
-\frontmatter
+\title{Analiza porównawcza wybranych metod selekcji cech w zadaniu klasyfikacji danych niezbalansowanych.}
+\titleEN{Comparative analysis of feature selection techniques in inbalanced data classification problems.}
+\author{Maciej Hajduk}
+\uczelnia{POLITECHNIKA WROCŁAWSKA}
+\wydzial{WYDZIAŁ ELEKTRONIKI}
+\kierunek{INFORMATYKA}
+\specjalnosc{SYSTEMY INFORMATYKI W MEDYCYNIE}
+\promotor{dr inż. Paweł Trajdos, K32W04D03}
+\date{WROCŁAW, 2021}
 
 \begin{document}
 
-	\begin{titlingpage}
-		\vspace*{\fill}
-		\begin{center}
-			\begin{picture}(300,510)
-				\put(11,520){\makebox(0,0)[l]{\large \textsc{Wydział Elektroniki}}}
-				\put(11,500){\makebox(0,0)[l]{\large \textsc{Politechnika Wrocławska}}}
-				\put(80,400){\Huge \textsc{Analiza porównawcza}}
-				\put(80,360){\Huge \textsc{wybranych metod}}
-				\put(80,320){\Huge \textsc{selekcji cech}}
-				\put(80,280){\Huge \textsc{w zadaniu klasyfikacji}}
-				\put(80,240){\Huge \textsc{danych niezbalansowanych}}
-				\put(90,200){\makebox(0,0)[l]{\large \textsc{Maciej Hajduk}}}
-				\put(90,180){\makebox(0,0)[l]{\large \textsc{Nr indeksu: 236596}}}
-				\put(200,100){\makebox(0,0)[l]{\large Praca magisterska napisana}}
-				\put(200,80){\makebox(0,0)[l]{\large pod kierunkiem}}
-				\put(200,60){\makebox(0,0)[l]{\large dr Pawła Trajdosa}}
-				\put(115,-70){\includegraphics[width=0.15\textwidth]{./figures/pwr}}
-				\put(106,-80){\makebox(0,0)[bl]{\large \textsc{Wrocław 2021}}}
-			\end{picture}
-		\end{center}	
-		\vspace*{\fill}
-	\end{titlingpage}
-	\pagenumbering{gobble}
-	\newpage\null\newpage
-\end{document}
+\thispagestyle{empty}
+\newlength{\tmpfboxrule}
+\setlength{\tmpfboxrule}{\fboxrule}
+\setlength{\fboxsep}{2mm}
+\setlength{\fboxrule}{0mm}
+\setlength{\unitlength}{1mm}
+\begin{picture}(0,0)
+	\put(26,-124){\fbox{
+			\parbox[c][71mm][c]{104mm}{\centering
+				\fontsize{16pt}{18pt}\selectfont \@title\\[5mm]
+				\fontsize{16pt}{18pt}\selectfont \@titleEN\\[20mm]
+				\fontsize{16pt}{18pt}\selectfont AUTOR:\\[2mm]
+				\fontsize{14pt}{16pt}\selectfont \@author}
+		}
+	}
+\end{picture}
+\setlength{\fboxrule}{\tmpfboxrule} 
+{\centering
+{\fontsize{22pt}{24pt}\selectfont \@uczelnia}\\[0.4cm]
+{\fontsize{22pt}{24pt}\selectfont \@wydzial}\\[0.5cm]
+\hrule
+}
+{\flushleft\fontsize{14pt}{16pt}\selectfont%
+\begin{tabular}{ll}
+	KIERUNEK:    & \@kierunek    \\
+	SPECJALNOŚĆ: & \@specjalnosc \\
+\end{tabular}\\[1.3cm]
+}
+{\centering
+{\fontsize{32pt}{36pt}\selectfont PRACA DYPLOMOWA}\\[0.5cm]
+{\fontsize{32pt}{36pt}\selectfont MAGISTERSKA}\\[2.5cm]
+}
+\vfill
+\begin{tabularx}{\linewidth}{p{6cm}X}
+	 & {\fontsize{16pt}{18pt}\selectfont PROWADZĄCY PRACĘ:} \\[2mm]
+	 & {\fontsize{14pt}{16pt}\selectfont \@promotor}        \\[10mm]
+	 & {\fontsize{16pt}{18pt}\selectfont }                  \\[20mm]
+\end{tabularx}
+\vspace{2cm}
+\hrule\vspace*{0.3cm}
+{\centering
+	{\fontsize{16pt}{18pt}\selectfont \@date}\\[0cm]
+}
+\normalfont
+\cleardoublepage
 
+\end{document}
