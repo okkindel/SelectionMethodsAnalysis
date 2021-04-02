@@ -4,6 +4,9 @@ author: [Maciej Hajduk, Politechnika Wrocławska]
 date: "Wrocław 2021"
 geometry: margin=3cm
 numbersections: true
+eqnos-number-by-section: true
+fignos-number-by-section: true
+tablenos-number-by-section: true
 indent: true
 header-includes: |
   \usepackage{tcolorbox}
@@ -18,11 +21,13 @@ header-includes: |
 
 \tableofcontents
 
-\newpage\null\newpage
+\newpage
 
-# Słowniczek, spis rysunków i tabel
+\listoffigures
 
-* Przykład niezrównoważonego rozkładu klas - *@fig:1
+\newpage
+
+\listoftables
 
 \newpage\null\newpage
 
@@ -141,12 +146,11 @@ Przedstawione w rozdziale `2.7.1` algorytmy należą do tradycyjnych, szeroko u�
 
 Korelacja to miara liniowej zależności pomiędzy dwoma zmiennymi losowymi. Jest to więc poniekąd miara tego, jak silnie jedna zmienna zależy od drugiej. Jest to zazwyczaj bardzo użyteczna właściwość - w przypadku dwóch, silnie skorelowanych zmiennych, posiadając informacje o jednej zmiennej można przewidzieć wartości innej zmiennej. W przypadku liniowych modeli uczenia maszynowego, częstym celem będzie znalezienie elementów silnie skorelowanych ze zmienną losową opisującą przynależność do klasy. Jednakże, dwie silnie skorelowane ze sobą zmienne dostarczają też redundantnych informacji. Zasadniczo można dokonać poprawnego sklasyfikowania z pomocą tylko jednej z tych atrybutów. Usunięcie drugiej może więc pomóc w zmniejszeniu wymiarowości i zbędnego szumu [32].
 
-Współczynnik korelacji Pearsona to algorytm, który określa poziom zbieżnośli liniowej pomiędzy zmiennymi. Wynikiem tej metody są wartości od -1 do 1. Bezwzględna wartość współczynnika określa siłę zależności liniowej - wartości bliższe 1 wskazują na silniejszy związek. Znak współczynnika wskazuje kierunek zależności: znak dodatni wskazuje, że dwie zmienne rosną lub maleją względem siebie (pod wsględem korelacji), a znak ujemny wskazuje, że jedna zmienna rośnie, a druga maleje [8].
+Współczynnik korelacji Pearsona to algorytm, który określa poziom zbieżnośli liniowej pomiędzy zmiennymi. Wynikiem tej metody są wartości od -1 do 1. Bezwzględna wartość współczynnika określa siłę zależności liniowej - wartości bliższe 1 wskazują na silniejszy związek. Znak współczynnika wskazuje kierunek zależności: znak dodatni wskazuje, że dwie zmienne rosną lub maleją względem siebie (pod względem korelacji), a znak ujemny wskazuje, że jedna zmienna rośnie, a druga maleje [8].
 
-Ogólna postać testu wygląda następująco:
+Ogólna postać testu przedstawiona została w równaniu @eq:correlation_coefficient:
 
-<!-- TODO: Numerowanie algorytmów -->
-$$ r={\frac {\sum _{i=1}^{n}(x_{i}-{\overline {x}})(y_{i}-{\overline {y}})}{{\sqrt {\sum _{i=1}^{n}(x_{i}-{\overline {x}})^{2}}}{\sqrt {\sum _{i=1}^{n}(y_{i}-{\overline {y}})^{2}}}}}, $$
+$$ r={\frac {\sum _{i=1}^{n}(x_{i}-{\overline {x}})(y_{i}-{\overline {y}})}{{\sqrt {\sum _{i=1}^{n}(x_{i}-{\overline {x}})^{2}}}{\sqrt {\sum _{i=1}^{n}(y_{i}-{\overline {y}})^{2}}}}}, $$ {#eq:correlation_coefficient}
 
 gdzie:
 
@@ -161,9 +165,9 @@ Można to zrobić, obliczając macierz relacji między każdą parą zmiennych w
 ### Chi-square
 Chi-kwadrat jest testem statystycznym mierzącym niezalożność cechy od etykiety klasy. Test chi-kwadrat mierzy zależność między zmiennymi stochastycznymi, więc użycie tej metody "usuwa: cechy, które z największym prawdopodobieństwem są niezależne od klasy, a zatem nie mają znaczenia dla klasyfikacji. Metoda polega na obliczeniu metryki $\chi^2$ pomiędzy wartością docelową a cechą i wyborze zmienniej o maksymalnym wyniku testu [30, 31].
 
-Ogólna postać testu wygląda następująco:
+Ogólna postać testu zoststała przedstawiona w równaniu  @eq:chi_square:
 
-$$ \chi^{2}=\sum _{i=1}^{n}\left({\frac {O_{i}-E_{i}}{E_{i}}}\right)^{2}, $$
+$$ \chi^{2}=\sum _{i=1}^{n}\left({\frac {O_{i}-E_{i}}{E_{i}}}\right)^{2}, $$ {#eq:chi_square}
 
 gdzie:
 
@@ -176,18 +180,18 @@ Forman zauważył, że ten test może zachowywać się nieprawidłowo, gdy spodz
 ### Information Gain
 
 <!-- https://stackoverflow.com/questions/46752650/information-gain-calculation-with-scikit-learn -->
-Entropia warunkowa to entropia po podziale zbioru przy pomocy danego atrybytu [12]. Dla danego atrybutu $a$, entropia warunkowa wyraża się wzorem:
+Entropia warunkowa to entropia po podziale zbioru przy pomocy danego atrybytu [12]. Dla danego atrybutu $a$, entropia warunkowa wyraża się wzorem @eq:con_entropy:
 
-$$ Ent(S | a) = \sum_{j=1}^{p}\frac{n_{s_j}}{n}Ent(S_j), $$
+$$ Ent(S | a) = \sum_{j=1}^{p}\frac{n_{s_j}}{n}Ent(S_j), $$ {#eq:con_entropy}
 
 gdzie:
 
 * $p$ to liczba wartości atrubutu a
 * $S_j$ to zbiór przykładów z wartością atrygutu $v_j$
 * $n_{s_j}$ to liczebność zbioru $S_j$
-* $Ent(S_j)$ to entropia zbioru $S_j$, wyrażona wzorem:
+* $Ent(S_j)$ to entropia zbioru $S_j$, wyrażona wzorem @eq:entropy:
 
-$$ Ent(S) = - \sum_{i=1}^{k}p_ilog_2p_i, $$
+$$ Ent(S) = - \sum_{i=1}^{k}p_ilog_2p_i, $$  {#eq:entropy}
 
 gdzie:
 
@@ -197,7 +201,7 @@ gdzie:
 
 Innymi słowy, im mniejsza wartość entropii warunkowej, tym większa jednorodność podziału [32]. Information Gain mierzy różnicę między entropią etykiet klas a entropią warunkową etykiet klas dla danej cechy [12]. Metoda ta ocenia przyrost informacji przy użyciu atrybutu. Dla danego atrybutu $a$:
 
-$$ IG(S, a) = Ent(S) - Ent(S | a) $$
+$$ IG(S, a) = Ent(S) - Ent(S | a) $$ {#eq:information_gain}
 
 Podobnie jak test chi-kwadrat, uogólnia atrybuty dyskretne, ale nie radzi sobie atrybutami z danymi ciągłymi. Ponadto preferuje atrybuty o dużej liczbie warości i może prowadzić do przeuczenia [32]. Problemy te rozwiązuje zmodyfikowana wersja algorytmu - Gain Ratio.
 
@@ -228,9 +232,9 @@ Określenie jakości działania algorytmu może stanowić badanym przypadku prob
 - Macierz konfuzji: tabela pokazująca prawidłowe prognozy i typy nieprawidłowych przewidywań.
 - Precyzja: liczba prawdziwie pozytywnych wyników podzielona przez wszystkie pozytywne przewidywania. Precyzja jest również nazywana pozytywną wartością predykcyjną. Jest miarą dokładności klasyfikatora. Niska precyzja wskazuje na dużą liczbę fałszywych wyników.
 - Czułość: liczba prawdziwie pozytywnych wyników podzielona przez liczbę dodatnich wartości w danych testowych. Jest miarą kompletności klasyfikatora. Niska czułość wskazuje na dużą liczbę fałszywie negatywnych wyników.
-- F1 Score: średnia ważona precyzji i czułości, wyrażona wzorem:
+- F1 Score: średnia ważona precyzji i czułości, wyrażona wzorem @eq:f1:
 
-$$ F1 Score = \frac{2 * (Recall * Precision)}{Recall + Precision} .$$
+$$ F1 Score = \frac{2 * (Recall * Precision)}{Recall + Precision} .$$  {#eq:f1}
 
 Pod uwagę brane będą funkcja straty (loss), która informuje o dopasowaniu modelu do danych, oraz dokładności (accuracy), która określa skuteczność klasyfikacji. Porównany zostanie również ranking cech uzyskany przez każdą z metod. W celu określenia, która z testowanych metod daje najlepsze wyniki klasyfikacji wykorzystany zostanie test statystyczny - test Wilcoxona [44]. Do jego wykonania użyte zostaną wartości dokładności uzyskane dla każdej z badanych metod.
 
@@ -351,7 +355,7 @@ Computer Science & Technology, June 2014
 
 \newpage\null\newpage
 
-# Zawartość płyty CD
+# Zawartość płyty CD {-}
 
 Do pracy dołączono płytę CD o następującej zawartości:
 
