@@ -7,10 +7,6 @@ withtemplate:
 	# pandoc -o temp.pdf -V lang=pl-PL praca_magisterska_maciej_hajduk.md
 	pdfunite header.pdf temp.pdf praca_magisterska_maciej_hajduk.pdf
 	make clean
-	make cleanmd
 
 clean:
-	rm temp.html temp.pdf header.pdf header.aux header.log || true
-
-cleanmd:
-	rm temp.pdf
+	rm temp.pdf header.pdf header.aux header.log || true
