@@ -225,6 +225,8 @@ gdzie:
 * $nearHit_i$ to $i-ty$ element wektora _near hit_ 
 * $nearMiss_i$ to $i-ty$ element wektora _near miss_
 
+![Wybór elementów _near hit_ oraz _near miss_ w każdej iteracji działania algorytmu](./figures/relief.png){#fig:relief}
+
 Waga danej cechy maleje, jeżeli różni się ona od tej cechy w pobliskich instancjach tej samej klasy bardziej, niż pobliskie instancje innych klas, a wzrasta w przeciwnym przypadku. Po $m$ iteracjach, każdy element wektora $W$ jest dzielony przez $m$. Tworzy on wtedy ranking cech [47].
 
 Zaletą metod RBA jest to, że nie są zależne od heurystyki, działają w czasie wielomianowym niskiego rzędu, są odporne na zakłócenia, a także nadają się do danych binarnych lub ciągłych [48, 49].
@@ -393,6 +395,8 @@ Computer Science & Technology, June 2014
 Do pracy dołączono płytę CD o następującej zawartości:
 
 - kod źródłowy programu znajdujący się w folderze `/src`
+\vspace{3mm}
+- otwartoźródłowe dane użyte do trenowania sieci neuronowych w katalogu `/data`
 \vspace{3mm}
 - katalog `/docs` zawierający kod źródłowy tej pracy
 \vspace{3mm}
