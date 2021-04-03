@@ -209,9 +209,25 @@ $$ IG(S, a) = Ent(S) - Ent(S | a) $$ {#eq:information_gain}
 
 Podobnie jak test chi-kwadrat, uogólnia atrybuty dyskretne, ale nie radzi sobie atrybutami z danymi ciągłymi. Ponadto preferuje atrybuty o dużej liczbie warości i może prowadzić do przeuczenia [32]. Problemy te rozwiązuje zmodyfikowana wersja algorytmu - Gain Ratio.
 
-### RELIEF i RELIEFF
+### Relief i ReliefF
 
-Algorytmy RELIEF są jednym z najskuteczniejszych, opracowanych dotychczas metod filtrujących [12]. Większość metod filtrowania opracowanych w eksploracji danych i uczeniu maszynowym zakłada warunkową niezależność atrybutów. Algorytmy RIELIEF są bardzo przydatne, ponieważ nie zakładają, że atrybuty są od siebie niezależne. Te algorytmy są zależne od kontekstu. Kiedy istnieje silny związek między atrybutami, jakość atrybutów może być poprawnie oszacowana, co sprawia, że algorytm ten jest jednym z najbardziej efektywnych algorytmów przetwarzania wstępnego [12].
+Algorytmy Relief są jednym z najskuteczniejszych, opracowanych dotychczas metod filtrujących [12]. Większość metod filtrowania opracowanych w eksploracji danych i uczeniu maszynowym zakłada warunkową niezależność atrybutów. Algorytmy Relief są bardzo przydatne, ponieważ nie zakładają, że atrybuty są od siebie niezależne. Te algorytmy są zależne od kontekstu. Kiedy istnieje silny związek między atrybutami, jakość atrybutów może być poprawnie oszacowana, co sprawia, że algorytm ten jest jednym z najbardziej efektywnych algorytmów przetwarzania wstępnego [12].
+
+Podstawową ideą algorytmów Relief jest oszacowanie jakości cech na podstawie tego, jak dobrze cecha może rozróżniać instancje, które są blisko siebie. Relief oblicza punktację dla każdej cechy, którą można następnie zastosować do selekcji cech. Punktacja opiera się na wyliczniu różnic wartości cechy między parami najbliższych sąsiadów. Jeśli różnica wartości cechy zostanie zaobserwowana w sąsiedniej parze instancji z tą samą klasą, wynik funkcji maleje. Jeżeli natomiast różnica wartości cechy zostanie zaobserwowana w sąsiedniej parze instancji z różnymi wartościami klas, wynik funkcji rośnie [47]. Algorytm został pierwotnie zaprojektowany do zastosowania w problemach klasyfikacji binarnej. Relief zainspirował rodzinę algorytmów wyboru cech - RBA (Relief Based Alghoritms), w tym algorytm ReliefF [47]. Są one przystosowane do działania w problemach wieloklasowych lub zbiorach z niekompletnymi danymi.
+
+Metoda na wejściu przyjmuje wektor wartości cechy i klasy. Algorytm będzie powtarzany $m$ razy i rozpoczyna się z tablicą wag $W$ o długości równej ilości cech, wypełnioną zerami. Podczas każdej iteracji, algorytm rozpatruje wektor cech $X$ należący do losowej instancji i wektory cech instancji najbliższe $X$ (według odległości euklidesowej) z każdej cechy. Najbliższa instancja tej samej klasy nazywana jest _prawie trafioną_ (_near hit_), natomiast nabliższa instancja innej klasy - _prawie spudłowaną_ (_near miss_). Wektor wag aktualizowany jest według wzoru @eq:relief:
+
+$$ W_i = W_i - (x_i - nearHit_i)^2 + (x_i - nearMiss_i)^2, $$  {#eq:relief}
+
+gdzie:
+
+* $x_i$ to $i-ty$ element wektora $X$ 
+* $nearHit_i$ to $i-ty$ element wektora _near hit_ 
+* $nearMiss_i$ to $i-ty$ element wektora _near miss_
+
+Waga danej cechy maleje, jeżeli różni się ona od tej cechy w pobliskich instancjach tej samej klasy bardziej, niż pobliskie instancje innych klas, a wzrasta w przeciwnym przypadku. Po $m$ iteracjach, każdy element wektora $W$ jest dzielony przez $m$. Tworzy on wtedy ranking cech [47].
+
+Zaletą metod RBA jest to, że nie są zależne od heurystyki, działają w czasie wielomianowym niskiego rzędu, są odporne na zakłócenia, a także nadają się do danych binarnych lub ciągłych [48, 49].
 
 ### ANOVA
 
@@ -363,6 +379,12 @@ Computer Science & Technology, June 2014
 [45] \hspace{3mm} Yoonsuh Jung, Multiple predicting K-fold cross-validation for model selection, Journal of Nonparametric Statistics, 2018
 
 [46] \hspace{3mm} [@] https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.KFold.html, 2.04.2020
+
+[47] \hspace{3mm} Igor Kononenko, Edvard Simec, Marko Robin-Sik, Overcoming the myopia of inductive learning algorithms with RELIEFF, University of Ljubljana, Faculty of electrical engineering & computer science, Kluwer Academic Publishers, Boston
+
+[48] \hspace{3mm} Ryan J. Meeker, Melissa LaCava, William Olson, Randal S. Moore, Jason H, Relief-Based Feature Selection: Introduction and Review, Journal of Biomedical Informatics, 2018
+
+[49] \hspace{3mm}  Kira Kenji and Rendell Larry, A Practical Approach to Feature Selection, Proceedings of the Ninth International Workshop on Machine Learning,  1992
 
 \newpage\null\newpage
 

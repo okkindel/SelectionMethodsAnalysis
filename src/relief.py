@@ -3,8 +3,10 @@ from sklearn.preprocessing import MinMaxScaler
 import sklearn_relief as relief
 import numpy as np
 
+# https://gitlab.com/moongoal/sklearn-relief
+
 def select_best_features(X, Y, numOfFeatures = 'all'):
-	return relief.Relief(n_features=numOfFeatures).fit_transform(X, y)
+	return relief.ReliefF(n_features=numOfFeatures).fit_transform(X, y)
 
 from_file = []
 f = open('../data/heart.dat', 'r')
