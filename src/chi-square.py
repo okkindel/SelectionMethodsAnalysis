@@ -1,4 +1,4 @@
-from lib.lib import get_average_score, calculatePrecision, calculateFPTandTPR
+from lib.feature_selection import get_average_score, calculatePrecision, calculateFPTandTPR
 import numpy as np
 
 from_file = []
