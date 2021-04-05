@@ -15,7 +15,7 @@ X, y = X_tab.values, y_tab.values
 
 X_Fit = select_best_features(X, y, 3)
 accuracy, matrix = get_average_score(X_Fit, y)
-accuracy, matrix = get_average_score(X, y)
+accuracy_no, matrix_no = get_average_score(X, y)
 
 print('ORIGINAL_NB_OF_FEATURES: ', X.shape[1])
 print('ACCURACY_SELECTION: ', accuracy)

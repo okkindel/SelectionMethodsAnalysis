@@ -72,7 +72,7 @@ Udało się zrealizować wszystkie postawione cele.
 __Uczenie maszynowe to bardzo dynamicznie rozwijająca się gałąź informatyki. Niezwykła ekspansja wynika z zapotrzebowania na wykrywanie prawidłowości, uogólnianie oraz precyzowanie danych. Takie możliwości pozwoliły znaleźć zastosowanie dla algorytmów sztucznej inteligencji w bardzo wielu różnych branżach - począwszy od medycyny, poprzez finanse, produkcję i branżę rozrywkową. Tak duży przekrój różnych zastosowań wymaga ciągłego ulepszania istniejących już wzorców oraz wymyślania nowych, lepszych i bardziej efektywnych algorytmów. W większości praktycznych problemów do klasyfikacji obiektów, autor programista na dużej liczbie cech. Warto jednak pamiętać, że w tym przypadku wiele, nie oznacza lepszych rezultatów. Należy przytoczyć pojęcie "przekleństwa wielowymiarowości"[9]. Oznacza ono, że większy wymiar wymaga od programisty znacznie większej liczby danych, oraz wraz ze wzrostem liczby cech wykładniczo rośnie liczba możliwych wariantów dopasowań, co znacznie zwiększa złożoność obliczeniową naszych algorytmów.__
 
 \vspace{3mm}
-Aby uniknąć problemów generowanych przez zbyt dużą ilość cech, a jednocześnie wykorzystać cech, które zapewniają jak najlepszą separowalność klas, zazwyczaj pierwszym krokiem w zadaniu klasyfikacji jest selekcja lub ekstrakcja najodpowiedniejszych cech [17].
+Aby uniknąć problemów generowanych przez zbyt dużą ilość cech, a jednocześnie wykorzystać cechy, które zapewniają jak najlepszą separowalność klas, zazwyczaj pierwszym krokiem w zadaniu klasyfikacji jest selekcja lub ekstrakcja najodpowiedniejszych cech [17].
 
 ## Przegląd literatury
 
@@ -221,6 +221,7 @@ $$ W_i = W_i - (x_i - nearHit_i)^2 + (x_i - nearMiss_i)^2, $$  {#eq:relief}
 
 gdzie:
 
+* $W_i$ to $i-ty$ element wektora wag $W$ 
 * $x_i$ to $i-ty$ element wektora $X$ 
 * $nearHit_i$ to $i-ty$ element wektora _near hit_ 
 * $nearMiss_i$ to $i-ty$ element wektora _near miss_
@@ -234,9 +235,15 @@ Zaletą metod RBA jest to, że nie są zależne od heurystyki, działają w czas
 ### ANOVA
 
 <!-- https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.f_classif.html -->
-ANOVA - od angielskiego analysis of variance, czyli analiza wariancji, jest metodą, która wyjaśnia, z jakim prawdopodobieństwem wyodrębnione czynniki mogą być powodem różnić między obserwowanymi śrenimi grupowymi. Algorytm polega na porównaniu wariancji międzygrupowej do wariancji wewnątrzgrupowej. Idealna sytuacja ma miejsce wtedy, gdy wariancja międzygrupowa jest dużam natomiast wariancja wewnątrzgrupowa - mała. Jest to jeden z algorytmów statystyki F (F-test) - od nazwiska twórcy, Ronalda Fishera.
+ANOVA - od angielskiego analysis of variance, czyli analiza wariancji. Jest to metoda, która wyjaśnia, z jakim prawdopodobieństwem wyodrębnione czynniki mogą być powodem różnić między obserwowanymi śrenimi grupowymi. Algorytm polega na porównaniu wariancji międzygrupowej do wariancji wewnątrzgrupowej. ANOVA to jeden z algorytmów statystyki F (F-test) - od nazwiska twórcy, Ronalda Fishera [51].
 
-Jeżeli wynik statystyki 
+Analizę wariancji można podzielić na trzy grupy analiz:
+
+* __jednoczynnikowa analiza wariancji__ - wpływ jednego czynnika międzygrupowego na zmienną zależną
+* __wieloczynnikowa analiza wariancji__ - wpływ kliku czynników międzygrupowych na zmienną zależną
+* __analiza wariancji dla czynników wewnątrzgrupowych__ - wpływ czynnika wewnątrzgrupowego na zmienną zależną, tzw. "powtarzane pomiary"
+
+Analiza wariancji to stosunek wariancji, obliczona pomiędzy badanymi grupami a średnią wariancją, zaobserwowaną wewnątrz grup. Analiza ta jest metodą statystyczną pozwalającą na podział zaobserwowanej wariancji wyników na oddzielne części. Analizowana jest wariancji przypadająca na każdy z analizowanych czynników jak również wariancji błędu. Idealna sytuacja ma miejsce wtedy, gdy wariancja międzygrupowa jest dużam natomiast wariancja wewnątrzgrupowa - mała [50, 51].
 
 \newpage\null\newpage
 
@@ -386,7 +393,11 @@ Computer Science & Technology, June 2014
 
 [48] \hspace{3mm} Ryan J. Meeker, Melissa LaCava, William Olson, Randal S. Moore, Jason H, Relief-Based Feature Selection: Introduction and Review, Journal of Biomedical Informatics, 2018
 
-[49] \hspace{3mm}  Kira Kenji and Rendell Larry, A Practical Approach to Feature Selection, Proceedings of the Ninth International Workshop on Machine Learning,  1992
+[49] \hspace{3mm} Kira Kenji and Rendell Larry, A Practical Approach to Feature Selection, Proceedings of the Ninth International Workshop on Machine Learning,  1992
+
+[50] \hspace{3mm} Martin G. Larson, Analysis of Variance, Circulation, 2008
+
+[51] \hspace{3mm} Mukesh Kumar Nitish, Kumar Rath Amitav Swain Santanu, Kumar Rath, Feature Selection and Classification of Microarray Data using MapReduce based ANOVA and K-Nearest Neighbor, Procedia Computer Science, Volume 54, 2015
 
 \newpage\null\newpage
 
