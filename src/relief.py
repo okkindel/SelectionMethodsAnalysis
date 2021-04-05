@@ -1,4 +1,4 @@
-from lib.feature_selection import get_average_score, calculatePrecision, calculateFPTandTPR, get_special_train, get_special_train_with_rkf
+from lib.feature_selection import get_average_score, calculatePrecision, calculateFPTandTPR, get_special_train
 from lib.data_preprocessing import getCreditCardData, getCreditCardSpecialData
 from sklearn.preprocessing import MinMaxScaler
 import sklearn_relief as relief
@@ -8,24 +8,23 @@ import numpy as np
 def select_best_features(X, Y, numOfFeatures = 'all'):
 	return relief.ReliefF(n_features=numOfFeatures).fit_transform(X, y)
 
-# [X, y] = getCreditCardData()
+[X, y] = getCreditCardData()
 
-# X_Fit = select_best_features(X, y, 3)
-# accuracy, matrix = get_average_score(X_Fit, y)
-# accuracy_no, matrix_no = get_average_score(X, y)
+X_Fit = select_best_features(X, y, 3)
+accuracy, matrix = get_average_score(X_Fit, y)
+accuracy_no, matrix_no = get_average_score(X, y)
 
-# print('ORIGINAL_NB_OF_FEATURES: ', X.shape[1])
-# print('ACCURACY_SELECTION: ', accuracy)
-# print('ACCURACY_NO_SELECTION: ', accuracy_no)
-# print('PRECISION_SELECTION: ', calculatePrecision(matrix))
-# print('PRECISION_NO_SELECTION: ', calculatePrecision(matrix_no))
-# print('FPT_TPR_SELECTION: ', calculateFPTandTPR(matrix))
-# print('FPT_TPR_NO_SELECTION: ', calculateFPTandTPR(matrix_no))
+print('ORIGINAL_NB_OF_FEATURES: ', X.shape[1])
+print('ACCURACY_SELECTION: ', accuracy)
+print('ACCURACY_NO_SELECTION: ', accuracy_no)
+print('PRECISION_SELECTION: ', calculatePrecision(matrix))
+print('PRECISION_NO_SELECTION: ', calculatePrecision(matrix_no))
+print('FPT_TPR_SELECTION: ', calculateFPTandTPR(matrix))
+print('FPT_TPR_NO_SELECTION: ', calculateFPTandTPR(matrix_no))
 
-
-# print('--------------------------------')
-# print('CUSTOM TESTING SET')
-# print('--------------------------------')
+print('--------------------------------')
+print('CUSTOM TESTING SET')
+print('--------------------------------')
 
 [X, y] = getCreditCardSpecialData()
 
@@ -39,8 +38,8 @@ X_test = X[-20:]
 X_Fit_test = X_Fit[-20:]
 y_test = y[-20:]
 
-accuracy, matrix = get_special_train_with_rkf(X_Fit_train, y_train, X_Fit_test, y_test)
-accuracy_no, matrix_no = get_special_train_with_rkf(X_train, y_train, X_test, y_test)
+accuracy, matrix = get_special_train(X_Fit_train, y_train, X_Fit_test, y_test)
+accuracy_no, matrix_no = get_special_train(X_train, y_train, X_test, y_test)
 
 print('ORIGINAL_NB_OF_FEATURES: ', X.shape[1])
 print('ACCURACY_SELECTION: ', accuracy)
