@@ -36,11 +36,25 @@ def get_average_score(X, Y):
         score.append(temp_score)
         confusion.append(matrix)
 
-        return np.mean(score), np.mean(confusion, axis=0)
+    return np.mean(score), np.mean(confusion, axis=0)
 
 def get_special_train(X, y, X_test, y_test):
     score, matrix = makeKNN(X, y, X_test, y_test)
     return score, matrix
+
+def get_special_train_with_rkf(X, y, X_test, y_test):
+    rkf = divide_by_sets()
+    confusion = []
+    score = []
+
+    for train, test in rkf.split(X, y):
+        x_train, _ = X[train], X[test]
+        y_train, _ = y[train], y[test]
+        temp_score, matrix = makeKNN(x_train, y_train, X_test, y_test)
+        score.append(temp_score)
+        confusion.append(matrix)
+
+    return np.mean(score), np.mean(confusion, axis=0)
 
 # calculate TP, TN, FP, FN
 def calculateConfusionMatrixValuesForClass(matrix):

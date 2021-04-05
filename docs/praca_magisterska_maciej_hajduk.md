@@ -169,7 +169,7 @@ Współczynnik korelacji Pearsona można wykorzystać do oceny związku między 
 ### Chi-square
 Chi-kwadrat jest testem statystycznym mierzącym niezalożność cechy od etykiety klasy. Test chi-kwadrat mierzy zależność między zmiennymi stochastycznymi, więc użycie tej metody "usuwa: cechy, które z największym prawdopodobieństwem są niezależne od klasy, a zatem nie mają znaczenia dla klasyfikacji. Metoda polega na obliczeniu metryki $\chi^2$ pomiędzy wartością docelową a cechą i wyborze zmienniej o maksymalnym wyniku testu [30, 31].
 
-Ogólna postać testu zoststała przedstawiona w równaniu  @eq:chi_square:
+Ogólna postać testu zoststała przedstawiona w równaniu @eq:chi_square:
 
 $$ \chi^{2}=\sum _{i=1}^{n}\left({\frac {O_{i}-E_{i}}{E_{i}}}\right)^{2}, $$ {#eq:chi_square}
 
