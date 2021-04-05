@@ -7,7 +7,7 @@ def select_best_features(X, Y, numOfFeatures = 'all'):
 	return SelectKBest(score_func=mutual_info_classif, k=numOfFeatures).fit_transform(X, y)
 
 from_file = []
-f = open('../data/heart.dat', 'r')
+f = open('../data/heart/heart.dat', 'r')
 for line in f.readlines()[0:]:
     el = line.strip().split(' ')
     from_file.append(el)

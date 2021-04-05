@@ -1,4 +1,4 @@
-from sklearn.model_selection import RepeatedStratifiedKFold
+from sklearn.model_selection import RepeatedStratifiedKFold, train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import accuracy_score
@@ -32,12 +32,15 @@ def get_average_score(X, Y):
     for train, test in rkf.split(X, Y):
         x_train, x_test = X[train], X[test]
         y_train, y_test = Y[train], Y[test]
-
         temp_score, matrix = makeKNN(x_train, y_train, x_test, y_test)
         score.append(temp_score)
         confusion.append(matrix)
 
         return np.mean(score), np.mean(confusion, axis=0)
+
+def get_special_train(X, y, X_test, y_test):
+    score, matrix = makeKNN(X, y, X_test, y_test)
+    return score, matrix
 
 # calculate TP, TN, FP, FN
 def calculateConfusionMatrixValuesForClass(matrix):
