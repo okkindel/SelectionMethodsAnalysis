@@ -302,9 +302,13 @@ Zbiór został pozyskany za pośrednictwem platformy `Kaggle` (`https://www.kagg
 
 ## Przygotowanie danych
 
-Przed właściwym użyciem danych należy pamiętać o odpowiednim ich przygotowaniu. 
+Dane  wysokiej jakości są wymagane wstępnie dla modeli predykcyjnych. Wstępne przetwarzanie i czyszczenie danych to ważne zadania, które należy wykonać, zanim zestaw danych będzie mógł zostać użyty do uczenia modelu. Nieprzetworzone dane są zwykle zaszumione i mogą nie mieć wartości. Modelowanie przy użyciu tego typu danych może dawać mylące wyniki. Szczególnie dane rzeczywiste są zbierane z różnych źródeł, a także mogą zawierać niezgodności lub uszkodzone dane. Typowe problemy z jakością danych to:
 
-## 
+* Niekompletność: dane nie mają atrybutów lub zawierają brakujące wartości.
+* Zakłócenia: dane zawierają błędne rekordy lub elementy odstające.
+* Niespójność: dane zawierają rekordy powodujące niezgodności.
+
+W celu odpowiedniego, wstępnego przetworzenia danych, do każdego zbioru należy podejść indywidualnie. Są jednak metody, które pozwalają poradzić sobie z popularnymi problemami. Normalizacja, czyli skalowanie pozwoli uzyskać odpowiednie wartości dla cech różniących się znacząco pod względem wartości.
 
 \newpage\null\newpage
 
