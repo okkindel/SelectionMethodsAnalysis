@@ -143,9 +143,9 @@ Pojęcie przekleństwo wymiarowości mówi, że jeśli wiele cech jest zaszumion
 
 W ostatnich latach, radzenie sobie z niezrównoważonymi zbiorami danych za pomocą selekcji cech stało się popularne wśród społeczności zajmujących się eksploracją danych i uczeniem maszynowym [13]. Wspomniane wcześniej techniki koncentrują się na próbkowaniu danych uczących w celu przezwyciężenia niezrównoważonego rozkładu klas. Metoda redukcji cech, taka jak selekcja cech, przyjmuje inne podejście do przezwyciężenia problemu. Ogólna koncepcja polega na uzyskaniu podzbioru cech, które optymalnie korygują dysproporcje między klasami w zbiorze danych i wybierają najlepsze cechy, które reprezentują obie klasy.
 
-Przedstawione w rozdziale `2.7.1` algorytmy należą do tradycyjnych, szeroko używanych metod selekcji cech [8]. Omówione strategie należą do tak zwanych filtrów, czyli metod rankingowych. Jest to najbardziej naturalne podejście do rozpatrywanego tematu, gdyż opisane algorytmy nie są zależne od wbudowanego klasyfikatora. Pozwoli to również na ich kompleksowe i obiektywne porównanie. 
+Przedstawione w rozdziałach @sec:cc - @sec:anova algorytmy należą do tradycyjnych, szeroko używanych metod selekcji cech [8]. Omówione strategie należą do tak zwanych filtrów, czyli metod rankingowych. Jest to najbardziej naturalne podejście do rozpatrywanego tematu, gdyż opisane algorytmy nie są zależne od wbudowanego klasyfikatora. Pozwoli to również na ich kompleksowe i obiektywne porównanie. 
 
-### Correlation coefficient
+### Correlation coefficient {#sec:cc}
 
 Korelacja to miara liniowej zależności pomiędzy dwoma zmiennymi losowymi. Jest to więc poniekąd miara tego, jak silnie jedna zmienna zależy od drugiej. Jest to zazwyczaj bardzo użyteczna właściwość - w przypadku dwóch, silnie skorelowanych zmiennych, posiadając informacje o jednej zmiennej można przewidzieć wartości innej zmiennej. W przypadku liniowych modeli uczenia maszynowego, częstym celem będzie znalezienie elementów silnie skorelowanych ze zmienną losową opisującą przynależność do klasy. Jednakże, dwie silnie skorelowane ze sobą zmienne dostarczają też redundantnych informacji. Zasadniczo można dokonać poprawnego sklasyfikowania z pomocą tylko jednej z tych atrybutów. Usunięcie drugiej może więc pomóc w zmniejszeniu wymiarowości i zbędnego szumu [32].
 
@@ -166,7 +166,8 @@ gdzie:
 
 Współczynnik korelacji Pearsona można wykorzystać do oceny związku między więcej niż dwiema zmiennym, obliczając macierz relacji między każdą parą zmiennych w zbiorze danych. Rezultatem jest symetryczna macierz zwana macierzą korelacji.
 
-### Chi-square
+### Chi-square {#sec:chi2}
+
 Chi-kwadrat jest testem statystycznym mierzącym niezalożność cechy od etykiety klasy. Test chi-kwadrat mierzy zależność między zmiennymi stochastycznymi, więc użycie tej metody "usuwa: cechy, które z największym prawdopodobieństwem są niezależne od klasy, a zatem nie mają znaczenia dla klasyfikacji. Metoda polega na obliczeniu metryki $\chi^2$ pomiędzy wartością docelową a cechą i wyborze zmienniej o maksymalnym wyniku testu [30, 31].
 
 Ogólna postać testu zoststała przedstawiona w równaniu @eq:chi_square:
@@ -181,7 +182,7 @@ gdzie:
 
 Forman zauważył, że ten test może zachowywać się nieprawidłowo, gdy spodziewana jest niewielka liczba cech; jest to dość powszechne w przypadku niezrównoważonych zbiorów danych [28]. Chociaż test chi-kwadrat dobrze uogólnia dane dyskretne, nie radzi sobie dobrze się podczas testowania danych ciągłych [12]. 
 
-### Information Gain
+### Information Gain {#sec:ig}
 
 <!-- https://stackoverflow.com/questions/46752650/information-gain-calculation-with-scikit-learn -->
 Entropia warunkowa to entropia po podziale zbioru przy pomocy danego atrybytu [12]. Dla danego atrybutu $a$, entropia warunkowa wyraża się wzorem @eq:con_entropy:
@@ -209,7 +210,7 @@ $$ IG(S, a) = Ent(S) - Ent(S | a) $$ {#eq:information_gain}
 
 Podobnie jak test chi-kwadrat, uogólnia atrybuty dyskretne, ale nie radzi sobie atrybutami z danymi ciągłymi. Ponadto preferuje atrybuty o dużej liczbie warości i może prowadzić do przeuczenia [32]. Problemy te rozwiązuje zmodyfikowana wersja algorytmu - Gain Ratio.
 
-### Relief i ReliefF
+### Relief i ReliefF {#sec:relief}
 
 Algorytmy Relief są jednym z najskuteczniejszych, opracowanych dotychczas metod filtrujących [12]. Większość metod filtrowania opracowanych w eksploracji danych i uczeniu maszynowym zakłada warunkową niezależność atrybutów. Algorytmy Relief są bardzo przydatne, ponieważ nie zakładają, że atrybuty są od siebie niezależne. Te algorytmy są zależne od kontekstu. Kiedy istnieje silny związek między atrybutami, jakość atrybutów może być poprawnie oszacowana, co sprawia, że algorytm ten jest jednym z najbardziej efektywnych algorytmów przetwarzania wstępnego [12].
 
@@ -217,7 +218,7 @@ Podstawową ideą algorytmów Relief jest oszacowanie jakości cech na podstawie
 
 Metoda na wejściu przyjmuje wektor wartości cechy i klasy. Algorytm będzie powtarzany $m$ razy i rozpoczyna się z tablicą wag $W$ o długości równej ilości cech, wypełnioną zerami. Podczas każdej iteracji, algorytm rozpatruje wektor cech $X$ należący do losowej instancji i wektory cech instancji najbliższe $X$ (według odległości euklidesowej) z każdej cechy. Najbliższa instancja tej samej klasy nazywana jest _prawie trafioną_ (_near hit_), natomiast nabliższa instancja innej klasy - _prawie spudłowaną_ (_near miss_). Wektor wag aktualizowany jest według wzoru @eq:relief:
 
-$$ W_i = W_i - (x_i - nearHit_i)^2 + (x_i - nearMiss_i)^2, $$  {#eq:relief}
+$$ W_i = W_i - (x_i - nearHit_i)^2 + (x_i - nearMiss_i)^2, $$ {#eq:relief}
 
 gdzie:
 
@@ -232,7 +233,7 @@ Waga danej cechy maleje, jeżeli różni się ona od tej cechy w pobliskich inst
 
 Zaletą metod RBA jest to, że nie są zależne od heurystyki, działają w czasie wielomianowym niskiego rzędu, są odporne na zakłócenia, a także nadają się do danych binarnych lub ciągłych [48, 49].
 
-### ANOVA
+### ANOVA {#sec:anova}
 
 <!-- https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.f_classif.html -->
 ANOVA - od angielskiego analysis of variance, czyli analiza wariancji. Jest to metoda, która wyjaśnia, z jakim prawdopodobieństwem wyodrębnione czynniki mogą być powodem różnić między obserwowanymi śrenimi grupowymi. Algorytm polega na porównaniu wariancji międzygrupowej do wariancji wewnątrzgrupowej. ANOVA to jeden z algorytmów statystyki F (F-test) - od nazwiska twórcy, Ronalda Fishera [51].
@@ -290,9 +291,9 @@ Drugim sposobem podziału datasetów na zbiór uczący i testowy w przeprowadzon
 
 ## Zbiory danych
 
-W przeprowadzonych doświadczeniach posłużono się trzema zbiorami danych. Wszystkie charakteryzowały się wysokim niezbalansowaniem i wykazywały nadreprezentację jednej bądź wielu cech.
+W ramacha przeprowadzonych doświadczeń posłużono się trzema zbiorami danych. Wszystkie charakteryzowały się wysokim niezbalansowaniem i wykazywały nadreprezentację jednej bądź wielu cech. Zbiory te zostały opisane w rozdziałach: @sec:ccfd ...
 
-### Credit Card Fraud Detection
+### Credit Card Fraud Detection {#sec:ccfd}
 
 Zbiór danych zawiera informacje o transakcjach dokonanych kartami kredytowymi we wrześniu 2013 roku, przez europejskich posiadaczy kart. Dataset składa się z transakcji, które miały miejsce w ciągu dwóch dni, w których miały miejsce 492 oszustwa z 284 807 wszystkich transakcji. Zbiór jest wysoce niezbalansowany, a klasa pozytywna (oszustwa) stanowi 0,172% wszystkich transakcji [53].
 
@@ -300,15 +301,34 @@ Elementy zbioru składają się tylko z danych liczbowych, które są wynikiem t
 
 Zbiór został pozyskany za pośrednictwem platformy `Kaggle` (`https://www.kaggle.com/`).
 
+![Dystrybucja klas dla zbioru Credit Card Fraud Detection](./figures/ccfd_distribution.png){#fig:ccfd_distribution}
+
 ## Przygotowanie danych
 
-Dane  wysokiej jakości są wymagane wstępnie dla modeli predykcyjnych. Wstępne przetwarzanie i czyszczenie danych to ważne zadania, które należy wykonać, zanim zestaw danych będzie mógł zostać użyty do uczenia modelu. Nieprzetworzone dane są zwykle zaszumione i mogą nie mieć wartości. Modelowanie przy użyciu tego typu danych może dawać mylące wyniki. Szczególnie dane rzeczywiste są zbierane z różnych źródeł, a także mogą zawierać niezgodności lub uszkodzone dane. Typowe problemy z jakością danych to:
+Dane  wysokiej jakości są wymagane wstępnie dla modeli predykcyjnych. Wstępne przetwarzanie i czyszczenie danych to ważne zadania, które należy wykonać, zanim zestaw danych będzie mógł zostać użyty do uczenia modelu. Nieprzetworzone dane są zwykle zaszumione i mogą zawierać błędne wartości lub luki. Modelowanie przy użyciu tego typu danych może dawać mylące wyniki. Szczególnie na takie zagorożenia narażone są dane rzeczywiste i zbiory zbierane z różnych źródeł. Typowe problemy z jakością danych to:
 
 * Niekompletność: dane nie mają atrybutów lub zawierają brakujące wartości.
 * Zakłócenia: dane zawierają błędne rekordy lub elementy odstające.
 * Niespójność: dane zawierają rekordy powodujące niezgodności.
 
-W celu odpowiedniego, wstępnego przetworzenia danych, do każdego zbioru należy podejść indywidualnie. Są jednak metody, które pozwalają poradzić sobie z popularnymi problemami. Normalizacja, czyli skalowanie pozwoli uzyskać odpowiednie wartości dla cech różniących się znacząco pod względem wartości.
+W celu odpowiedniego, wstępnego przetworzenia danych, do każdego zbioru należy podejść indywidualnie. Są jednak metody, które pozwalają poradzić sobie z większością napotkanych problemów. Do popularnych metod radzenia sobie z problemami wynikającymi ze źle przygotowanymi bazami danych należą:
+
+* Uzupełnienie brakujących wartości.
+* Likwidowanie wartości odstających (ang. outliers).
+* Standaryzacja poprzez normalizację lub dyskretyzację.
+* Redukcja wymiarów poprzez selekcję i ekstrakcję cech.
+* Równoważenie danych poprzez usuwanie przypadków klas większościowych lub nadpróbkowanie klas mniejszościowych.
+* Transformacja zmiennych (np. liniowa).
+* Dodawanie nowych zmiennych w celu zwiększenia liczby cech (np. iloczynów istniejących zmiennych).
+* Podział danych na dane treningowe i dane testowe.
+
+### Preprocessing poszczególnych zbiorów
+
+Zbiory użyte w ramach eksperymentów były pozbawione większości wad. W zbiorze _Credit Card Fraud Detection_ nie występują puste wartości. Większość cech została wcześniej poddana transformacji metodą PCA czego efektem ubocznym jest ich wyskalowanie, które konieczne jest w przypadku użycia tej metody. Cechami wyróżniającymi się są _"Time"_ oraz _"Amount"_. Dystrybucja wartości dla tych cech ukazana jest na wykresach @fig:ccfd_t_m_distribution.
+
+![Dystrybucja wartości dla cech _Time_ oraz __Amount_](./figures/ccfd_t_m_distribution.png){#fig:ccfd_t_m_distribution}
+
+Wartości te należało przeskalować, aby nie odstawały od innych danych. Użyto w tym celu metody `RobustScaler` z biblioteki `scikit-learn` [54].
 
 \newpage\null\newpage
 
@@ -430,6 +450,8 @@ Computer Science & Technology, June 2014
 [52] \hspace{3mm} Gongde GuoHui WangDavid BellYaxin BiKieran Greer, KNN Model-Based Approach in Classification, OTM 2003: On The Move to Meaningful Internet Systems 2003: CoopIS, DOA, and ODBASE
 
 [53] \hspace{3mm} [@] https://www.kaggle.com/mlg-ulb/creditcardfraud, 2.04.2020
+
+[54] \hspace{3mm} [@] https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.RobustScaler.html, 3.04.2020
 
 \newpage\null\newpage
 
