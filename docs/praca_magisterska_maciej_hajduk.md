@@ -253,11 +253,15 @@ __Obiektywne porównanie przytoczonych algorytmów cech wymaga przeprowadzenia s
 
 ## Generowanie wyników
 
-Wybrane przez autora metody selekcji cech należą do grupy tak zwanych filtrów. Tworzą one ranking cech, przydatny do zdefiniowania cech, które będą używane przez algorytm w celu przeprowadzenia klasyfikacji. Do prawidłowego porównania badanych algorytmów należy sprawdzić ich wyniki w połączeniu z całym procesem klasyfikowania. Zdecydowano się na klasyfikator KNN - K Najbliższych Sąsiadów. W metodzie tej, klasyfikowany obiekt przydzielany jest do klasy, do której należy większość z jego sąsiadów.
+Wybrane przez autora metody selekcji cech należą do grupy tak zwanych filtrów. Tworzą one ranking cech, przydatny do zdefiniowania cech, które będą używane przez algorytm w celu przeprowadzenia klasyfikacji. Do prawidłowego porównania badanych algorytmów należy sprawdzić ich wyniki w połączeniu z całym procesem klasyfikowania. Zdecydowano się na klasyfikator KNN - K Najbliższych Sąsiadów. W metodzie tej, klasyfikowany obiekt przydzielany jest do klasy, do której należy większość z jego sąsiadów [51, 52].
 
 ![Graficzna reprezentacja działania algorytmu KNN](./figures/knn.png){#fig:knn}
 
-_Opis algorytmu_
+Algorytm przyjmuje zbiór danych uczących zawierający elementy, z których każda ma przypisaną klasę oraz wektor cech. Dany jest element $C$ z przypisanym wektorem cech $X_{1}\dots X_{n}$ dla którego prognoza odbywa się w następujący sposób:
+
+1. Porównanie wartości cech dla elementu $C$ z wartościami cech dla każdego elementu w zbiorze uczącym.
+2. Wybór $k$ (ustalona z góry liczba) najbliższych do $C$ elementów zbioru uczącego.
+3. Uśrednienie wartości klasy dla wybranych elementów, w wyniku czego uzyskiwana jest prognoza.
 
 ## Ocena działania algorytmów
 
@@ -281,6 +285,26 @@ W podejściu krzyżowym, zbiór dzielony jest losowo na $k$ równych podzbiorów
 ![Graficzna reprezentacja działania algorytmu walidacji krzyżowej](./figures/kfoldcross.png){#fig:kfoldcross}
 
 W ramach przeprowadzonych eksperymentów posłużono się funkcją `KFold` z biblioteki `scikit-learn` [46]. Umożliwia ona użycie ziarna losowości, co zapewnia możlowiość powtórzenia użyskanych w ten sposób wyników.
+
+Drugim sposobem podziału datasetów na zbiór uczący i testowy w przeprowadzonych eksperymentach jest ręczne wydzielenie tego drugiego ze zbioru wszystkich danych. Zbiór taki zawiera się z kilku elementów i posiada jednakową ilość elementów klas nadreprezentowanych i elementów klasy niedostatecznie reprezentowanej. Jest to dopuszczalny zabieg z uwagi na to, że filtrujące metody selekcji użyte w doświadczeniach nie korzystają z klasyfikatora ani zbioru testowego w procesie tworzenia rankingu cech. Niewielki wymiar nie zaburzy więc działania algorytmów a pozwoli określić jak naprawdę radzi sobie klasyfikator po przeprowadzonej selekcji.
+
+## Zbiory danych
+
+W przeprowadzonych doświadczeniach posłużono się trzema zbiorami danych. Wszystkie charakteryzowały się wysokim niezbalansowaniem i wykazywały nadreprezentację jednej bądź wielu cech.
+
+### Credit Card Fraud Detection
+
+Zbiór danych zawiera informacje o transakcjach dokonanych kartami kredytowymi we wrześniu 2013 roku, przez europejskich posiadaczy kart. Dataset składa się z transakcji, które miały miejsce w ciągu dwóch dni, w których miały miejsce 492 oszustwa z 284 807 wszystkich transakcji. Zbiór jest wysoce niezbalansowany, a klasa pozytywna (oszustwa) stanowi 0,172% wszystkich transakcji [53].
+
+Elementy zbioru składają się tylko z danych liczbowych, które są wynikiem transformacji PCA. Jest to podyktowane względami na kwestie poufności - twórcy nie są w stanie oryginalnych funkcji ani dodatkowych informacji o danych. Cechy $V1, V2,… V28$ są głównymi składnikami uzyskanymi za pomocą PCA, jedynymi cechami, które nie zostały przekształcone za pomocą PCA, są "Time" i "Amount". Warość "Time" zawiera sekundy, które upłynęły między każdą transakcją a pierwszą transakcją w zbiorze danych. Funkcja "Amount" to kwota transakcji. Cecha "Class" jest zmienną odpowiedzi i przyjmuje wartość 1 w przypadku oszustwa i 0 w innym przypadku.
+
+Zbiór został pozyskany za pośrednictwem platformy `Kaggle` (`https://www.kaggle.com/`).
+
+## Przygotowanie danych
+
+Przed właściwym użyciem danych należy pamiętać o odpowiednim ich przygotowaniu. 
+
+## 
 
 \newpage\null\newpage
 
@@ -398,6 +422,10 @@ Computer Science & Technology, June 2014
 [50] \hspace{3mm} Martin G. Larson, Analysis of Variance, Circulation, 2008
 
 [51] \hspace{3mm} Mukesh Kumar Nitish, Kumar Rath Amitav Swain Santanu, Kumar Rath, Feature Selection and Classification of Microarray Data using MapReduce based ANOVA and K-Nearest Neighbor, Procedia Computer Science, Volume 54, 2015
+
+[52] \hspace{3mm} Gongde GuoHui WangDavid BellYaxin BiKieran Greer, KNN Model-Based Approach in Classification, OTM 2003: On The Move to Meaningful Internet Systems 2003: CoopIS, DOA, and ODBASE
+
+[53] \hspace{3mm} [@] https://www.kaggle.com/mlg-ulb/creditcardfraud, 2.04.2020
 
 \newpage\null\newpage
 

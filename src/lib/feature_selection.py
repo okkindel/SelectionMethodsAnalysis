@@ -38,23 +38,21 @@ def get_average_score(X, Y):
 
     return np.mean(score), np.mean(confusion, axis=0)
 
-def get_special_train(X, y, X_test, y_test):
+# count average score (without cross validation)
+def get_no_knn_score(X, y, X_test, y_test):
     score, matrix = makeKNN(X, y, X_test, y_test)
     return score, matrix
 
-# def get_special_train_with_rkf(X, y, X_test, y_test):
-#     rkf = divide_by_sets()
-#     confusion = []
-#     score = []
+def divide_by_hand(X, XFit, y, numOfFeatures):
+    X_train = X[:len(X - numOfFeatures)]
+    X_Fit_train = XFit[:len(X - numOfFeatures)]
+    y_train = y[:len(X - numOfFeatures)]
+    
+    X_test = X[-numOfFeatures:]
+    X_Fit_test = XFit[-numOfFeatures:]
+    y_test = y[-numOfFeatures:]
 
-#     for train, test in rkf.split(X, y):
-#         x_train, _ = X[train], X[test]
-#         y_train, _ = y[train], y[test]
-#         temp_score, matrix = makeKNN(x_train, y_train, X_test, y_test)
-#         score.append(temp_score)
-#         confusion.append(matrix)
-
-#     return np.mean(score), np.mean(confusion, axis=0)
+    return [X_train, X_Fit_train, y_train, X_test, X_Fit_test, y_test]
 
 # calculate TP, TN, FP, FN
 def calculateConfusionMatrixValuesForClass(matrix):
