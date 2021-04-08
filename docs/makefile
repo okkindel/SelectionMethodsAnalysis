@@ -3,7 +3,7 @@ all:
 
 withtemplate:
 	pdflatex header
-	pandoc -f markdown+tex_math_dollars+tex_math_single_backslash --filter pandoc-fignos --filter pandoc-eqnos --filter pandoc-tablenos --filter pandoc-secnos --template eisvogel -V lang=pl-PL -o temp.pdf praca_magisterska_maciej_hajduk.md
+	pandoc -f markdown+tex_math_dollars+tex_math_single_backslash --filter pandoc-xnos --template eisvogel -V lang=pl-PL -o temp.pdf praca_magisterska_maciej_hajduk.md
 	# pandoc -o temp.pdf -V lang=pl-PL praca_magisterska_maciej_hajduk.md
 	pdfunite header.pdf temp.pdf praca_magisterska_maciej_hajduk.pdf
 	make clean
