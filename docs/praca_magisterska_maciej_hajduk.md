@@ -277,7 +277,7 @@ $$ F1 Score = \frac{2 * (Recall * Precision)}{Recall + Precision} .$$  {#eq:f1}
 
 Pod uwagę brane będą funkcja straty (loss), która informuje o dopasowaniu modelu do danych, oraz dokładności (accuracy), która określa skuteczność klasyfikacji. Porównany zostanie również ranking cech uzyskany przez każdą z metod. W celu określenia, która z testowanych metod daje najlepsze wyniki klasyfikacji wykorzystany zostanie test statystyczny - test Wilcoxona [44]. Do jego wykonania użyte zostaną wartości dokładności uzyskane dla każdej z badanych metod.
 
-## Generowanie zbioru treningowego i testowego
+## Generowanie zbioru treningowego i testowego {#sec:train_test}
 
 W początkowym etapie uczenia maszynowego, programista dysponuje jedynie spójnym zbiorem danych. Jednym z kluczowych kroków w procecie jest podział zbioru na zbiory: treningowy i testoswy. Jest to konieczne w celu wydzielenia fragmentów, na których klasyfikator będzie się uczył i tych, na których nastąpi testowanie wyuczonego już klasyfikatora. Pominięcie tego kroku może skutkować błędnymi, wysokimi wynikami dokładności (accuracy). Istnieje kilka metod podziału zbioru. Najprostrzym możliwym podejsciem jest losowy podział zbiory na dwie części z zachowaniem proporcji ilościowej. Pozwala to na uzyskanie dwóch podzbiorów, lecz istnieje przy tym ryzyko, że losowość dokonała się w sposób, który wykaże błędną, wyższą jakość klasyfikacji. Rozwiązaniem tego problemu jest wieokrotny podział. Metodą, która zapewnia wielokrotny, sprawiedliwy podział, eliminujący prawdopodobieństwo występowania tych samych próbek w różnych zbiorach uczących jest `K-Fold Cross-Validation` [45].
 
@@ -285,7 +285,7 @@ W podejściu krzyżowym, zbiór dzielony jest losowo na $k$ równych podzbiorów
 
 ![Graficzna reprezentacja działania algorytmu walidacji krzyżowej](./figures/kfoldcross.png){#fig:kfoldcross}
 
-W ramach przeprowadzonych eksperymentów posłużono się funkcją `KFold` z biblioteki `scikit-learn` [46]. Umożliwia ona użycie ziarna losowości, co zapewnia możlowiość powtórzenia użyskanych w ten sposób wyników.
+W ramach przeprowadzonych eksperymentów posłużono się funkcją _KFold_ z biblioteki _scikit-learn_ [46]. Umożliwia ona użycie ziarna losowości, co zapewnia możlowiość powtórzenia użyskanych w ten sposób wyników.
 
 Drugim sposobem podziału datasetów na zbiór uczący i testowy w przeprowadzonych eksperymentach jest ręczne wydzielenie tego drugiego ze zbioru wszystkich danych. Zbiór taki zawiera się z kilku elementów i posiada jednakową ilość elementów klas nadreprezentowanych i elementów klasy niedostatecznie reprezentowanej. Jest to dopuszczalny zabieg z uwagi na to, że filtrujące metody selekcji użyte w doświadczeniach nie korzystają z klasyfikatora ani zbioru testowego w procesie tworzenia rankingu cech. Niewielki wymiar nie zaburzy więc działania algorytmów a pozwoli określić jak naprawdę radzi sobie klasyfikator po przeprowadzonej selekcji.
 
@@ -322,19 +322,36 @@ W celu odpowiedniego, wstępnego przetworzenia danych, do każdego zbioru należ
 * Dodawanie nowych zmiennych w celu zwiększenia liczby cech (np. iloczynów istniejących zmiennych).
 * Podział danych na dane treningowe i dane testowe.
 
-### Preprocessing poszczególnych zbiorów
+Zbiory użyte w ramach eksperymentów nie pozbawione były wad. Rozdziały @sec:ccfd_pre - ... opisują działania podjęce w celu poprawienia jakości danych.
 
-Zbiory użyte w ramach eksperymentów były pozbawione większości wad. W zbiorze _Credit Card Fraud Detection_ nie występują puste wartości. Większość cech została wcześniej poddana transformacji metodą PCA czego efektem ubocznym jest ich wyskalowanie, które konieczne jest w przypadku użycia tej metody. Cechami wyróżniającymi się są _"Time"_ oraz _"Amount"_. Dystrybucja wartości dla tych cech ukazana jest na wykresach @fig:ccfd_t_m_distribution.
+### Preprocessing zbioru CCFD {#sec:ccfd_pre}
+
+W zbiorze _Credit Card Fraud Detection_ nie występują puste wartości. Większość cech została wcześniej poddana transformacji metodą PCA czego efektem ubocznym jest ich wyskalowanie, które konieczne jest w przypadku użycia tej metody. Cechami wyróżniającymi się są _"Time"_ oraz _"Amount"_. Dystrybucja wartości dla tych cech ukazana jest na wykresach @fig:ccfd_t_m_distribution.
 
 ![Dystrybucja wartości dla cech _Time_ oraz _Amount_](./figures/ccfd_t_m_distribution.png){#fig:ccfd_t_m_distribution}
 
-Wartości te należało przeskalować, aby nie odstawały od innych danych. Użyto w tym celu metody `RobustScaler` z biblioteki `scikit-learn` [54].
+Wartości te należało przeskalować, aby nie odstawały od innych danych. Użyto w tym celu metody _RobustScaler_ z biblioteki _scikit-learn_ [54].
 
-## 
+## Eksperymenty
+
+Metody opisane w ramach rozdziałów @sec:cc - @sec:anova zostały zaimplementowane przy pomocy bibliotek _scikit-learn_ oraz _pandas_. Algorytmy _ANOVA_, _chi$^2$_ oraz _Information Gain_ mają swoją gotową implementację w bibliotece _scikit-learn_ - kolejno funkcje _f_classif_ [55], _chi2_ [56] i _mutual_info_classif_ [57]. Zostały one wykorzystane w ramach metody _SelectKBest_, umożliwiającej zdefiniowanie metody selekcji cech oraz docelowej ilości cech. Eksperymenty zostały powtórzone kilka razy z różnymi ustawieniami w celu ustalenia optymalnej liczby cech dla każdego zbioru. Algorytm _Relieff_ zaimplementowany został przy użyciu biblioteki _sklearn_relief_ [58]. Metoda _Correlation Coefficient_ zaimplementowana została przy użyciu funkcji _corr_ z pakietu _pandas_, zwracającej korelację pomiędzy parami wszystkich kolumn danego zbioru.
+
+W ramach wszystkich zbiorów danych przeprowadzony zostanał eksperyment badający skuteczność klasyfikacji bez wykonywania wcześniejszej selekcji cech oraz biorący pod uwagę różną ilość cech w procesie klasyfikacji.
+
+W celu ułatwienia sprawnego i obiektywnego porównania wszystkich metod, w ramach pracy stworzono bibliotekę zawierającą fukcje przygotowujące dane, dzielące zbiór na podzbiory, przeprowadzające klasyfikacje oraz wyliczające wyniki eksperymentów. Rezultatem każdego doświadczenia jest plik zatytułowany metodą selekcji cech użytą do klasyfikacji. Plik ten zawieraja nazwę zbioru użytego do klasyfikacji, sumaryczną ilość cech oraz ilość cech po przeprowadzonej selekcji, oraz dokładność, precyzję, macierz konfuzji, wartość `FPT` i wartość `TPR` w czterech wariantach - przed selekcją i po selekcji cech oraz z wykorzystaniem metody _walidacji krzyżowej_ oraz z wykorzystaniem autorskiej metody dzielenia zbioru opisanej w rozdziale @sec:train_test.
+
+Łącznie przeprowadzono 66 eksperymentów, po 12 dla każdej opisanej metody selekcji cech. Eksperymenty zawierają każdą permutację z zadanych zagadnień:
+
+* Porównanie wyników dla każdego z 3 zbiorów danych.
+* Porównanie wyników dla danych poddanych selekcji cech i klasyfikacji dla całego zbioru.
+* Porównanie wyników dla każdej z 5 metod selekcji.
+* Porównanie wyników dla każdej z 2 metod podziału zbioru.
+
+Wyniki eksperymentów opisane zostały wrozdziale @sec:results.
 
 \newpage\null\newpage
 
-# Wyniki
+# Wyniki {#sec:results}
 
 \newpage\null\newpage
 
@@ -455,6 +472,16 @@ Computer Science & Technology, June 2014
 
 [54] \hspace{3mm} [@] https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.RobustScaler.html, 3.04.2020
 
+[55] \hspace{3mm} [@] https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.f_classif.html, 3.04.2020
+
+[56] \hspace{3mm} [@] https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.chi2.html, 3.04.2020
+
+[57] \hspace{3mm} [@] https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.mutual_info_classif.html, 3.04.2020
+
+[58] \hspace{3mm} [@] https://gitlab.com/moongoal/sklearn-relief, 3.04.2020
+
+[59] \hspace{3mm} [@] https://www.geeksforgeeks.org/python-pandas-dataframe-corr/, 3.04.2020
+
 \newpage\null\newpage
 
 # Zawartość płyty CD {-}
@@ -466,5 +493,7 @@ Do pracy dołączono płytę CD o następującej zawartości:
 - otwartoźródłowe dane użyte do trenowania sieci neuronowych w katalogu `/data`
 \vspace{3mm}
 - katalog `/docs` zawierający kod źródłowy tej pracy
+\vspace{3mm}
+- katalog `/results` zawierający pliki wynikowe przeprowadzanych eksperymentów
 \vspace{3mm}
 - plik w formacie `pdf` zawierający tą pracę

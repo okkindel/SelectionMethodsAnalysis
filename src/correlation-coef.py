@@ -1,11 +1,12 @@
 from lib.feature_selection import get_average_score, get_no_knn_score
-from sklearn.feature_selection import SelectKBest, chi2
 from sklearn.preprocessing import MinMaxScaler
 from lib.summary import make_summary
 import pandas as pd
 import numpy as np
 
-# https://github.com/krishnadulal/Feature-Selection-in-Machine-Learning-using-Python-All-Code/blob/master/Filtering%20Method/Feature%20Selection%20with%20Filtering%20Method-%20Constant%2C%20Quasi%20Constant%20and%20Duplicate%20Feature%20Removal.ipynb
+# https://github.com/krishnadulal/Feature-Selection-in-Machine-Learning-using-Python-All-Code/
+# blob/master/Filtering%20Method/Feature%20Selection%20with%20Filtering%20Method-%20Constant%2
+# C%20Quasi%20Constant%20and%20Duplicate%20Feature%20Removal.ipynb
 def select_best_features(X, Y, treshold = 0.8):
     corr_col = set()
     corrmat = pd.DataFrame(X).corr()
