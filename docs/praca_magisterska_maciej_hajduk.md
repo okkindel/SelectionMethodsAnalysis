@@ -227,7 +227,7 @@ gdzie:
 * $nearHit_i$ to $i-ty$ element wektora _near hit_ 
 * $nearMiss_i$ to $i-ty$ element wektora _near miss_
 
-![Wybór elementów _near hit_ oraz _near miss_ w każdej iteracji działania algorytmu](./figures/relief.png){#fig:relief}{width=250px}
+![Wybór elementów _near hit_ oraz _near miss_ w każdej iteracji działania algorytmu](./figures/relief.png){#fig:relief width=250px}
 
 Waga danej cechy maleje, jeżeli różni się ona od tej cechy w pobliskich instancjach tej samej klasy bardziej, niż pobliskie instancje innych klas, a wzrasta w przeciwnym przypadku. Po $m$ iteracjach, każdy element wektora $W$ jest dzielony przez $m$. Tworzy on wtedy ranking cech [47].
 
@@ -297,11 +297,29 @@ W ramacha przeprowadzonych doświadczeń posłużono się trzema zbiorami danych
 
 Zbiór danych zawiera informacje o transakcjach dokonanych kartami kredytowymi we wrześniu 2013 roku, przez europejskich posiadaczy kart. Dataset składa się z transakcji, które miały miejsce w ciągu dwóch dni, w których miały miejsce 492 oszustwa z 284 807 wszystkich transakcji. Zbiór jest wysoce niezbalansowany, a klasa pozytywna (oszustwa) stanowi 0,172% wszystkich transakcji [53].
 
-Elementy zbioru składają się tylko z danych liczbowych, które są wynikiem transformacji PCA. Jest to podyktowane względami na kwestie poufności - twórcy nie są w stanie dostarczyć oryginalnych wartości ani dodatkowych informacji o danych. Cechy $V1, V2,… V28$ są głównymi składnikami uzyskanymi za pomocą PCA, jedynymi cechami, które nie zostały przekształcone za pomocą PCA, są "Time" i "Amount". Warość "Time" zawiera sekundy, które upłynęły między każdą transakcją a pierwszą transakcją w zbiorze danych. Funkcja "Amount" to kwota transakcji. Cecha "Class" jest zmienną odpowiedzi i przyjmuje wartość 1 w przypadku oszustwa i 0 w innym przypadku.
+Elementy zbioru składają się tylko z danych liczbowych, które są wynikiem transformacji PCA. Jest to podyktowane względami na kwestie poufności - twórcy nie są w stanie dostarczyć oryginalnych wartości ani dodatkowych informacji o danych. Cechy $V1, V2,… V28$ są głównymi składnikami uzyskanymi za pomocą PCA, jedynymi cechami, które nie zostały przekształcone za pomocą PCA, są "Time" i "Amount". Warość "Time" zawiera sekundy, które upłynęły między każdą transakcją a pierwszą transakcją w zbiorze danych. Funkcja "Amount" to kwota transakcji. Cecha "Class" jest zmienną odpowiedzi i przyjmuje wartość 1 w przypadku oszustwa i 0 w innym przypadku. Dystrybucja klas została ukazana na rysunku @fig:ccfd_distribution.
 
 Zbiór został pozyskany za pośrednictwem platformy `Kaggle` (`https://www.kaggle.com/`).
 
-![Dystrybucja klas dla zbioru Credit Card Fraud Detection](./figures/ccfd_distribution.png){#fig:ccfd_distribution}
+![Dystrybucja klas dla zbioru Credit Card Fraud Detection](./figures/ccfd_distribution.png){width=350px #fig:ccfd_distribution}
+
+### Porto Seguro Safe Driver {#sec:pssd}
+
+Zbiór został pierwotnie stworzony w ramach konkursu. Celem wyzwania było przewidywanie prawdopodobieństwa, że kierowca zgłosi roszczenie ubezpieczeniowe co implikuje bardziej sprawiedliwy koszt ubezpieczenia na podstawie indywidualnych nawyków jazdy. Jest sponsorowany przez Porto Seguro - dużą firmę ubezpieczeniową samochodów i domów w Brazylii [60]. Każdy wiersz odpowiada określonemu posiadaczowi polisy, a kolumny opisują ich cechy. Zmienna docelowa jest tu dogodnie nazywana celem (_target_) i wskazuje, czy ubezpieczający złożył w przeszłości roszczenie ubezpieczeniowe.
+
+Kolumny opisane są w enigmatyczny sposób, skrótowcami, a twórcy nie dostarczyli dokumentacji do zbioru. Inspekcja przeprowadzona w ramach przygotowania danych, wskazuje jednak, że:
+
+- Dne treningowe obejmują 59 zmiennych, w tym identyfikator i cel. W niektórych z nich istnieją wartości puste - _NA_.
+- Nazwy cech wskazują, czy są to zmienne binarne (bin) czy kategorialne (cat). Reszta danych ma charakter ciągły.
+- Nazwy cech wskazują na pewne właściwości: "_ind_"  prawdopodobnie odnosi się do osoby lub kierowcy, "_reg_" - do regionu, "_car_" - do samochodu.
+- Istnieją cechy "_ps\_car\_11_" oraz "_ps\_car\_11\_cat_". To jedyny przypadek, w którym numeracja nie jest konsekwentna. Prawdopodobnie jest to spowodowane błędem w skrypcie, który utworzył nazwy zmiennych.
+- Funkcje są zanonimizowane.
+
+Dystrybucja klas została ukazana na rysunku @fig:pssd_distribution.
+
+Zbiór został pozyskany za pośrednictwem platformy `Kaggle` (`https://www.kaggle.com/`).
+
+![Dystrybucja klas dla zbioru Porto Seguro Safe Driver](./figures/pssd_distribution.png){width=350px #fig:pssd_distribution}
 
 ## Przygotowanie danych
 
@@ -481,6 +499,8 @@ Computer Science & Technology, June 2014
 [58] \hspace{3mm} [@] https://gitlab.com/moongoal/sklearn-relief, 3.04.2020
 
 [59] \hspace{3mm} [@] https://www.geeksforgeeks.org/python-pandas-dataframe-corr/, 3.04.2020
+
+[60] \hspace{3mm} [@] https://www.kaggle.com/c/porto-seguro-safe-driver-prediction, 10.04.2020
 
 \newpage\null\newpage
 
