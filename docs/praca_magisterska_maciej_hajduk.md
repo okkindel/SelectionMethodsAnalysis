@@ -227,7 +227,7 @@ gdzie:
 * $nearHit_i$ to $i-ty$ element wektora _near hit_ 
 * $nearMiss_i$ to $i-ty$ element wektora _near miss_
 
-![Wybór elementów _near hit_ oraz _near miss_ w każdej iteracji działania algorytmu](./figures/relief.png){#fig:relief}
+![Wybór elementów _near hit_ oraz _near miss_ w każdej iteracji działania algorytmu](./figures/relief.png){#fig:relief}{width=250px}
 
 Waga danej cechy maleje, jeżeli różni się ona od tej cechy w pobliskich instancjach tej samej klasy bardziej, niż pobliskie instancje innych klas, a wzrasta w przeciwnym przypadku. Po $m$ iteracjach, każdy element wektora $W$ jest dzielony przez $m$. Tworzy on wtedy ranking cech [47].
 
@@ -297,7 +297,7 @@ W ramacha przeprowadzonych doświadczeń posłużono się trzema zbiorami danych
 
 Zbiór danych zawiera informacje o transakcjach dokonanych kartami kredytowymi we wrześniu 2013 roku, przez europejskich posiadaczy kart. Dataset składa się z transakcji, które miały miejsce w ciągu dwóch dni, w których miały miejsce 492 oszustwa z 284 807 wszystkich transakcji. Zbiór jest wysoce niezbalansowany, a klasa pozytywna (oszustwa) stanowi 0,172% wszystkich transakcji [53].
 
-Elementy zbioru składają się tylko z danych liczbowych, które są wynikiem transformacji PCA. Jest to podyktowane względami na kwestie poufności - twórcy nie są w stanie oryginalnych funkcji ani dodatkowych informacji o danych. Cechy $V1, V2,… V28$ są głównymi składnikami uzyskanymi za pomocą PCA, jedynymi cechami, które nie zostały przekształcone za pomocą PCA, są "Time" i "Amount". Warość "Time" zawiera sekundy, które upłynęły między każdą transakcją a pierwszą transakcją w zbiorze danych. Funkcja "Amount" to kwota transakcji. Cecha "Class" jest zmienną odpowiedzi i przyjmuje wartość 1 w przypadku oszustwa i 0 w innym przypadku.
+Elementy zbioru składają się tylko z danych liczbowych, które są wynikiem transformacji PCA. Jest to podyktowane względami na kwestie poufności - twórcy nie są w stanie dostarczyć oryginalnych wartości ani dodatkowych informacji o danych. Cechy $V1, V2,… V28$ są głównymi składnikami uzyskanymi za pomocą PCA, jedynymi cechami, które nie zostały przekształcone za pomocą PCA, są "Time" i "Amount". Warość "Time" zawiera sekundy, które upłynęły między każdą transakcją a pierwszą transakcją w zbiorze danych. Funkcja "Amount" to kwota transakcji. Cecha "Class" jest zmienną odpowiedzi i przyjmuje wartość 1 w przypadku oszustwa i 0 w innym przypadku.
 
 Zbiór został pozyskany za pośrednictwem platformy `Kaggle` (`https://www.kaggle.com/`).
 
@@ -496,4 +496,4 @@ Do pracy dołączono płytę CD o następującej zawartości:
 \vspace{3mm}
 - katalog `/results` zawierający pliki wynikowe przeprowadzanych eksperymentów
 \vspace{3mm}
-- plik w formacie `pdf` zawierający tą pracę
+- plik w formacie `pdf` zawierający tę pracę
