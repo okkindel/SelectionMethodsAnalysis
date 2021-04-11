@@ -13,7 +13,7 @@ def make_summary(X_Fit, X, accuracy, accuracy_no, matrix, matrix_no):
     print(bcolors.YELLOW + 'ACCURACY: '         + str(accuracy_no)                      + bcolors.ENDC)
     print(bcolors.YELLOW + 'PRECISION: '        + str(calculatePrecision(matrix_no))    + bcolors.ENDC)
     print(bcolors.YELLOW + 'FPT_TPR: '          + str(calculateFPTandTPR(matrix_no))    + bcolors.ENDC)
-    print(bcolors.YELLOW + 'F1 SCORE: \n'       + str(calculateF1(matrix_no))           + bcolors.ENDC)
+    print(bcolors.YELLOW + 'F1 SCORE: '       + str(calculateF1(matrix_no))           + bcolors.ENDC)
     print(bcolors.YELLOW + 'MATRIX: \n'         + str(matrix_no)                        + bcolors.ENDC)
     
     print(bcolors.GREEN + '\nWITH SELECTION: \n' + bcolors.ENDC)
@@ -22,6 +22,6 @@ def make_summary(X_Fit, X, accuracy, accuracy_no, matrix, matrix_no):
     print(bcolors.GREEN + 'ACCURACY: '         + str(accuracy)                      + bcolors.ENDC)
     print(bcolors.GREEN + 'PRECISION: '        + str(calculatePrecision(matrix))    + bcolors.ENDC)
     print(bcolors.GREEN + 'FPT_TPR: '          + str(calculateFPTandTPR(matrix))    + bcolors.ENDC)
-    print(bcolors.GREEN + 'F1 SCORE: \n'       + str(calculateF1(matrix))           + bcolors.ENDC)
+    print(bcolors.GREEN + 'F1 SCORE: '       + str(calculateF1(matrix))           + bcolors.ENDC)
     print(bcolors.GREEN + 'MATRIX: \n'         + str(matrix)                        + bcolors.ENDC)
 

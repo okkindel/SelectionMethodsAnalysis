@@ -1,14 +1,13 @@
 from lib.feature_selection import get_average_score, get_no_knn_score
+from lib.data_preprocessing import getWineData, getHeartData
 from sklearn.feature_selection import SelectKBest, chi2
-from lib.data_preprocessing import getWineData
 from lib.summary import make_summary
 
 def select_best_features(X, Y, numOfFeatures = 'all'):
 	return SelectKBest(score_func=chi2, k=numOfFeatures).fit_transform(X, y)
 
 # -----------------------------------------------------------------------------------------------
-
-[X, y] = getWineData()
+[X, y] = getHeartData()
 
 X_Fit = select_best_features(X, y, 5)
 accuracy, matrix = get_average_score(X_Fit, y)

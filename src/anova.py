@@ -1,7 +1,6 @@
+from lib.data_preprocessing import getCreditCardData, getHeartData
 from sklearn.feature_selection import SelectKBest, f_classif
-from lib.data_preprocessing import getCreditCardData
 from lib.feature_selection import get_average_score
-from sklearn.preprocessing import MinMaxScaler
 from lib.summary import make_summary
 
 def select_best_features(X, Y, numOfFeatures = 'all'):
@@ -9,7 +8,7 @@ def select_best_features(X, Y, numOfFeatures = 'all'):
 
 # -----------------------------------------------------------------------------------------------
 
-[X, y] = getCreditCardData()
+[X, y] = getHeartData()
 X_Fit = select_best_features(X, y, 3)
 
 accuracy, matrix = get_average_score(X_Fit, y)
