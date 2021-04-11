@@ -299,15 +299,20 @@ Zbiór danych zawiera informacje o transakcjach dokonanych kartami kredytowymi w
 
 Elementy zbioru składają się tylko z danych liczbowych, które są wynikiem transformacji PCA. Jest to podyktowane względami na kwestie poufności - twórcy nie są w stanie dostarczyć oryginalnych wartości ani dodatkowych informacji o danych. Cechy $V1, V2,… V28$ są głównymi składnikami uzyskanymi za pomocą PCA, jedynymi cechami, które nie zostały przekształcone za pomocą PCA, są "Time" i "Amount". Warość "Time" zawiera sekundy, które upłynęły między każdą transakcją a pierwszą transakcją w zbiorze danych. Funkcja "Amount" to kwota transakcji. Cecha "Class" jest zmienną odpowiedzi i przyjmuje wartość 1 w przypadku oszustwa i 0 w innym przypadku. Dystrybucja klas została ukazana na rysunku @fig:ccfd_distribution.
 
+![Dystrybucja klas dla zbioru Credit Card Fraud Detection](./figures/ccfd_distribution.png){width=350px #fig:ccfd_distribution}
+
+Rysunek @fig:custom_data_distribution przedstawia dystrybucję danych dla tego zbioru. W celu ukazania jej na dwuwymiarowym wykresie, zastosowano ekstrakcję cech metodą _2-PCA_.
+
+![Dystrybucja danych dla zbioru Credit Card Fraud Detection](./figures/ccfd_data_distribution.png){width=350px #fig:ccfd_data_distribution}
+
 Zbiór został pozyskany za pośrednictwem platformy `Kaggle` (`https://www.kaggle.com/`).
 
-![Dystrybucja klas dla zbioru Credit Card Fraud Detection](./figures/ccfd_distribution.png){width=350px #fig:ccfd_distribution}
 
 ### Porto Seguro Safe Driver {#sec:pssd}
 
-Zbiór został pierwotnie stworzony w ramach konkursu. Celem wyzwania było przewidywanie prawdopodobieństwa, że kierowca zgłosi roszczenie ubezpieczeniowe co implikuje bardziej sprawiedliwy koszt ubezpieczenia na podstawie indywidualnych nawyków jazdy. Jest sponsorowany przez Porto Seguro - dużą firmę ubezpieczeniową samochodów i domów w Brazylii [60]. Każdy wiersz odpowiada określonemu posiadaczowi polisy, a kolumny opisują ich cechy. Zmienna docelowa jest tu dogodnie nazywana celem (_target_) i wskazuje, czy ubezpieczający złożył w przeszłości roszczenie ubezpieczeniowe.
+Zbiór został pierwotnie stworzony w ramach konkursu. Celem wyzwania było przewidywanie prawdopodobieństwa, że kierowca zgłosi roszczenie ubezpieczeniowe co implikuje bardziej sprawiedliwy koszt ubezpieczenia na podstawie indywidualnych nawyków jazdy. Konkurs jest sponsorowany przez Porto Seguro - dużą firmę ubezpieczeniową samochodów i domów w Brazylii [60]. Każdy wiersz odpowiada określonemu posiadaczowi polisy, a kolumny opisują ich cechy. Zmienna docelowa jest tu dogodnie nazywana celem (_target_) i wskazuje, czy ubezpieczający złożył w przeszłości roszczenie ubezpieczeniowe.
 
-Kolumny opisane są w enigmatyczny sposób, skrótowcami, a twórcy nie dostarczyli dokumentacji do zbioru. Inspekcja przeprowadzona w ramach przygotowania danych, wskazuje jednak, że:
+Kolumny opisane są w enigmatyczny sposób - skrótowcami, a twórcy nie dostarczyli dokumentacji do zbioru. Inspekcja przeprowadzona w ramach przygotowania danych, wskazuje jednak, że:
 
 - Dne treningowe obejmują 59 zmiennych, w tym identyfikator i cel. W niektórych z nich istnieją wartości puste - _NA_.
 - Nazwy cech wskazują, czy są to zmienne binarne (bin) czy kategorialne (cat). Reszta danych ma charakter ciągły.
@@ -317,9 +322,37 @@ Kolumny opisane są w enigmatyczny sposób, skrótowcami, a twórcy nie dostarcz
 
 Dystrybucja klas została ukazana na rysunku @fig:pssd_distribution.
 
+![Dystrybucja klas dla zbioru Porto Seguro Safe Driver](./figures/pssd_distribution.png){width=350px #fig:pssd_distribution}
+
+Rysunek @fig:pssd_data_distribution przedstawia dystrybucję danych dla tego zbioru. W celu ukazania jej na dwuwymiarowym wykresie, zastosowano ekstrakcję cech metodą _2-PCA_.
+
+![Dystrybucja danych dla zbioru Porto Seguro Safe Driver](./figures/pssd_data_distribution.png){width=350px #fig:pssd_data_distribution}
+
 Zbiór został pozyskany za pośrednictwem platformy `Kaggle` (`https://www.kaggle.com/`).
 
-![Dystrybucja klas dla zbioru Porto Seguro Safe Driver](./figures/pssd_distribution.png){width=350px #fig:pssd_distribution}
+### Health Insurance Cross Sell {#sec:hics}
+
+Zbiór został pierwotnie stworzony w ramach konkursu. Celem wyzwania było przewidywanie prawdopodobieństwa, że klient firmy ubezpieczeniowej będą zaintersowani ubezpieczeniem komunikacyjnym oferowanym przez firmę [62]. Każdy wiersz odpowiada określonemu posiadaczowi polisy, a kolumny opisują ich cechy. Zmienna docelowa jest tu dogodnie nazywana wynikiem (_result_) i wskazuje, czy ubezpieczający będzie zainteresowany zakupem polisty.
+
+Zbiór danych został dobrze udokumentowany przez twórców. Każdy klient został opisany dwunastoma cechami i są to: płeć (gender), wiek (age), posiadanie prawa jazdy (driving_license), region zamieszkania klienta (region_code), informacja o poprzednim ubezpieczeniu (previously_insured), wiek pojazdu (vehicle_Aae), informacja o uszkodzeniach pojazdu (vehicle_damage), koszty ubezpieczenia (annual_premium), kanał kontaktu z klientem (policy_sales_channel) i czas jaki klient jest związany z firmą (vintage). Dane o płci, wieku samochodu i uszkodzeniach pojazdu są danymi tekstowymi. Dystrybucja klas została ukazana na rysunku @fig:hics_distribution.
+
+![Dystrybucja klas dla zbioru Health Insurance Cross Sell](./figures/hics_distribution.png){width=350px #fig:hics_distribution}
+
+Rysunek @fig:hics_data_distribution przedstawia dystrybucję danych dla tego zbioru. W celu ukazania jej na dwuwymiarowym wykresie, zastosowano ekstrakcję cech metodą _2-PCA_.
+
+![Dystrybucja danych dla zbioru Health Insurance Cross Sell](./figures/hics_data_distribution.png){width=350px #fig:hics_data_distribution}
+
+Zbiór został pozyskany za pośrednictwem platformy `Kaggle` (`https://www.kaggle.com/`).
+
+### Zbiór 'Custom' {#sec:custom}
+
+Zbiór custom został wygenerowany sztucznie z pomocą funkcji _make_classification_ biblioteki _scikit-learn_ [61]. Pozwoliło to na dobranie parametrów w taki sposób, aby zbiór odpowiadał jak najlepiej założeniom projektowym. Dataset składa się 100000 elementów. Kolumna _target_ wskazuje na przypasowanie elementu do jednej z dwóch klas. Zbiór jest niezbalansowany, jedynie 10% elementów należy do klasy pozytywnej. Każdy element opisany jest za pomocą 20 cech, z czego trzy z nich są najbardziej informatywne, a jedna jest zupełnie zbędna. Zbiór nie zawiera pustych danych. Dystrybucja klas została ukazana na rysunku @fig:custom_distribution.
+
+![Dystrybucja klas dla zbioru Custom](./figures/custom_distribution.png){width=350px #fig:custom_distribution}
+
+Rysunek @fig:custom_data_distribution przedstawia dystrybucję danych dla tego zbioru. W celu ukazania jej na dwuwymiarowym wykresie, zastosowano ekstrakcję cech metodą _2-PCA_.
+
+![Dystrybucja danych dla zbioru Custom](./figures/custom_data_distribution.png){width=350px #fig:custom_data_distribution}
 
 ## Przygotowanie danych
 
@@ -501,6 +534,10 @@ Computer Science & Technology, June 2014
 [59] \hspace{3mm} [@] https://www.geeksforgeeks.org/python-pandas-dataframe-corr/, 3.04.2020
 
 [60] \hspace{3mm} [@] https://www.kaggle.com/c/porto-seguro-safe-driver-prediction, 10.04.2020
+
+[61] \hspace{3mm} [@] https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_classification.html, 11.04.2020
+
+[62] \hspace{3mm} [@] https://www.kaggle.com/anmolkumar/health-insurance-cross-sell-prediction, 11.04.2020
 
 \newpage\null\newpage
 

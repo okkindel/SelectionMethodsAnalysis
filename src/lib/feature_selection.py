@@ -85,5 +85,3 @@ def calculateF1(matrix):
     reacll = TP/(TP+FN)
     f1 = (2 * precision * reacll) / (precision + reacll)
     return f1
-
-# mikrouśrednianie

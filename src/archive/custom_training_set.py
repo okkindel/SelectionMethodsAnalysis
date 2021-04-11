@@ -1,3 +1,9 @@
+from lib.data_preprocessing import getWineData, getHeartData, getSafeDriverData, getCreditCardData
+from lib.feature_selection import get_average_score, get_no_knn_score, divide_by_hand
+from sklearn.feature_selection import SelectKBest, chi2
+from lib.summary import make_summary
+import numpy as np
+
 print('--------------------------------')
 print('CUSTOM TESTING SET')
 print('--------------------------------')
@@ -13,7 +19,7 @@ accuracy_no, matrix_no = get_no_knn_score(X_train, y_train, X_test, y_test)
 make_summary(X_Fit, X, accuracy, accuracy_no, matrix, matrix_no)
 
 
-------- HEART -------
+# ------- HEART -------
 
 
 print('--------------------------------')

@@ -21,9 +21,49 @@ def parseCreditCardData(df):
 
     return [X, y]
 
+def parseSafeDriverData(df):
+    labels = df.columns[2:]
+    X_tab = df[labels]
+    y_tab = df['target']
+    X, y = X_tab.values, y_tab.values
+    return [X, y]
+
+def parseInsuranceData(df):
+    df.drop(['id'], axis=1, inplace=True)
+    X_tab = df.drop('Response', axis=1)
+    y_tab = df['Response']
+    X_tab.loc[X_tab['Gender'] == 'Male', 'Gender'] = 1
+    X_tab.loc[X_tab['Gender'] == 'Female', 'Gender'] = 0
+    X_tab.loc[X_tab['Vehicle_Age'] == '> 2 Years', 'Vehicle_Age'] = 2
+    X_tab.loc[X_tab['Vehicle_Age'] == '1-2 Year', 'Vehicle_Age'] = 1
+    X_tab.loc[X_tab['Vehicle_Age'] == '< 1 Year', 'Vehicle_Age'] = 0
+    X_tab.loc[X_tab['Vehicle_Damage'] == 'Yes', 'Vehicle_Damage'] = 1
+    X_tab.loc[X_tab['Vehicle_Damage'] == 'No', 'Vehicle_Damage'] = 0
+    
+    for col in train.columns:
+        X_tab[col] = X_tab[col].astype(np.int32)
+    
+    X, y = X_tab.values, y_tab.values
+    
+    return [X, y]
+
 def getCreditCardData():
     df = pd.read_csv('../data/creditcard.csv')
     return parseCreditCardData(df)
+
+def getSafeDriverData():
+    df = pd.read_csv('../data/porto-seguro-safe-driver.csv')
+    return parseSafeDriverData(df)
+
+def getInsuranceData():
+    df = pd.read_csv('../data/health_insurance_cross_sell.csv')
+    return parseInsuranceData(df)
+
+def getCustomData():
+    df = pd.read_csv('../data/custom_100000.csv')
+    data  = df.values
+    X, y = data[:, :20], data[:, 20]
+    return [X, y]
 
 def getHeartData():
     from_file = []

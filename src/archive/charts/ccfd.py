@@ -2,8 +2,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
 
-
-df = pd.read_csv('../data/creditcard.csv')
+df = pd.read_csv('../../data/creditcard.csv')
 colors = ["#0101DF", "#DF0101"]
 
 sns.countplot('Class', data=df, palette=colors)
@@ -24,3 +23,4 @@ ax[1].set_title('Dystrybucja cechy Time', fontsize=14)
 ax[1].set_xlim([min(time_val), max(time_val)])
 
 # plt.show()
+
