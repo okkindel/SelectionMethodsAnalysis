@@ -1,8 +1,7 @@
-from lib.feature_selection import get_average_score, get_no_knn_score
-from sklearn.preprocessing import MinMaxScaler
+from lib.feature_selection import get_average_score
+from lib.data_preprocessing import getWineData
 from lib.summary import make_summary
 import pandas as pd
-import numpy as np
 
 # https://github.com/krishnadulal/Feature-Selection-in-Machine-Learning-using-Python-All-Code/
 # blob/master/Filtering%20Method/Feature%20Selection%20with%20Filtering%20Method-%20Constant%2
@@ -18,21 +17,13 @@ def select_best_features(X, Y, treshold = 0.8):
     x_drop = pd.DataFrame(X).drop(labels=corr_col, axis = 1)
     return x_drop.values
 
-from_file = []
-f = open('../data/wine.dat', 'r')
-for line in f.readlines()[19:]:
-    el = line.strip().split(',')
-    from_file.append(el)
+# -----------------------------------------------------------------------------------------------
 
-data = np.array(from_file, dtype=float)
-X, y = data[:, :13], data[:, 13]
+[X, y] = getWineData()
 
-# X_Norm = MinMaxScaler().fit_transform(X)
 X_Fit = select_best_features(X, y, 0.5)
 
 accuracy, matrix = get_average_score(X_Fit, y)
 accuracy_no, matrix_no = get_average_score(X, y)
 
-make_summary(X, accuracy, accuracy_no, matrix, matrix_no)
-
-
+make_summary(X_Fit, X, accuracy, accuracy_no, matrix, matrix_no)

@@ -78,4 +78,12 @@ def calculatePrecision(matrix):
     precision = TP/(TP+FP)
     return precision
 
+# calculating f1
+def calculateF1(matrix):
+    TP, TN, FP, FN = calculateConfusionMatrixValuesForClass(matrix)
+    precision = TP/(TP+FP)
+    reacll = TP/(TP+FN)
+    f1 = (2 * precision * reacll) / (precision + reacll)
+    return f1
+
 # mikrouśrednianie

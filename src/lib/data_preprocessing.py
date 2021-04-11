@@ -1,5 +1,6 @@
 from sklearn.preprocessing import RobustScaler
 import pandas as pd
+import numpy as np
 
 def parseCreditCardData(df):
     rob_scaler = RobustScaler()
@@ -21,10 +22,26 @@ def parseCreditCardData(df):
     return [X, y]
 
 def getCreditCardData():
-    df = pd.read_csv('../data/creditcard/creditcard.csv')
+    df = pd.read_csv('../data/creditcard.csv')
     return parseCreditCardData(df)
 
-def getCreditCardSpecialData():
-    df = pd.read_csv('../data/creditcard/creditcard_special.csv')
-    return parseCreditCardData(df)
+def getHeartData():
+    from_file = []
+    f = open('../data/heart.dat', 'r')
+    for line in f.readlines()[0:]:
+        el = line.strip().split(' ')
+        from_file.append(el)
+    data = np.array(from_file, dtype=float)
+    X, y = data[:, :13], data[:, 13]
+    return [X, y]
 
+def getWineData():
+    from_file = []
+    f = open('../data/wine.dat', 'r')
+    for line in f.readlines()[19:]:
+        el = line.strip().split(',')
+        from_file.append(el)
+    data = np.array(from_file, dtype=float)
+    X, y = data[:, :13], data[:, 13]
+    return [X, y]
+    
