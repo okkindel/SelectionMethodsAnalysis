@@ -59,7 +59,7 @@ __Rozdział trzeci__: Rozdział zawiera podsumawnie uzyskanyh wyników oraz prze
 <!-- TODO: -->
 
 \vspace{3mm}
-__Rozdział czwarty__: W rozdziale piątym zawarta zostanie interpretacja oraz konfrontacja wyniki z hipotezą postawioną na początku pracy. Przedstawione zostaną ewentualne możliwości rozwoju projektu.
+__Rozdział czwarty__: W czwartym piątym zawarta zostanie interpretacja oraz konfrontacja wyników z hipotezą postawioną na początku pracy. Przedstawione zostaną ewentualne możliwości rozwoju projektu.
 <!-- TODO: -->
 
 \vspace{3mm}
@@ -271,7 +271,7 @@ Określenie jakości działania algorytmu może stanowić badanym przypadku prob
 - Macierz konfuzji: tabela pokazująca prawidłowe prognozy i typy nieprawidłowych przewidywań.
 - Precyzja: liczba prawdziwie pozytywnych wyników podzielona przez wszystkie pozytywne przewidywania. Precyzja jest również nazywana pozytywną wartością predykcyjną. Jest miarą dokładności klasyfikatora. Niska precyzja wskazuje na dużą liczbę fałszywych wyników.
 - Czułość: liczba prawdziwie pozytywnych wyników podzielona przez liczbę dodatnich wartości w danych testowych. Jest miarą kompletności klasyfikatora. Niska czułość wskazuje na dużą liczbę fałszywie negatywnych wyników.
-- F1 Score: średnia ważona precyzji i czułości, wyrażona wzorem @eq:f1:
+- F1 Score: średnia harmoniczna precyzji i czułości, wyrażona wzorem @eq:f1:
 
 $$ F1 Score = \frac{2 * (Recall * Precision)}{Recall + Precision} .$$  {#eq:f1}
 
@@ -291,19 +291,15 @@ Drugim sposobem podziału datasetów na zbiór uczący i testowy w przeprowadzon
 
 ## Zbiory danych
 
-W ramacha przeprowadzonych doświadczeń posłużono się trzema zbiorami danych. Wszystkie charakteryzowały się wysokim niezbalansowaniem i wykazywały nadreprezentację jednej bądź wielu cech. Zbiory te zostały opisane w rozdziałach: @sec:ccfd ...
+W ramacha przeprowadzonych doświadczeń posłużono się trzema zbiorami danych. Wszystkie charakteryzowały się wysokim niezbalansowaniem i wykazywały nadreprezentację jednej bądź wielu cech. Zbiory te zostały opisane w rozdziałach: @sec:ccfd, @sec:pssd, @sec:hics i @sec:custom.
 
 ### Credit Card Fraud Detection {#sec:ccfd}
 
 Zbiór danych zawiera informacje o transakcjach dokonanych kartami kredytowymi we wrześniu 2013 roku, przez europejskich posiadaczy kart. Dataset składa się z transakcji, które miały miejsce w ciągu dwóch dni, w których miały miejsce 492 oszustwa z 284 807 wszystkich transakcji. Zbiór jest wysoce niezbalansowany, a klasa pozytywna (oszustwa) stanowi 0,172% wszystkich transakcji [53].
 
-Elementy zbioru składają się tylko z danych liczbowych, które są wynikiem transformacji PCA. Jest to podyktowane względami na kwestie poufności - twórcy nie są w stanie dostarczyć oryginalnych wartości ani dodatkowych informacji o danych. Cechy $V1, V2,… V28$ są głównymi składnikami uzyskanymi za pomocą PCA, jedynymi cechami, które nie zostały przekształcone za pomocą PCA, są "Time" i "Amount". Warość "Time" zawiera sekundy, które upłynęły między każdą transakcją a pierwszą transakcją w zbiorze danych. Funkcja "Amount" to kwota transakcji. Cecha "Class" jest zmienną odpowiedzi i przyjmuje wartość 1 w przypadku oszustwa i 0 w innym przypadku. Dystrybucja klas została ukazana na rysunku @fig:ccfd_distribution.
+Elementy zbioru składają się tylko z danych liczbowych, które są wynikiem transformacji PCA. Jest to podyktowane względami na kwestie poufności - twórcy nie są w stanie dostarczyć oryginalnych wartości ani dodatkowych informacji o danych. Cechy $V1, V2,… V28$ są głównymi składnikami uzyskanymi za pomocą PCA, jedynymi cechami, które nie zostały przekształcone za pomocą PCA, są "Time" i "Amount". Warość "Time" zawiera sekundy, które upłynęły między każdą transakcją a pierwszą transakcją w zbiorze danych. Funkcja "Amount" to kwota transakcji. Cecha "Class" jest zmienną odpowiedzi i przyjmuje wartość 1 w przypadku oszustwa i 0 w innym przypadku. Dystrybucja klas oraz danych została ukazana na rysunku @fig:ccfd_distribution. W celu ukazania dystrybucji danych na dwuwymiarowym wykresie, zastosowano ekstrakcję cech metodą _2-PCA_.
 
-![Dystrybucja klas dla zbioru Credit Card Fraud Detection](./figures/ccfd_distribution.png){width=350px #fig:ccfd_distribution}
-
-Rysunek @fig:custom_data_distribution przedstawia dystrybucję danych dla tego zbioru. W celu ukazania jej na dwuwymiarowym wykresie, zastosowano ekstrakcję cech metodą _2-PCA_.
-
-![Dystrybucja danych dla zbioru Credit Card Fraud Detection](./figures/ccfd_data_distribution.png){width=350px #fig:ccfd_data_distribution}
+![Dystrybucja klas i danych dla zbioru Credit Card Fraud Detection](./figures/ccfd_distribution.png){#fig:ccfd_distribution}
 
 Zbiór został pozyskany za pośrednictwem platformy `Kaggle` (`https://www.kaggle.com/`).
 
@@ -320,13 +316,9 @@ Kolumny opisane są w enigmatyczny sposób - skrótowcami, a twórcy nie dostarc
 - Istnieją cechy "_ps\_car\_11_" oraz "_ps\_car\_11\_cat_". To jedyny przypadek, w którym numeracja nie jest konsekwentna. Prawdopodobnie jest to spowodowane błędem w skrypcie, który utworzył nazwy zmiennych.
 - Funkcje są zanonimizowane.
 
-Dystrybucja klas została ukazana na rysunku @fig:pssd_distribution.
+Dystrybucja klas oraz danych została ukazana na rysunku @fig:pssd_distribution. W celu ukazania dystrybucji danych na dwuwymiarowym wykresie, zastosowano ekstrakcję cech metodą _2-PCA_.
 
-![Dystrybucja klas dla zbioru Porto Seguro Safe Driver](./figures/pssd_distribution.png){width=350px #fig:pssd_distribution}
-
-Rysunek @fig:pssd_data_distribution przedstawia dystrybucję danych dla tego zbioru. W celu ukazania jej na dwuwymiarowym wykresie, zastosowano ekstrakcję cech metodą _2-PCA_.
-
-![Dystrybucja danych dla zbioru Porto Seguro Safe Driver](./figures/pssd_data_distribution.png){width=350px #fig:pssd_data_distribution}
+![Dystrybucja klas i danych dla zbioru Porto Seguro Safe Driver](./figures/pssd_distribution.png){#fig:pssd_distribution}
 
 Zbiór został pozyskany za pośrednictwem platformy `Kaggle` (`https://www.kaggle.com/`).
 
@@ -334,25 +326,17 @@ Zbiór został pozyskany za pośrednictwem platformy `Kaggle` (`https://www.kagg
 
 Zbiór został pierwotnie stworzony w ramach konkursu. Celem wyzwania było przewidywanie prawdopodobieństwa, że klient firmy ubezpieczeniowej będą zaintersowani ubezpieczeniem komunikacyjnym oferowanym przez firmę [62]. Każdy wiersz odpowiada określonemu posiadaczowi polisy, a kolumny opisują ich cechy. Zmienna docelowa jest tu dogodnie nazywana wynikiem (_result_) i wskazuje, czy ubezpieczający będzie zainteresowany zakupem polisty.
 
-Zbiór danych został dobrze udokumentowany przez twórców. Każdy klient został opisany dwunastoma cechami i są to: płeć (gender), wiek (age), posiadanie prawa jazdy (driving_license), region zamieszkania klienta (region_code), informacja o poprzednim ubezpieczeniu (previously_insured), wiek pojazdu (vehicle_Aae), informacja o uszkodzeniach pojazdu (vehicle_damage), koszty ubezpieczenia (annual_premium), kanał kontaktu z klientem (policy_sales_channel) i czas jaki klient jest związany z firmą (vintage). Dane o płci, wieku samochodu i uszkodzeniach pojazdu są danymi tekstowymi. Dystrybucja klas została ukazana na rysunku @fig:hics_distribution.
+Zbiór danych został dobrze udokumentowany przez twórców. Każdy klient został opisany dwunastoma cechami i są to: płeć (gender), wiek (age), posiadanie prawa jazdy (driving_license), region zamieszkania klienta (region_code), informacja o poprzednim ubezpieczeniu (previously_insured), wiek pojazdu (vehicle_Aae), informacja o uszkodzeniach pojazdu (vehicle_damage), koszty ubezpieczenia (annual_premium), kanał kontaktu z klientem (policy_sales_channel) i czas jaki klient jest związany z firmą (vintage). Dane o płci, wieku samochodu i uszkodzeniach pojazdu są danymi tekstowymi. Dystrybucja klas oraz danych została ukazana na rysunku @fig:hics_distribution. W celu ukazania dystrybucji danych na dwuwymiarowym wykresie, zastosowano ekstrakcję cech metodą _2-PCA_.
 
-![Dystrybucja klas dla zbioru Health Insurance Cross Sell](./figures/hics_distribution.png){width=350px #fig:hics_distribution}
-
-Rysunek @fig:hics_data_distribution przedstawia dystrybucję danych dla tego zbioru. W celu ukazania jej na dwuwymiarowym wykresie, zastosowano ekstrakcję cech metodą _2-PCA_.
-
-![Dystrybucja danych dla zbioru Health Insurance Cross Sell](./figures/hics_data_distribution.png){width=350px #fig:hics_data_distribution}
+![Dystrybucja klas i danych dla zbioru Health Insurance Cross Sell](./figures/hics_distribution.png){#fig:hics_distribution}
 
 Zbiór został pozyskany za pośrednictwem platformy `Kaggle` (`https://www.kaggle.com/`).
 
 ### Zbiór 'Custom' {#sec:custom}
 
-Zbiór custom został wygenerowany sztucznie z pomocą funkcji _make_classification_ biblioteki _scikit-learn_ [61]. Pozwoliło to na dobranie parametrów w taki sposób, aby zbiór odpowiadał jak najlepiej założeniom projektowym. Dataset składa się 100000 elementów. Kolumna _target_ wskazuje na przypasowanie elementu do jednej z dwóch klas. Zbiór jest niezbalansowany, jedynie 10% elementów należy do klasy pozytywnej. Każdy element opisany jest za pomocą 20 cech, z czego trzy z nich są najbardziej informatywne, a jedna jest zupełnie zbędna. Zbiór nie zawiera pustych danych. Dystrybucja klas została ukazana na rysunku @fig:custom_distribution.
+Zbiór custom został wygenerowany sztucznie z pomocą funkcji _make_classification_ biblioteki _scikit-learn_ [61]. Pozwoliło to na dobranie parametrów w taki sposób, aby zbiór odpowiadał jak najlepiej założeniom projektowym. Dataset składa się 100000 elementów. Kolumna _target_ wskazuje na przypasowanie elementu do jednej z dwóch klas. Zbiór jest niezbalansowany, jedynie 10% elementów należy do klasy pozytywnej. Każdy element opisany jest za pomocą 20 cech, z czego trzy z nich są najbardziej informatywne, a jedna jest zupełnie zbędna. Zbiór nie zawiera pustych danych. Dystrybucja klas oraz danych została ukazana na rysunku @fig:custom_distribution. W celu ukazania dystrybucji danych na dwuwymiarowym wykresie, zastosowano ekstrakcję cech metodą _2-PCA_.
 
-![Dystrybucja klas dla zbioru Custom](./figures/custom_distribution.png){width=350px #fig:custom_distribution}
-
-Rysunek @fig:custom_data_distribution przedstawia dystrybucję danych dla tego zbioru. W celu ukazania jej na dwuwymiarowym wykresie, zastosowano ekstrakcję cech metodą _2-PCA_.
-
-![Dystrybucja danych dla zbioru Custom](./figures/custom_data_distribution.png){width=350px #fig:custom_data_distribution}
+![Dystrybucja klas i danych dla zbioru Custom](./figures/custom_distribution.png){#fig:custom_distribution}
 
 ## Przygotowanie danych
 
@@ -373,7 +357,7 @@ W celu odpowiedniego, wstępnego przetworzenia danych, do każdego zbioru należ
 * Dodawanie nowych zmiennych w celu zwiększenia liczby cech (np. iloczynów istniejących zmiennych).
 * Podział danych na dane treningowe i dane testowe.
 
-Zbiory użyte w ramach eksperymentów nie pozbawione były wad. Rozdziały @sec:ccfd_pre - ... opisują działania podjęce w celu poprawienia jakości danych.
+Zbiory użyte w ramach eksperymentów należało w większości poddać wstępnej obróbce. Rozdziały @sec:ccfd_pre - @sec:hics_pre opisują działania podjęce w celu poprawienia jakości danych.
 
 ### Preprocessing zbioru CCFD {#sec:ccfd_pre}
 
@@ -382,6 +366,10 @@ W zbiorze _Credit Card Fraud Detection_ nie występują puste wartości. Większ
 ![Dystrybucja wartości dla cech _Time_ oraz _Amount_](./figures/ccfd_t_m_distribution.png){#fig:ccfd_t_m_distribution}
 
 Wartości te należało przeskalować, aby nie odstawały od innych danych. Użyto w tym celu metody _RobustScaler_ z biblioteki _scikit-learn_ [54].
+
+### Preprocessing zbioru HICS {#sec:hics_pre}
+
+W zbiorze _Health Insurance Cross Sell_ nie występują puste wartości. Większość cech to cechy binarne, które nie potrzebują opróbki. Jak wspomniano w rozdziale @sec:hics, dane o płci, uszkodzeniach pojazdu i wieku samochodu są danymi tekstowymi. Kolumna _gender_ przyjmuje wartości _Male_ oraz _Female_, natomiast kolumna _vehicle_damage_ - _yes_ oraz _no_. Wartości te zostały zmienione na dane binarne: "_0_" i "_1_". Kolumna opisująca wiek pojazdu posiada 3 możliwe wartości tekstowe, które zostały zmapowane na wartości liczbowe: "_0_", "_1_" i "_2_".
 
 ## Eksperymenty
 

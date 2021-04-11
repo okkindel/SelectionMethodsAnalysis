@@ -40,7 +40,7 @@ def parseInsuranceData(df):
     X_tab.loc[X_tab['Vehicle_Damage'] == 'Yes', 'Vehicle_Damage'] = 1
     X_tab.loc[X_tab['Vehicle_Damage'] == 'No', 'Vehicle_Damage'] = 0
     
-    for col in train.columns:
+    for col in X_tab.columns:
         X_tab[col] = X_tab[col].astype(np.int32)
     
     X, y = X_tab.values, y_tab.values
