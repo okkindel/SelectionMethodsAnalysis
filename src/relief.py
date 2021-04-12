@@ -1,4 +1,4 @@
-from lib.data_preprocessing import getCreditCardData, getHeartData, getCustomData
+from lib.data_preprocessing import getCreditCardData, getHeartData, getCustomData, getInsuranceData, getSafeDriverData
 from lib.feature_selection import get_average_score
 from lib.summary import make_summary
 import sklearn_relief as relief
@@ -9,7 +9,7 @@ def select_best_features(X, Y, numOfFeatures = 'all'):
 
 # -----------------------------------------------------------------------------------------------
 
-X, y = getCreditCardData()
+X, y = getSafeDriverData()
 
 X_Fit = select_best_features(X, y, 5)
 

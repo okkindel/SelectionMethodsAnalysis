@@ -1,4 +1,4 @@
-from lib.data_preprocessing import getWineData, getHeartData, getCreditCardData
+from lib.data_preprocessing import getWineData, getHeartData, getCreditCardData, getInsuranceData, getCustomData
 from lib.feature_selection import get_average_score
 from lib.summary import make_summary
 import pandas as pd
@@ -19,9 +19,11 @@ def select_best_features(X, Y, treshold = 0.8):
 
 # -----------------------------------------------------------------------------------------------
 
-[X, y] = getCreditCardData()
+[X, y] = getCustomData()
 
-X_Fit = select_best_features(X, y, 0.025) # OPISAĆ TRESHOLD!
+X_Fit = select_best_features(X, y, 0.004) # OPISAĆ TRESHOLD!
+
+# print(X_Fit.shape[1])
 
 accuracy, matrix = get_average_score(X_Fit, y)
 accuracy_no, matrix_no = get_average_score(X, y)
