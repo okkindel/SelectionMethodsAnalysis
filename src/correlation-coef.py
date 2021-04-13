@@ -1,6 +1,8 @@
-from lib.data_preprocessing import getWineData, getMushroomData, getCreditCardData, getInsuranceData, getCustomData
+from lib.data_preprocessing import getSafeDriverData, getMushroomData, getCreditCardData, getInsuranceData, getCustomData
 from lib.feature_selection import get_average_score
 from lib.summary import make_summary
+from Py_FS.filter import PCC
+from sklearn import datasets
 import pandas as pd
 
 # https://github.com/krishnadulal/Feature-Selection-in-Machine-Learning-using-Python-All-Code/
@@ -14,14 +16,20 @@ def select_best_features(X, Y, treshold = 0.8):
             if abs(corrmat.iloc[i, j]) > treshold:
                 colname = corrmat.columns[i]
                 corr_col.add(colname)
-    x_drop = pd.DataFrame(X).drop(labels=corr_col, axis = 1)
+    x_drop = pd.DataFrame(X)[corr_col]
     return x_drop.values
+
+# def select_best_features(X, Y, num_of_features = 'all'):
+#     scores = PCC(X, y).ranks
+#     scores = scores[:num_of_features]
+#     x_drop = pd.DataFrame(X)[scores]
+#     return x_drop.values
 
 # -----------------------------------------------------------------------------------------------
 
-[X, y] = getMushroomData()
+[X, y] = getCustomData()
 
-X_Fit = select_best_features(X, y, 0.15) # OPISAĆ TRESHOLD!
+X_Fit = select_best_features(X, y, 0.00775)
 
 # print(X_Fit.shape[1])
 
