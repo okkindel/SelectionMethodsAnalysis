@@ -1,4 +1,5 @@
 from sklearn.preprocessing import RobustScaler
+from sklearn.preprocessing import LabelEncoder
 import pandas as pd
 import numpy as np
 
@@ -26,6 +27,18 @@ def parseSafeDriverData(df):
     X_tab = df[labels]
     y_tab = df['target']
     X, y = X_tab.values, y_tab.values
+    return [X, y]
+
+def parseMushroomData(df):
+    df = df[(df['class'] != 'e') | (df.index % 10 == 1)]
+    labels = df.columns[1:]
+    X_tab = df[labels]
+    y_tab = df['class']
+    Encoder_X = LabelEncoder() 
+    for col in X_tab.columns:
+        X_tab[col] = Encoder_X.fit_transform(X_tab[col])
+    y_tab = Encoder_X.fit_transform(y_tab)
+    X, y = X_tab.values, y_tab
     return [X, y]
 
 def parseInsuranceData(df):
@@ -58,6 +71,10 @@ def getSafeDriverData():
 def getInsuranceData():
     df = pd.read_csv('../data/health_insurance_cross_sell.csv')
     return parseInsuranceData(df)
+
+def getMushroomData():
+    df = pd.read_csv('../data/mushrooms.csv')
+    return parseMushroomData(df)
 
 def getCustomData():
     df = pd.read_csv('../data/custom_100000.csv')

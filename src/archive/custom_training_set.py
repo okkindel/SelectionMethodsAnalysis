@@ -20,8 +20,6 @@ make_summary(X_Fit, X, accuracy, accuracy_no, matrix, matrix_no)
 
 
 # ------- HEART -------
-
-
 print('--------------------------------')
 print('CUSTOM TESTING SET')
 print('--------------------------------')

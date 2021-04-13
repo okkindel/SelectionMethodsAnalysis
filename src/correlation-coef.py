@@ -1,4 +1,4 @@
-from lib.data_preprocessing import getWineData, getSafeDriverData, getCreditCardData, getInsuranceData, getCustomData
+from lib.data_preprocessing import getWineData, getMushroomData, getCreditCardData, getInsuranceData, getCustomData
 from lib.feature_selection import get_average_score
 from lib.summary import make_summary
 import pandas as pd
@@ -19,9 +19,9 @@ def select_best_features(X, Y, treshold = 0.8):
 
 # -----------------------------------------------------------------------------------------------
 
-[X, y] = getSafeDriverData()
+[X, y] = getMushroomData()
 
-X_Fit = select_best_features(X, y, 0.0035) # OPISAĆ TRESHOLD!
+X_Fit = select_best_features(X, y, 0.15) # OPISAĆ TRESHOLD!
 
 # print(X_Fit.shape[1])
 
