@@ -27,13 +27,12 @@ def select_best_features(X, Y, treshold = 0.8):
 
 # -----------------------------------------------------------------------------------------------
 
-[X, y] = getCustomData()
-
-X_Fit = select_best_features(X, y, 0.00775)
+[X, y] = getSafeDriverData()
+X_Fit = select_best_features(X, y, 0.55)
 
 # print(X_Fit.shape[1])
 
 accuracy, matrix = get_average_score(X_Fit, y)
 accuracy_no, matrix_no = get_average_score(X, y)
 
-make_summary(X_Fit, X, accuracy, accuracy_no, matrix, matrix_no)
+make_summary(X_Fit, X, accuracy_no, matrix_no, matrix, matrix_no)

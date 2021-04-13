@@ -82,6 +82,12 @@ def getCustomData():
     X, y = data[:, :20], data[:, 20]
     return [X, y]
 
+def getHearthData():
+    df = pd.read_csv('../data/heart_failure.csv')
+    data  = df.values[1:]
+    X, y = data[:, :12], data[:, 12]
+    return [X, y]
+
 def getHeartData():
     from_file = []
     f = open('../data/heart.dat', 'r')

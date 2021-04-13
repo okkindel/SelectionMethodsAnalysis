@@ -1,4 +1,4 @@
-from lib.data_preprocessing import getSafeDriverData, getMushroomData, getCreditCardData, getInsuranceData
+from lib.data_preprocessing import getSafeDriverData, getMushroomData, getCreditCardData, getHearthData
 from sklearn.feature_selection import SelectKBest, chi2
 from lib.feature_selection import get_average_score
 from sklearn.preprocessing import MinMaxScaler
@@ -10,7 +10,7 @@ def select_best_features(X, Y, numOfFeatures = 'all'):
 
 # -----------------------------------------------------------------------------------------------
 
-[X, y] = getMushroomData()
+[X, y] = getHearthData()
 
 X_Fit = select_best_features(X, y, 5)
 
