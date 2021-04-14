@@ -14,4 +14,9 @@ def make_simple_summary(X, accuracy, matrix, method):
     print(bcolors.YELLOW + 'FPT_TPR: '          + str(calculateFPTandTPR(matrix))    + bcolors.ENDC)
     print(bcolors.YELLOW + 'F1 SCORE: '         + str(calculateF1(matrix))           + bcolors.ENDC)
     print(bcolors.YELLOW + 'MATRIX: \n'         + str(matrix)                        + bcolors.ENDC)
-    print('\n\n')
+    print('\n')
+
+def get_string_summary(X, accuracy, matrix, method):
+    return (method + ', ' + str(X.shape[1]) + ', ' + str(X.shape[0]) + ', ' + str(accuracy)
+        + ', ' + str(calculatePrecision(matrix)) + ', ' + str(calculateFPTandTPR(matrix))
+        + ', ' + str(calculateF1(matrix)) + ', ' + str(matrix).replace('\n', '') + '\n')
