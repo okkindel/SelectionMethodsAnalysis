@@ -1,3 +1,4 @@
+from lib.data_preprocessing import getCreditCardData, getCustomData, getInsuranceData, getMushroomData
 from lib.summary import make_simple_summary, get_string_summary
 from lib.feature_selection import get_average_score
 from lib.charts import makePCAChart
@@ -9,8 +10,9 @@ from lib.methods.chi_square import chi_square
 from lib.methods.relief import relief
 from lib.methods.anova import anova
 
-def make_experiment(file, set):
-    [X, y] = parseKEEL('../data/KEEL/part1/' + set)
+def make_experiment(file, elements, set):
+    [X, y] = elements
+    # [X, y] = parseKEEL('../data/KEEL/part1/' + set)
     print(set + '\n')
     file.write(set + '\n')
     
@@ -46,31 +48,38 @@ def make_experiment(file, set):
 #-----------------------------------------------------------------------------------
 #-----------------------------------------------------------------------------------
 
-sets = [
-    'ecoli-0_vs_1.dat',
-    'ecoli1.dat',
-    'ecoli2.dat',
-    'ecoli3.dat',
-    'glass0.dat',
-    'glass1.dat',
-    'glass6.dat',
-    # 'haberman.dat',
-    # 'iris0.dat',
-    'new-thyroid1.dat',
-    'newthyroid2.dat',
-    'page-blocks0.dat',
-    'pima.dat',
-    'segment0.dat',
-    'vehicle0.dat',
-    'vehicle1.dat',
-    'vehicle2.dat',
-    'vehicle3.dat',
-    'wisconsin.dat',
-    'yeast1.dat',
-    'yeast3.dat',
-]
+# sets = [
+#     'ecoli-0_vs_1.dat',
+#     'ecoli1.dat',
+#     'ecoli2.dat',
+#     'ecoli3.dat',
+#     'glass0.dat',
+#     'glass1.dat',
+#     'glass6.dat',
+#     # 'haberman.dat',
+#     # 'iris0.dat',
+#     'new-thyroid1.dat',
+#     'newthyroid2.dat',
+#     'page-blocks0.dat',
+#     'pima.dat',
+#     'segment0.dat',
+#     'vehicle0.dat',
+#     'vehicle1.dat',
+#     'vehicle2.dat',
+#     'vehicle3.dat',
+#     'wisconsin.dat',
+#     'yeast1.dat',
+#     'yeast3.dat',
+# ]
 
-file = open('results.csv', 'w')
-for set in sets:
-    make_experiment(file, set)
+# file = open('results.csv', 'w')
+# for set in sets:
+#     make_experiment(file, set)
+# file.close()
+
+file = open('basic_results.csv', 'w')
+make_experiment(file, getMushroomData(), 'MUSHROOM')
+make_experiment(file, getCustomData(), 'CUSTOM')
+make_experiment(file, getInsuranceData(), 'INSURANCE')
+make_experiment(file, getCreditCardData(), 'CREDIT_CARD')
 file.close()

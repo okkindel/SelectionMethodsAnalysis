@@ -250,7 +250,7 @@ Analiza wariancji to stosunek wariancji, obliczona pomiędzy badanymi grupami a 
 
 # Założenia i plan eksperymentu
 
-__Obiektywne porównanie przytoczonych algorytmów cech wymaga przeprowadzenia szeregu eksperymentów porównujących skuteczność popularnych metod selekcji cech. Praca swoim zakresem obejmie eksperymenty przeprowadzone na kilku, wybranych zbiorach danych. Zakłada się użycie zbiorów rzeczywistych - to znaczy zebranych w ramach rzeczywistych pomiarów. Bazy danych, użyte w ramach badań implikują skupienie się zarówno na problemach wieloklasowych, których elementy są opisywane przez dużą liczbę cech jak i problemach dwuklasowych. Hipoteza, z którą twórca będzie konfrontować wyniki eksperymentów, to założeniem że wszystkie, badane metody selekcji poradzą sobie podobnie z postawionym zadaniem, a poza względami wydajnościowymi, nie ma znaczenia funkcja, która zostanie użyta. Technologia, w jakiej zostaną przeprowadzone doświadczenie to jezyk Python w wersji `3.8` oraz biblioteki `sckit-learn` (`https://scikit-learn.org`), `numpy` (`https://numpy.org`). i `pandas` (`https://pandas.pydata.org/`)__
+__Obiektywne porównanie przytoczonych algorytmów cech wymaga przeprowadzenia szeregu eksperymentów porównujących skuteczność popularnych metod selekcji cech. Praca swoim zakresem obejmie eksperymenty przeprowadzone na kilku, wybranych zbiorach danych. Zakłada się użycie zbiorów rzeczywistych - to znaczy zebranych w ramach rzeczywistych pomiarów. Bazy danych, użyte w ramach badań implikują skupienie na problemach dwuklasowych. Hipoteza, z którą twórca będzie konfrontować wyniki eksperymentów, to założeniem że wszystkie, badane metody selekcji poradzą sobie podobnie z postawionym zadaniem, a poza względami wydajnościowymi, nie ma znaczenia funkcja, która zostanie użyta. Technologia, w jakiej zostaną przeprowadzone doświadczenie to jezyk Python w wersji `3.8` oraz biblioteki `sckit-learn` (`https://scikit-learn.org`), `numpy` (`https://numpy.org`). i `pandas` (`https://pandas.pydata.org/`)__
 
 ## Generowanie wyników
 
@@ -275,7 +275,7 @@ Określenie jakości działania algorytmu może stanowić badanym przypadku prob
 
 $$ F1 Score = \frac{2 * (Recall * Precision)}{Recall + Precision} .$$  {#eq:f1}
 
-Pod uwagę brane będą funkcja straty (loss), która informuje o dopasowaniu modelu do danych, oraz dokładności (accuracy), która określa skuteczność klasyfikacji. Porównany zostanie również ranking cech uzyskany przez każdą z metod. W celu określenia, która z testowanych metod daje najlepsze wyniki klasyfikacji wykorzystany zostanie test statystyczny - test Wilcoxona [44]. Do jego wykonania użyte zostaną wartości dokładności uzyskane dla każdej z badanych metod.
+Pod uwagę brane będą funkcja straty (loss), która informuje o dopasowaniu modelu do danych, oraz dokładności (accuracy), która określa skuteczność klasyfikacji. W celu określenia, która z testowanych metod daje najlepsze wyniki klasyfikacji wykorzystany zostanie test statystyczny - test Wilcoxona [44]. Do jego wykonania użyte zostaną wartości dokładności uzyskane dla każdej z badanych metod.
 
 ## Generowanie zbioru treningowego i testowego {#sec:train_test}
 
@@ -286,12 +286,11 @@ W podejściu krzyżowym, zbiór dzielony jest losowo na $k$ równych podzbiorów
 ![Graficzna reprezentacja działania algorytmu walidacji krzyżowej](./figures/kfoldcross.png){#fig:kfoldcross}
 
 W ramach przeprowadzonych eksperymentów posłużono się funkcją _KFold_ z biblioteki _scikit-learn_ [46]. Umożliwia ona użycie ziarna losowości, co zapewnia możlowiość powtórzenia użyskanych w ten sposób wyników.
-
-Drugim sposobem podziału datasetów na zbiór uczący i testowy w przeprowadzonych eksperymentach jest ręczne wydzielenie tego drugiego ze zbioru wszystkich danych. Zbiór taki zawiera się z kilku elementów i posiada jednakową ilość elementów klas nadreprezentowanych i elementów klasy niedostatecznie reprezentowanej. Jest to dopuszczalny zabieg z uwagi na to, że filtrujące metody selekcji użyte w doświadczeniach nie korzystają z klasyfikatora ani zbioru testowego w procesie tworzenia rankingu cech. Niewielki wymiar nie zaburzy więc działania algorytmów a pozwoli określić jak naprawdę radzi sobie klasyfikator po przeprowadzonej selekcji.
+<!-- Drugim sposobem podziału datasetów na zbiór uczący i testowy w przeprowadzonych eksperymentach jest ręczne wydzielenie tego drugiego ze zbioru wszystkich danych. Zbiór taki zawiera się z kilku elementów i posiada jednakową ilość elementów klas nadreprezentowanych i elementów klasy niedostatecznie reprezentowanej. Jest to dopuszczalny zabieg z uwagi na to, że filtrujące metody selekcji użyte w doświadczeniach nie korzystają z klasyfikatora ani zbioru testowego w procesie tworzenia rankingu cech. Niewielki wymiar nie zaburzy więc działania algorytmów a pozwoli określić jak naprawdę radzi sobie klasyfikator po przeprowadzonej selekcji. -->
 
 ## Zbiory danych
 
-W ramacha przeprowadzonych doświadczeń posłużono się trzema zbiorami danych. Wszystkie charakteryzowały się wysokim niezbalansowaniem i wykazywały nadreprezentację jednej bądź wielu cech. Zbiory te zostały opisane w rozdziałach: @sec:ccfd, @sec:pssd, @sec:hics i @sec:custom.
+W ramach przeprowadzonych doświadczeń posłużono się ponad stoma zbiorami danych. Wszystkie charakteryzowały się wysokim niezbalansowaniem i wykazywały nadreprezentację jednej bądź wielu cech. Rozdziały @sec:ccfd - @sec:custom zawierają szczegółowy opis dużych, starannie przygotowanych w ramach pracy zbiórów z różnch dziedzin nauki. Rozdział @sec:inne skrótowo opisuje pozostałe zbiory danych.
 
 ### Credit Card Fraud Detection {#sec:ccfd}
 
@@ -303,8 +302,7 @@ Elementy zbioru składają się tylko z danych liczbowych, które są wynikiem t
 
 Zbiór został pozyskany za pośrednictwem platformy `Kaggle` (`https://www.kaggle.com/`).
 
-
-### Porto Seguro Safe Driver {#sec:pssd}
+<!-- ### Porto Seguro Safe Driver {#sec:pssd}
 
 Zbiór został pierwotnie stworzony w ramach konkursu. Celem wyzwania było przewidywanie prawdopodobieństwa, że kierowca zgłosi roszczenie ubezpieczeniowe co implikuje bardziej sprawiedliwy koszt ubezpieczenia na podstawie indywidualnych nawyków jazdy. Konkurs jest sponsorowany przez Porto Seguro - dużą firmę ubezpieczeniową samochodów i domów w Brazylii [60]. Każdy wiersz odpowiada określonemu posiadaczowi polisy, a kolumny opisują ich cechy. Zmienna docelowa jest tu dogodnie nazywana celem (_target_) i wskazuje, czy ubezpieczający złożył w przeszłości roszczenie ubezpieczeniowe.
 
@@ -320,15 +318,25 @@ Dystrybucja klas oraz danych została ukazana na rysunku @fig:pssd_distribution.
 
 ![Dystrybucja klas i danych dla zbioru Porto Seguro Safe Driver](./figures/pssd_distribution.png){#fig:pssd_distribution}
 
-Zbiór został pozyskany za pośrednictwem platformy `Kaggle` (`https://www.kaggle.com/`).
+Zbiór został pozyskany za pośrednictwem platformy `Kaggle` (`https://www.kaggle.com/`). -->
 
 ### Health Insurance Cross Sell {#sec:hics}
 
 Zbiór został pierwotnie stworzony w ramach konkursu. Celem wyzwania było przewidywanie prawdopodobieństwa, że klient firmy ubezpieczeniowej będą zaintersowani ubezpieczeniem komunikacyjnym oferowanym przez firmę [62]. Każdy wiersz odpowiada określonemu posiadaczowi polisy, a kolumny opisują ich cechy. Zmienna docelowa jest tu dogodnie nazywana wynikiem (_result_) i wskazuje, czy ubezpieczający będzie zainteresowany zakupem polisty.
 
-Zbiór danych został dobrze udokumentowany przez twórców. Każdy klient został opisany dwunastoma cechami i są to: płeć (gender), wiek (age), posiadanie prawa jazdy (driving_license), region zamieszkania klienta (region_code), informacja o poprzednim ubezpieczeniu (previously_insured), wiek pojazdu (vehicle_Aae), informacja o uszkodzeniach pojazdu (vehicle_damage), koszty ubezpieczenia (annual_premium), kanał kontaktu z klientem (policy_sales_channel) i czas jaki klient jest związany z firmą (vintage). Dane o płci, wieku samochodu i uszkodzeniach pojazdu są danymi tekstowymi. Dystrybucja klas oraz danych została ukazana na rysunku @fig:hics_distribution. W celu ukazania dystrybucji danych na dwuwymiarowym wykresie, zastosowano ekstrakcję cech metodą _2-PCA_.
+Zbiór danych został dobrze udokumentowany przez twórców. Każdy klient został opisany dwunastoma cechami i są to: płeć (gender), wiek (age), posiadanie prawa jazdy (driving_license), region zamieszkania klienta (region_code), informacja o poprzednim ubezpieczeniu (previously_insured), wiek pojazdu (vehicle_age), informacja o uszkodzeniach pojazdu (vehicle_damage), koszty ubezpieczenia (annual_premium), kanał kontaktu z klientem (policy_sales_channel) i czas jaki klient jest związany z firmą (vintage). Dane o płci, wieku samochodu i uszkodzeniach pojazdu są danymi tekstowymi. Dystrybucja klas oraz danych została ukazana na rysunku @fig:hics_distribution. W celu ukazania dystrybucji danych na dwuwymiarowym wykresie, zastosowano ekstrakcję cech metodą _2-PCA_.
 
 ![Dystrybucja klas i danych dla zbioru Health Insurance Cross Sell](./figures/hics_distribution.png){#fig:hics_distribution}
+
+Zbiór został pozyskany za pośrednictwem platformy `Kaggle` (`https://www.kaggle.com/`).
+
+### Mushroom Classification {#sec:mushroom}
+
+Zestaw danych zawiera opisy próbek różnych gatunków grzybów, zaczerpnięte z The Audubon Society Field Guide to North American Mushrooms (1981) [62]. Każdy gatunek jest określony jako zdecydowanie jadalny, zdecydowanie trujący lub o nieznanej jadalności (niezalecany). Ta ostatnia klasa została połączona z klasą trującą. Przewodnik jasno stwierdza, że nie ma prostej zasady określania jadalności grzyba - eksperyment pozwoli stwierdzić czy jest tak w istocie. Każdy gatunek grzyba opisany jest za pomocą 23 cech, wsród których znajdują się cechy takie jak rozmiar i kształt kapelusza, rozmiar blaszek i przerw pomiędzy nimi, kolor, wysokość, typ pierścienia wokół pnia itp. Wszystkie cechy opisane są zmiennymi tekstowymi. Sam zbiór nie wykazuje cech niezbalansowania. Został odpowiednio dostosowany do celów eksperymentu, zostało to opisane w rozdziale @sec:mushroom_pre.
+
+Dystrybucja klas oraz danych została ukazana na rysunku @fig:mushroom_distribution. W celu ukazania dystrybucji danych na dwuwymiarowym wykresie, zastosowano ekstrakcję cech metodą _2-PCA_.
+
+![Dystrybucja klas i danych dla zbioru Mushroom](./figures/mushroom_distribution.png){#fig:mushroom_distribution}
 
 Zbiór został pozyskany za pośrednictwem platformy `Kaggle` (`https://www.kaggle.com/`).
 
@@ -337,6 +345,10 @@ Zbiór został pozyskany za pośrednictwem platformy `Kaggle` (`https://www.kagg
 Zbiór custom został wygenerowany sztucznie z pomocą funkcji _make_classification_ biblioteki _scikit-learn_ [61]. Pozwoliło to na dobranie parametrów w taki sposób, aby zbiór odpowiadał jak najlepiej założeniom projektowym. Dataset składa się 100000 elementów. Kolumna _target_ wskazuje na przypasowanie elementu do jednej z dwóch klas. Zbiór jest niezbalansowany, jedynie 10% elementów należy do klasy pozytywnej. Każdy element opisany jest za pomocą 20 cech, z czego trzy z nich są najbardziej informatywne, a jedna jest zupełnie zbędna. Zbiór nie zawiera pustych danych. Dystrybucja klas oraz danych została ukazana na rysunku @fig:custom_distribution. W celu ukazania dystrybucji danych na dwuwymiarowym wykresie, zastosowano ekstrakcję cech metodą _2-PCA_.
 
 ![Dystrybucja klas i danych dla zbioru Custom](./figures/custom_distribution.png){#fig:custom_distribution}
+
+### Inne zbiory danych {#sec:inne}
+
+W celu poprawnego i obiektywnego porównania wszystkich metod selekcji wykonano eksperymenty na dodatkowych 111 zbiorach udostępnionych przez platformę KEEL [63]. W tym celu stworzono program automatycznie importujący i przygotowyjący zbiór do wykorzystania przez testowane algorytmy. Każdy ze zbiorów posiada pewne cechy wspólne - wszystkie one zostały stworzone w podobnym formacie, zawierają cechy opisane numerycznie i dwie klasy - opisane za pomocą etykiet '_positive_' oraz '_negative_'. Ponadto klasą mniejszościową jest zawsze klasa '_positive_'.
 
 ## Przygotowanie danych
 
@@ -357,7 +369,7 @@ W celu odpowiedniego, wstępnego przetworzenia danych, do każdego zbioru należ
 * Dodawanie nowych zmiennych w celu zwiększenia liczby cech (np. iloczynów istniejących zmiennych).
 * Podział danych na dane treningowe i dane testowe.
 
-Zbiory użyte w ramach eksperymentów należało w większości poddać wstępnej obróbce. Rozdziały @sec:ccfd_pre - @sec:hics_pre opisują działania podjęce w celu poprawienia jakości danych.
+Zbiory użyte w ramach eksperymentów należało w większości poddać wstępnej obróbce. Rozdziały @sec:ccfd_pre - @sec:inne_pre opisują działania podjęce w celu poprawienia jakości danych.
 
 ### Preprocessing zbioru CCFD {#sec:ccfd_pre}
 
@@ -371,20 +383,31 @@ Wartości te należało przeskalować, aby nie odstawały od innych danych. Uży
 
 W zbiorze _Health Insurance Cross Sell_ nie występują puste wartości. Większość cech to cechy binarne, które nie potrzebują opróbki. Jak wspomniano w rozdziale @sec:hics, dane o płci, uszkodzeniach pojazdu i wieku samochodu są danymi tekstowymi. Kolumna _gender_ przyjmuje wartości _Male_ oraz _Female_, natomiast kolumna _vehicle_damage_ - _yes_ oraz _no_. Wartości te zostały zmienione na dane binarne: "_0_" i "_1_". Kolumna opisująca wiek pojazdu posiada 3 możliwe wartości tekstowe, które zostały zmapowane na wartości liczbowe: "_0_", "_1_" i "_2_".
 
+### Preprocessing zbioru Mushroom {#sec:mushroom_pre}
+
+Zbiór _Mushroom_ był początkowo zbiorem zbalanowanym. W celu utworzenia zbioru niezbalasowanego, usunięto z niego 90% elementów zakwalifikowanych jako grzby trujące (zostawiając co dziesiąty element oznaczony klasą '_p_'). Ponadto, wszystkie cechy zbioru opisane zostały etykietami słownymi. Stworzyło to konieczność przepisania wszystkich elementów zbioru na etykiety numeryczne. Posłużono się w tym celu funkcją _LabelEncoder_ zbioru _scikit-learn_ [64]. Metoda ta enkoduje każdy element listy wartością pomiędzy $0$ a $n-1$ gdzie $n$ to liczba wariantów cechy.
+
+### Preprocessing zbioru Custom {#sec:custom_pre}
+
+Ponieważ zbiór _Custom_ został wygenerowany sztucznie, wszystkie parametry zostały dobrane tak, by nie zachodziła potrzeba jego ponownej obróbki. 
+
+### Preprocessing pozostałych zbiorów {#sec:inne_pre}
+
+W zbiorze _Health Insurance Cross Sell_ nie występują puste wartości. Większość cech to cechy binarne, które nie potrzebują opróbki. Jak wspomniano w rozdziale @sec:hics, dane o płci, uszkodzeniach pojazdu i wieku samochodu są danymi tekstowymi. Kolumna _gender_ przyjmuje wartości _Male_ oraz _Female_, natomiast kolumna _vehicle_damage_ - _yes_ oraz _no_. Wartości te zostały zmienione na dane binarne: "_0_" i "_1_". Kolumna opisująca wiek pojazdu posiada 3 możliwe wartości tekstowe, które zostały zmapowane na wartości liczbowe: "_0_", "_1_" i "_2_".
+
 ## Eksperymenty
 
 Metody opisane w ramach rozdziałów @sec:cc - @sec:anova zostały zaimplementowane przy pomocy bibliotek _scikit-learn_ oraz _pandas_. Algorytmy _ANOVA_, _chi$^2$_ oraz _Information Gain_ mają swoją gotową implementację w bibliotece _scikit-learn_ - kolejno funkcje _f_classif_ [55], _chi2_ [56] i _mutual_info_classif_ [57]. Zostały one wykorzystane w ramach metody _SelectKBest_, umożliwiającej zdefiniowanie metody selekcji cech oraz docelowej ilości cech. Eksperymenty zostały powtórzone kilka razy z różnymi ustawieniami w celu ustalenia optymalnej liczby cech dla każdego zbioru. Algorytm _Relieff_ zaimplementowany został przy użyciu biblioteki _sklearn_relief_ [58]. Metoda _Correlation Coefficient_ zaimplementowana została przy użyciu funkcji _corr_ z pakietu _pandas_, zwracającej korelację pomiędzy parami wszystkich kolumn danego zbioru.
 
 W ramach wszystkich zbiorów danych przeprowadzony zostanał eksperyment badający skuteczność klasyfikacji bez wykonywania wcześniejszej selekcji cech oraz biorący pod uwagę różną ilość cech w procesie klasyfikacji.
 
-W celu ułatwienia sprawnego i obiektywnego porównania wszystkich metod, w ramach pracy stworzono bibliotekę zawierającą fukcje przygotowujące dane, dzielące zbiór na podzbiory, przeprowadzające klasyfikacje oraz wyliczające wyniki eksperymentów. Rezultatem każdego doświadczenia jest plik zatytułowany metodą selekcji cech użytą do klasyfikacji. Plik ten zawieraja nazwę zbioru użytego do klasyfikacji, sumaryczną ilość cech oraz ilość cech po przeprowadzonej selekcji, oraz dokładność, precyzję, macierz konfuzji, wartość `FPT` i wartość `TPR` w czterech wariantach - przed selekcją i po selekcji cech oraz z wykorzystaniem metody _walidacji krzyżowej_ oraz z wykorzystaniem autorskiej metody dzielenia zbioru opisanej w rozdziale @sec:train_test.
+W celu ułatwienia sprawnego i obiektywnego porównania wszystkich metod, w ramach pracy stworzono bibliotekę zawierającą fukcje przygotowujące dane, dzielące zbiór na podzbiory, przeprowadzające klasyfikacje oraz wyliczające wyniki eksperymentów. Rezultatem każdego doświadczenia jest plik zatytułowany metodą selekcji cech użytą do klasyfikacji. Plik ten zawieraja nazwę zbioru użytego do klasyfikacji, sumaryczną ilość cech oraz ilość cech po przeprowadzonej selekcji, oraz dokładność, precyzję, macierz konfuzji, wartość _FPT_, wartość _TPR_ i wynik testu _F1 Score_ w 2 wariantach - przed selekcją i po selekcji cech.
 
-Łącznie przeprowadzono 66 eksperymentów, po 12 dla każdej opisanej metody selekcji cech. Eksperymenty zawierają każdą permutację z zadanych zagadnień:
+Łącznie przeprowadzono 690 eksperymentów, po 115 dla każdej opisanej metody selekcji cech. Eksperymenty zawierają każdą permutację z zadanych zagadnień:
 
-* Porównanie wyników dla każdego z 3 zbiorów danych.
+* Porównanie wyników dla każdego z 115 zbiorów danych.
 * Porównanie wyników dla danych poddanych selekcji cech i klasyfikacji dla całego zbioru.
 * Porównanie wyników dla każdej z 5 metod selekcji.
-* Porównanie wyników dla każdej z 2 metod podziału zbioru.
 
 Wyniki eksperymentów opisane zostały wrozdziale @sec:results.
 
@@ -526,6 +549,12 @@ Computer Science & Technology, June 2014
 [61] \hspace{3mm} [@] https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_classification.html, 11.04.2020
 
 [62] \hspace{3mm} [@] https://www.kaggle.com/anmolkumar/health-insurance-cross-sell-prediction, 11.04.2020
+
+[63] \hspace{3mm} [@] https://www.kaggle.com/uciml/mushroom-classification, 14.04.2020
+
+[63] \hspace{3mm} [@] https://sci2s.ugr.es/keel/imbalanced.php, 14.04.2020
+
+[63] \hspace{3mm} [@] https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.LabelEncoder.html, 13.04.2020
 
 \newpage\null\newpage
 

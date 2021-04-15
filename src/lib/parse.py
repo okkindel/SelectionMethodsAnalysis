@@ -1,4 +1,3 @@
-from sklearn.preprocessing import LabelEncoder
 import numpy as np
 
 def parseKEEL(dataset):
@@ -10,8 +9,8 @@ def parseKEEL(dataset):
         el = line.strip().split(',')
         from_file.append(el)
     data = np.array(from_file)
-    Encoder_X = LabelEncoder()
     X, y_tab = data[:, :y_pos], data[:, y_pos]
     X = np.array(X, dtype=float)
-    y = Encoder_X.fit_transform(y_tab)
-    return [X, y]
+    y_tab[y_tab == ' positive'] = 1
+    y_tab[y_tab == ' negative'] = 0
+    return [X, y_tab]

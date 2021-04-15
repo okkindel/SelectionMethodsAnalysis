@@ -30,13 +30,14 @@ def parseSafeDriverData(df):
     return [X, y]
 
 def parseMushroomData(df):
-    df = df[(df['class'] != 'e') | (df.index % 10 == 1)]
+    df = df[(df['class'] != 'p') | (df.index % 10 == 1)]
     labels = df.columns[1:]
     X_tab = df[labels]
     y_tab = df['class']
     Encoder_X = LabelEncoder() 
     for col in X_tab.columns:
         X_tab[col] = Encoder_X.fit_transform(X_tab[col])
+    
     y_tab = Encoder_X.fit_transform(y_tab)
     X, y = X_tab.values, y_tab
     return [X, y]
@@ -81,30 +82,3 @@ def getCustomData():
     data  = df.values
     X, y = data[:, :20], data[:, 20]
     return [X, y]
-
-def getHearthData():
-    df = pd.read_csv('../data/heart_failure.csv')
-    data  = df.values[1:]
-    X, y = data[:, :12], data[:, 12]
-    return [X, y]
-
-def getHeartData():
-    from_file = []
-    f = open('../data/heart.dat', 'r')
-    for line in f.readlines()[0:]:
-        el = line.strip().split(' ')
-        from_file.append(el)
-    data = np.array(from_file, dtype=float)
-    X, y = data[:, :13], data[:, 13]
-    return [X, y]
-
-def getWineData():
-    from_file = []
-    f = open('../data/wine.dat', 'r')
-    for line in f.readlines()[19:]:
-        el = line.strip().split(',')
-        from_file.append(el)
-    data = np.array(from_file, dtype=float)
-    X, y = data[:, :13], data[:, 13]
-    return [X, y]
-    
