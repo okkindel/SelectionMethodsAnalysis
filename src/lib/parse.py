@@ -20,7 +20,6 @@ def parseKEEL(dataset):
         try:
             float(X_tab[col][0])
         except ValueError:
-            print('not float, ' + X_tab[col][0])
             X_tab[col] = Encoder_X.fit_transform(X_tab[col])
         
     
