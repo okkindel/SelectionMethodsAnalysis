@@ -385,7 +385,7 @@ W zbiorze _Health Insurance Cross Sell_ nie występują puste wartości. Większ
 
 ### Preprocessing zbioru Mushroom {#sec:mushroom_pre}
 
-Zbiór _Mushroom_ był początkowo zbiorem zbalanowanym. W celu utworzenia zbioru niezbalasowanego, usunięto z niego 90% elementów zakwalifikowanych jako grzby trujące (zostawiając co dziesiąty element oznaczony klasą '_p_'). Ponadto, wszystkie cechy zbioru opisane zostały etykietami słownymi. Stworzyło to konieczność przepisania wszystkich elementów zbioru na etykiety numeryczne. Posłużono się w tym celu funkcją _LabelEncoder_ zbioru _scikit-learn_ [64]. Metoda ta enkoduje każdy element listy wartością pomiędzy $0$ a $n-1$ gdzie $n$ to liczba wariantów cechy.
+Zbiór _Mushroom_ był początkowo zbiorem zbalanowanym. W celu utworzenia zbioru niezbalasowanego, usunięto z niego 90% elementów zakwalifikowanych jako grzby trujące (zostawiając co dziesiąty element oznaczony klasą '_p_'). Ponadto, wszystkie cechy zbioru opisane zostały etykietami słownymi. Stworzyło to konieczność przepisania wszystkich elementów zbioru na etykiety numeryczne. Posłużono się w tym celu funkcją _LabelEncoder_ zbioru _scikit-learn_ [64]. Metoda ta enkoduje każdy element listy wartością pomiędzy 0 a n-1 gdzie $n$ to liczba wariantów cechy.
 
 ### Preprocessing zbioru Custom {#sec:custom_pre}
 
@@ -393,7 +393,7 @@ Ponieważ zbiór _Custom_ został wygenerowany sztucznie, wszystkie parametry zo
 
 ### Preprocessing pozostałych zbiorów {#sec:inne_pre}
 
-W zbiorze _Health Insurance Cross Sell_ nie występują puste wartości. Większość cech to cechy binarne, które nie potrzebują opróbki. Jak wspomniano w rozdziale @sec:hics, dane o płci, uszkodzeniach pojazdu i wieku samochodu są danymi tekstowymi. Kolumna _gender_ przyjmuje wartości _Male_ oraz _Female_, natomiast kolumna _vehicle_damage_ - _yes_ oraz _no_. Wartości te zostały zmienione na dane binarne: "_0_" i "_1_". Kolumna opisująca wiek pojazdu posiada 3 możliwe wartości tekstowe, które zostały zmapowane na wartości liczbowe: "_0_", "_1_" i "_2_".
+Zbiory z bazy danych KEEL zostały przez twórców przygotowane do testów, bez konieczności uprzedniego przygotowywania danych. Preprocessing każdego zbioru ograniczył się do podmiany wartości "_positive_" oraz "_negative_" na wartości "_1_" i "_0_" na etapie parsowania zbuoru.
 
 ## Eksperymenty
 
@@ -409,7 +409,7 @@ W celu ułatwienia sprawnego i obiektywnego porównania wszystkich metod, w rama
 * Porównanie wyników dla danych poddanych selekcji cech i klasyfikacji dla całego zbioru.
 * Porównanie wyników dla każdej z 5 metod selekcji.
 
-Wyniki eksperymentów opisane zostały wrozdziale @sec:results.
+Wyniki eksperymentów opisane zostały wrozdziale @sec:results - _Wyniki_.
 
 \newpage\null\newpage
 
