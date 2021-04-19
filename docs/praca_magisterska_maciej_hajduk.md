@@ -403,7 +403,7 @@ W celu ułatwienia sprawnego i obiektywnego porównania wszystkich metod, w rama
 * Porównanie wyników dla danych poddanych selekcji cech i klasyfikacji dla całego zbioru.
 * Porównanie wyników dla każdej z 5 metod selekcji.
 
-Wyniki eksperymentów opisane zostały w rozdziale @sec:results - _Wyniki_.
+Wyniki eksperymentów opisane zostały w rozdziale +@sec:results - Wyniki.
 
 \newpage\null\newpage
 
@@ -421,30 +421,20 @@ Wyniki eksperymentów opisane zostały w rozdziale @sec:results - _Wyniki_.
 :::
 
 <!-- 
-
-
 [4] \hspace{3mm} Efektywne metody selekcji cech i rozwiazywania problemu wieloklasowego w nadzorowanej klasyfikacji danych, Wieszław Chmielnicki, IPPT PAN, 2012
-
 [6] \hspace{3mm} Zastosowanie wybranych metod przekształcania i selekcji danych oraz konstrukcji cech w zadaniach klasyfikacji i klasteryzacji, Piotr Płoński, Politechnika Warszawka, 2016.
-
-[17]
-
+[17] \hspace{3mm} Wiesław Chmielnicki, Katarzyna Stąpor, Efektywne metody selekcji cech i rozwiązywania problemu wieloklasowego w nadzorowanej klasyfikacji danych, Kraków 2012
 [32] \hspace{3mm} Younes Charfaoui, Hands-on with Feature Selection Techniques: Filter Methods, 01.2020
-
 [32] \hspace{3mm} Witold Andrzejewski & Paweł Boiński, Drzewa Decyzyjne, Politechnika Poznańska, Wydział Informatyki
-
 [33] \hspace{3mm} Krzysztof Krawiec, Wybrane zagadnienia uczenia maszynowego, Politechnika Poznańska, Wydział Informatyki
-
  -->
-
-
 \newpage\null\newpage
 
 # Zawartość płyty CD {-}
 
 Do pracy dołączono płytę CD o następującej zawartości:
 
-- kod źródłowy programu znajdujący się w folderze `/src`
+- kody źródłowy biblioteki, programu eksperymentalnego i programów generujących wykresy znajdujące się w folderze `/src`
 \vspace{3mm}
 - otwartoźródłowe dane użyte do trenowania sieci neuronowych w katalogu `/data`
 \vspace{3mm}
