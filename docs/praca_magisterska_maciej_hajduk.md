@@ -267,7 +267,7 @@ Określenie jakości działania algorytmu stanowi w badanych przypadkach problem
 - Czułość: liczba prawdziwie pozytywnych wyników podzielona przez liczbę dodatnich wartości w danych testowych. Jest miarą kompletności klasyfikatora. Niska czułość wskazuje na dużą liczbę fałszywie negatywnych wyników.
 - F1 Score: średnia harmoniczna precyzji i czułości, wyrażona wzorem @eq:f1:
 
-$$ F1 Score = \frac{2 * (Recall * Precision)}{Recall + Precision} .$$  {#eq:f1}
+$$ F1 Score = \frac{2 * (Recall * Precision)}{Recall + Precision}. $$  {#eq:f1}
 
 Pod uwagę brane są funkcje straty (loss), która informuje o dopasowaniu modelu do danych, oraz dokładności (accuracy), która określa skuteczność klasyfikacji. W celu określenia, która z testowanych metod daje najlepsze wyniki klasyfikacji wykorzystany zostanie test statystyczny - test Wilcoxona [@NahmFrancis]. Do jego wykonania użyto wartości dokładności uzyskanych dla każdej z badanych metod.
 
@@ -408,6 +408,24 @@ Wyniki eksperymentów opisane zostały w rozdziale +@sec:results - Wyniki.
 \newpage\null\newpage
 
 # Wyniki {#sec:results}
+
+Eksperymenty zostały przeprowadzone zgodnie z zaplanowanym schematem. Wyniki _F1 score_ dla poszczególnych algorytmów i zbiorów przedstawione zostały na wykresie @fig:f1results_c. Dla pierwszych czterech, opisanych w rozdziałach @sec:ccfd - @sec:custom zbiorów zastosowano klasyfikację dla pięciu gównych cech, z pozostałych zbiorów wybrano trzy cechy. Decyzje taką podjęto po obserwacji wyników - została wybrana liczba cech po podwyższeniu której obserwowano brak poprawy lub pogorszenie jakości klasyfikacji.
+
+![Porównanie wyników F1Score dla wszystkich zbiorów danych.](./figures/f1results_c.png){#fig:f1results_c}
+
+W ramach eksperymentów wykonano również próbę klasyfikacji na danych niepodlegających wcześniej selekcji cech. Linią czerwoną na wykresie oznaczono wyniki testu _F1_ dla klasyfikacji bez uprzedniej selekcji cech.
+
+<!-- TODO: Wykres -->
+
+Zaskakujący może wydawać się fakt, że pomimo podobnych, wysokich wyników dokładności, algorytmy rzadko zgadzały się ze sobą co do pozycji poszczególnych cech w rankingu. Dobrze to obrazuje wykres ukazujący pozycję poszczególnych cech zbioru CCFD, dla poszczególnych algorytmów.
+
+<!-- TODO: Wykres -->
+
+W celu dokonania porównania użytych metod selekcji wykorzystany został opisany wyżej test statystyczny Wilcoxona. Test wykonany został dla każdej pary metod selekcji z wykorzystaniem uzyskanych dla nich wyników, co przedstawia poniższa tabela:
+
+<!-- TODO: Tabela -->
+
+Przyjęto, że wartość _pvalue_ mnniejsza niż 0.05 oznacza, że można uznać iż porównywane metody są statystycznie różne.
 
 \newpage\null\newpage
 

@@ -12,40 +12,43 @@ from lib.methods.anova import anova
 
 FEAT_NUMNER = 3
 
-def make_experiment(file, set):
-    # [X, y] = elements
-    [X, y] = parseKEEL('../data/KEEL/part4/' + set)
-    print(set + '\n')
-    file.write(set + '\n')
+#-----------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------
+
+def make_experiment(file, set, elements = []):
+    if (elements == []):
+        [X, y] = parseKEEL('../data/KEEL/part1/' + set)
+    else:
+        [X, y] = elements
     
     accuracy_no, matrix_no = get_average_score(X, y)
-    make_simple_summary(X, accuracy_no, matrix_no, 'NO SELECTION')
-    file.write(get_string_summary(X, accuracy_no, matrix_no, 'NO SELECTION'))
+    make_simple_summary(set, X, accuracy_no, matrix_no, 'NO SELECTION')
+    file.write(get_string_summary(set, X, accuracy_no, matrix_no, 'NO SELECTION'))
     
     X_Fit = anova(X, y, FEAT_NUMNER)
     accuracy, matrix = get_average_score(X_Fit, y)
-    make_simple_summary(X_Fit, accuracy, matrix, 'ANOVA')
-    file.write(get_string_summary(X_Fit, accuracy, matrix, 'ANOVA'))
+    make_simple_summary(set, X_Fit, accuracy, matrix, 'ANOVA')
+    file.write(get_string_summary(set, X_Fit, accuracy, matrix, 'ANOVA'))
     
     X_Fit = relief(X, y, FEAT_NUMNER)
     accuracy, matrix = get_average_score(X_Fit, y)
-    make_simple_summary(X_Fit, accuracy, matrix, 'RELIEF')
-    file.write(get_string_summary(X_Fit, accuracy, matrix, 'RELIEF'))
+    make_simple_summary(set, X_Fit, accuracy, matrix, 'RELIEF')
+    file.write(get_string_summary(set, X_Fit, accuracy, matrix, 'RELIEF'))
     
     X_Fit = information_gain(X, y, FEAT_NUMNER)
     accuracy, matrix = get_average_score(X_Fit, y)
-    make_simple_summary(X_Fit, accuracy, matrix, 'INFORATION GAIN')
-    file.write(get_string_summary(X_Fit, accuracy, matrix, 'INFORATION GAIN'))
+    make_simple_summary(set, X_Fit, accuracy, matrix, 'INFORATION GAIN')
+    file.write(get_string_summary(set, X_Fit, accuracy, matrix, 'INFORATION GAIN'))
     
     X_Fit = chi_square(X, y, FEAT_NUMNER)
     accuracy, matrix = get_average_score(X_Fit, y)
-    make_simple_summary(X_Fit, accuracy, matrix, 'CHI SQUARE')
-    file.write(get_string_summary(X_Fit, accuracy, matrix, 'CHI SQUARE'))
+    make_simple_summary(set, X_Fit, accuracy, matrix, 'CHI SQUARE')
+    file.write(get_string_summary(set, X_Fit, accuracy, matrix, 'CHI SQUARE'))
     
     X_Fit = correlation_coef(X, y, FEAT_NUMNER)
     accuracy, matrix = get_average_score(X_Fit, y)
-    make_simple_summary(X_Fit, accuracy, matrix, 'CORRELATION COEF')
-    file.write(get_string_summary(X_Fit, accuracy, matrix, 'CORRELATION COEF'))
+    make_simple_summary(set, X_Fit, accuracy, matrix, 'CORRELATION COEF')
+    file.write(get_string_summary(set, X_Fit, accuracy, matrix, 'CORRELATION COEF'))
 
 #-----------------------------------------------------------------------------------
 #-----------------------------------------------------------------------------------
@@ -162,13 +165,15 @@ part4 = [
 ]
 
 # file = open('basic_results.csv', 'w')
-# make_experiment(file, getMushroomData(), 'MUSHROOM')
-# make_experiment(file, getCustomData(), 'CUSTOM')
-# make_experiment(file, getInsuranceData(), 'INSURANCE')
-# make_experiment(file, getCreditCardData(), 'CREDIT_CARD')
+# file.write('dataset, method, num_of_feat, num_of_elems, accuracy, precision, ftp, tpr, f1_score, matrix')
+# make_experiment(file, 'MUSHROOM', getMushroomData())
+# make_experiment(file, 'CUSTOM', getCustomData())
+# make_experiment(file, 'INSURANCE', getInsuranceData())
+# make_experiment(file, 'CREDIT_CARD', getCreditCardData())
 # file.close()
 
-file = open('part4.csv', 'w')
-for set in part4:
+file = open('part1.csv', 'w')
+file.write('dataset,method,num_of_feat,num_of_elems,accuracy,precision,ftp,tpr,f1_score,matrix\n')
+for set in part1:
     make_experiment(file, set)
 file.close()

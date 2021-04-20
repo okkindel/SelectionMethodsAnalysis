@@ -23,4 +23,3 @@ ax[1].set_title('Dystrybucja cechy Time', fontsize=14)
 ax[1].set_xlim([min(time_val), max(time_val)])
 
 # plt.show()
-
