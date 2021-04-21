@@ -409,15 +409,17 @@ Wyniki eksperymentów opisane zostały w rozdziale +@sec:results - Wyniki.
 
 # Wyniki {#sec:results}
 
-Eksperymenty zostały przeprowadzone zgodnie z zaplanowanym schematem. Wyniki _F1 score_ dla poszczególnych algorytmów i zbiorów przedstawione zostały na wykresie @fig:f1results_c. Dla pierwszych czterech, opisanych w rozdziałach @sec:ccfd - @sec:custom zbiorów zastosowano klasyfikację dla pięciu gównych cech, z pozostałych zbiorów wybrano trzy cechy. Decyzje taką podjęto po obserwacji wyników - została wybrana liczba cech po podwyższeniu której obserwowano brak poprawy lub pogorszenie jakości klasyfikacji.
+Eksperymenty zostały przeprowadzone zgodnie z zaplanowanym schematem. Dla każdej testowanej metody obliczono precyzję, czułość oraz wynik testu _F1 score_. Dane te policzono __przyjmując jako elementy pozytywne macierzy konfuzji instancje klas mniej licznych__. Dalsza część rozdziału zawiera wykresy oraz tabele porównujące testowane metody.
 
-![Porównanie wyników F1Score dla wszystkich zbiorów danych.](./figures/f1results_c.png){#fig:f1results_c}
+Wyniki _F1 score_ dla poszczególnych algorytmów i zbiorów przedstawione zostały na wykresie @fig:f1_results. Dla pierwszych czterech, opisanych w rozdziałach @sec:ccfd - @sec:custom zbiorów zastosowano klasyfikację dla pięciu gównych cech, z pozostałych zbiorów wybrano trzy cechy. Decyzje taką podjęto po obserwacji wyników - została wybrana liczba cech po podwyższeniu której obserwowano brak poprawy lub pogorszenie jakości klasyfikacji. W ramach eksperymentów wykonano również próbę klasyfikacji na danych niepodlegających wcześniej selekcji cech. Linią czerwoną na wykresie oznaczono wyniki testu _F1_ dla klasyfikacji bez uprzedniej selekcji cech.
 
-W ramach eksperymentów wykonano również próbę klasyfikacji na danych niepodlegających wcześniej selekcji cech. Linią czerwoną na wykresie oznaczono wyniki testu _F1_ dla klasyfikacji bez uprzedniej selekcji cech.
+![Porównanie wyników F1 Score dla wszystkich zbiorów danych.](./figures/f1_results.png){#fig:f1_results}
 
-<!-- TODO: Wykres -->
+Wykres @fig:mean_res ukazuje uśrednione wyniki _F1 score_, precyzji i czułości dla każdej z metod, dla wszystkich 115 zbiorów. Kolorem czerwonym oznaczono rezultat uzyskany dla klasyfikacji bez użycia żadnych metod selekcji cech.
 
-Zaskakujący może wydawać się fakt, że pomimo podobnych, wysokich wyników dokładności, algorytmy rzadko zgadzały się ze sobą co do pozycji poszczególnych cech w rankingu. Dobrze to obrazuje wykres ukazujący pozycję poszczególnych cech zbioru CCFD, dla poszczególnych algorytmów.
+![Uśrednione wyniki F1 Score, precyzji i czułości dla poszczególnych metod.](./figures/mean_res.png){#fig:mean_res}
+
+Zaskakujący może wydawać się fakt, że pomimo podobnych wyników precyzji, algorytmy rzadko zgadzały się ze sobą co do pozycji poszczególnych cech w rankingu. Dobrze to obrazuje wykres ukazujący pozycję poszczególnych cech zbioru CCFD, dla poszczególnych algorytmów.
 
 <!-- TODO: Wykres -->
 
