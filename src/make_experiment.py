@@ -1,7 +1,8 @@
 from lib.data_preprocessing import getCcfd, getCustom, getInsurance, getMushroom, getKeel
 from lib.summary import make_simple_summary, get_string_summary, get_header
 from lib.data_preprocessing import PART_1, PART_2, PART_3, PART_4
-from lib.calculations import get_average_score, reverseMatrix
+from lib.classification import get_average_score
+from lib.feature_selection import reverseMatrix
 
 from lib.methods.information_gain import information_gain
 from lib.methods.correlation_coef import correlation_coef
@@ -9,8 +10,8 @@ from lib.methods.chi_square import chi_square
 from lib.methods.relief import relief
 from lib.methods.anova import anova
 
-DATA_PART = 'part1'
-FEATS_NUMNER = 3
+DATA_PART = 'part0'
+FEATS_NUMNER = 5
 
 #-----------------------------------------------------------------------------------
 #-----------------------------------------------------------------------------------
