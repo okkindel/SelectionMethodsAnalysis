@@ -5,7 +5,7 @@ def getCcfd():
     df = pd.read_csv('../data/creditcard.csv')
     return parseCreditCardData(df)
 
-def getPssd():
+def getInsurance():
     df = pd.read_csv('../data/health_insurance_cross_sell.csv')
     return parseInsuranceData(df)
 
