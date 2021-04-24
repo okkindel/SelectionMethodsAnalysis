@@ -73,7 +73,7 @@ Aby uniknąć problemów generowanych przez zbyt dużą ilość atrybutów, a je
 
 Zarówno sam problem selekcji cech jak i sposoby radzenia sobie z nierównomiernym rozkładem klas to - szczególnie w ostatnich latach - często poruszany problem, co skutkuje dużym przekrojem prac, również w ujęciu czysto dziedzinowym - jak wykorzystanie konkretnych algorytmów dla bardzo konkretnych zastosowań.
 
-Wstępną analizę problemu przedstawili Garba Abdulrauf Sharifai, i Zurinahni Zainol w pracy _Feature Selection for High-Dimensional and Imbalanced Biomedical Data Based on Robust Correlation Based Redundancy and Binary Grasshopper Optimization Algorithm_ [@genes11070717]. Autorzy opisali w niej problem niezbalansowania danych i podejścia do niego, bazujące na istniejących metodach doboru cech. Skupiali się szczególnie na zaproponowanej przez siebie metodzie mającej łaczyć różne metody filtrujące. Jest to dobre wprowadzenie do zadania selekcji cech i problemu radreprezentacji klas, a przytoczone metody są szczegółowo opisane co pozwala na dogłębne zrozumienie tematu. W podobnej pracy _Feature selection for high-dimensional imbalanced data_, twórcy - Liuzhi Yin, Yong Ge, Keli Xiao, Xuehua Wang i Xiaojun Quan przyjrzeli się wpływowi, jaki na udaną selekcję ma zbiór danych [@YIN20133]. Postanowili przeprowadzić szereg eksperymentów, w szczególności dzieląc duże klasy na stosunkowo mniejsze pseudo-klasy i sztucznie generując ich etykiety. Na podstawie swoich badań zaprezentowali nową metodę selekcji opartą na tak zwanej _odległości Helingera_. Testy autorów pracy badają skuteczność tej metody na tle znanych już metod redukcji atrybutów. Twórcy pracy _A Survey on Evolutionary Computation Approaches to Feature Selection_ zajęli się przeglądem znanych metod tworząc dokument podsumowujący każdą z nich, z jej wadami oraz zaletami. Punktem, na jakim szczególnie skupili swoją uwagę są nowoczesne techniki oparte o algorytmy ewolucyjne. Artykuł zawiera kompleksowy przegląd prac naukowych dotyczących tematu oraz a przytoczone badania pozwalają na dobranie odpowiedniej metody do zadanego zadania [@7339682]. W 2014 roku Deepika Tiwari opisała w artykule _Handling Class Imbalance Problem Using Feature Selection_ działanie kulku algorytmów wyboru cech dla niezrównoważonych zbiorów danych [@TiwariDeepika]. W swoich eksprymentach skupiła się na uzyskaniu jak najlepszych wyników, co uzyskała modyfikując popularny algorytm RELIEFF, aby rozwiązać problem nierównowagi klas. W 2008 roku Chen Xuewen i Michael Wasikowski zaproponowali w swojej pracy _Combating the Small Sample Class Imbalance Problem Using Feature Selection_ porównanie różnych algorytmów stworzonych pierwotnie na potrzeby zadań klasyfikacji tekstu [@Wasikowski2010CombatingTS]. Na uwagę zasługuje przytoczona przez autorów metoda nazwana _FAST_, która jest ich zdaniem doskonałą metodą redukcji cech, zwłaszcza w przypadku zbiorów o niewielkiej ich liczbie. Mark A. Hall porusza temat selekcji cech w swojej książce _Correlation-based Feature Selection for Machine Learning_, badając wartość zestawu cech na podstawie korelacji pomiędzy nimi. Autor przeprowadził szereg eksperymentów i porównał wymyśloną przez metodę opartą o współczynnik korelacji z metodami powszechnie stosowanymi, starając się między innymi wyodrębnić problemy, dla których jego algorytm jest najbardziej skuteczny [@hallmark]. Analiza _CoIL Challenge 2000_ przeprowadzona przez Elkana Charlesa wykazała, że zwykłe algorytmy selekcji cech nie były wystarczająco dobre do zadania klasyfikacji danych niezbalansowanych [@CoILDataMining]. Stwierdził on, że na etapie selekcji należy rozważyć interakcję między różnymi cechami, a największą wadą, jaką znalazł w przypadku większości stosowanych metod selekcji cech, jest fakt, że nie rozważają one wysoce skorelowanych cech. Isabelle Guyon i André Elisseeff przeprowadzili solidną analizę teoretyczną w pracy _An Introduction of Variable and Feature Selection_. Wykazali w niej, że same nieistotne cechy mogą być przydatne w połączeniu z innymi cechami, a połączenie dwóch silnie skorelowanych cech może być lepsze niż każda z nich niezależnie [@GuyonIntroduction].
+Wstępną analizę problemu przedstawili Garba Abdulrauf Sharifai, i Zurinahni Zainol w pracy _Feature Selection for High-Dimensional and Imbalanced Biomedical Data Based on Robust Correlation Based Redundancy and Binary Grasshopper Optimization Algorithm_ [@genes11070717]. Autorzy opisali w niej problem niezbalansowania danych i podejścia do niego, bazujące na istniejących metodach doboru cech. Skupili się szczególnie na zaproponowanej przez siebie metodzie mającej łaczyć różne metody filtrujące. Jest to dobre wprowadzenie do zadania selekcji cech i problemu radreprezentacji klas, a przytoczone metody są szczegółowo opisane co pozwala na dogłębne zrozumienie tematu. W podobnej pracy _Feature selection for high-dimensional imbalanced data_, twórcy - Liuzhi Yin, Yong Ge, Keli Xiao, Xuehua Wang i Xiaojun Quan przyjrzeli się wpływowi, jaki na udaną selekcję ma zbiór danych [@YIN20133]. Postanowili przeprowadzić szereg eksperymentów, w szczególności dzieląc duże klasy na stosunkowo mniejsze pseudo-klasy i sztucznie generując ich etykiety. Na podstawie swoich badań zaprezentowali nową metodę selekcji opartą na tak zwanej _odległości Helingera_. Testy autorów pracy badają skuteczność tej metody na tle znanych już metod redukcji atrybutów. Twórcy pracy _A Survey on Evolutionary Computation Approaches to Feature Selection_ zajęli się przeglądem znanych metod tworząc dokument podsumowujący każdą z nich, z jej wadami oraz zaletami. Punktem, na jakim szczególnie skupili swoją uwagę są nowoczesne techniki oparte o algorytmy ewolucyjne. Artykuł zawiera kompleksowy przegląd prac naukowych dotyczących tematu oraz a przytoczone badania pozwalają na dobranie odpowiedniej metody do zadanego zadania [@7339682]. W 2014 roku Deepika Tiwari opisała w artykule _Handling Class Imbalance Problem Using Feature Selection_ działanie kulku algorytmów wyboru cech dla niezrównoważonych zbiorów danych [@TiwariDeepika]. W swoich eksprymentach skupiła się na uzyskaniu jak najlepszych wyników, co uzyskała modyfikując popularny algorytm RELIEFF, aby rozwiązać problem nierównowagi klas. W 2008 roku Chen Xuewen i Michael Wasikowski zaproponowali w swojej pracy _Combating the Small Sample Class Imbalance Problem Using Feature Selection_ porównanie różnych algorytmów stworzonych pierwotnie na potrzeby zadań klasyfikacji tekstu [@Wasikowski2010CombatingTS]. Na uwagę zasługuje przytoczona przez autorów metoda nazwana _FAST_, która jest ich zdaniem doskonałą metodą redukcji cech, zwłaszcza w przypadku zbiorów o niewielkiej ich liczbie. Mark A. Hall porusza temat selekcji cech w swojej książce _Correlation-based Feature Selection for Machine Learning_, badając wartość zestawu cech na podstawie korelacji pomiędzy nimi. Autor przeprowadził szereg eksperymentów i porównał wymyśloną przez metodę opartą o współczynnik korelacji z metodami powszechnie stosowanymi, starając się między innymi wyodrębnić problemy, dla których jego algorytm jest najbardziej skuteczny [@hallmark]. Analiza _CoIL Challenge 2000_ przeprowadzona przez Elkana Charlesa wykazała, że zwykłe algorytmy selekcji cech nie były wystarczająco dobre do zadania klasyfikacji danych niezbalansowanych [@CoILDataMining]. Stwierdził on, że na etapie selekcji należy rozważyć interakcję między różnymi cechami, a największą wadą, jaką znalazł w przypadku większości stosowanych metod selekcji cech, jest fakt, że nie rozważają one wysoce skorelowanych cech. Isabelle Guyon i André Elisseeff przeprowadzili solidną analizę teoretyczną w pracy _An Introduction of Variable and Feature Selection_. Wykazali w niej, że same nieistotne cechy mogą być przydatne w połączeniu z innymi cechami, a połączenie dwóch silnie skorelowanych cech może być lepsze niż każda z nich niezależnie [@GuyonIntroduction].
 
 Warto zwrócić uwagę, że niewiele jest prac naukowych badających skuteczność selekcji cech w zadaniu klasyfikacji danych niezbalanowanych. W szczególności, większość twórców skupia się na uzyskaniu jak najlepszych wyników, implementując w tworzone przez siebie algorytmy inne metody radzenia sobie z niezbalansowaniem, takie jak _oversampling_ albo _boosting_. Autorzy artykułów posługują się w badaniach niewielką ilością specjalnie przystosowanych zbiorów, co nie pozwala na obiektywne i kompleksowe porówanie różnych metod. Motywacją tej pracy było uzupełnionienie istniejących w aktualnym stanie wiedzy luk. W ramach testów zbadane zostały przytoczone w analizie literatury algorytmy, a duża ilość zróżnicowanych zbiorów danych pozwoliła na otrzymanie rzeczywistych wyników.
 
@@ -263,14 +263,14 @@ Algorytm przyjmuje zbiór danych uczących zawierający elementy, z których ka�
 
 Określenie jakości działania algorytmu stanowi w badanych przypadkach problem. Dokładność (accuracy) używana jako metryka ewaluacji może być w takim  niewystarczająca, gdyż nawet model o skuteczności 95% - co jest na ogół wartością bardzo dobrą - w przypadku rozkładu 5/95 mógłby nie rozpoznawać żadnego elementu klasy mniejszościowej. Metrykami, które dostarczą bardziej wartościowe dane są:
 
-- Macierz konfuzji: tabela pokazująca prawidłowe prognozy i typy nieprawidłowych przewidywań.
+- Macierz konfuzji: tabela pokazująca prognozy prawidłowe i nieprawidłowe z podziałem na klasyfikacje pozytywne i negatywne.
 - Precyzja: liczba prawdziwie pozytywnych wyników podzielona przez wszystkie pozytywne przewidywania. Precyzja jest również nazywana pozytywną wartością predykcyjną. Jest miarą dokładności klasyfikatora. Niska precyzja wskazuje na dużą liczbę fałszywych wyników.
 - Czułość: liczba prawdziwie pozytywnych wyników podzielona przez liczbę dodatnich wartości w danych testowych. Jest miarą kompletności klasyfikatora. Niska czułość wskazuje na dużą liczbę fałszywie negatywnych wyników.
 - F1 Score: średnia harmoniczna precyzji i czułości, wyrażona wzorem @eq:f1:
 
 $$ F1 Score = \frac{2 * (Recall * Precision)}{Recall + Precision}. $$ {#eq:f1}
 
-Na podstawie macierzy konfuzji zostanie także krzywa ROC (ang. Receiver Operating Characteristic), która opisuje zależność między czułością (sensitivity), a dokładnością (specificity) modelu. Czułość i dokładność będą wyznaczane kolejno przy pomocy wzorów:
+Na podstawie macierzy konfuzji została obliczona także krzywa ROC (ang. Receiver Operating Characteristic), która opisuje zależność między czułością (sensitivity), a dokładnością (specificity) modelu. Czułość i dokładność będą wyznaczane kolejno przy pomocy wzorów:
 
 $$TPR = \frac{TP}{TP+FN},$$ {#eq:tpr}
 
@@ -280,7 +280,13 @@ $$FPR = \frac{FP}{TN+FP},$$ {#eq:fpr}
 
 gdzie $FP$ to ilość wyników _False Positive_, a $TN$ to ilość wyników _True Negative_ w macierzy konfuzji.
 
-Pod uwagę brane są funkcje straty (loss), która informuje o dopasowaniu modelu do danych, oraz dokładności (accuracy), która określa skuteczność klasyfikacji. W celu określenia, która z testowanych metod daje najlepsze wyniki klasyfikacji wykorzystany zostanie test statystyczny - test Wilcoxona [@NahmFrancis]. Do jego wykonania użyto wartości dokładności uzyskanych dla każdej z badanych metod.
+Z pomocą tych wartości wyliczona zostanie również tak zwana dokładność zbalansowana (balanced accuracy). Normalizuje ona przawdziwie pozytywne i prawdziwie negatywne prognozy odpowienio przez liczbę próbek dodatnich i ujemnych i dzieli ich sumę przez dwa:
+
+$$bACC = \frac{TPR + TNR}{2},$$ {#eq:bACC}
+
+gdzie $TNR$ oznacza _True Negative Rate_ i jest równe $1 - FPR$.
+
+Pod uwagę wzięty został również ranking cech wygenerowany przez poszczególne metody na poszczególnych zbiorach. W celu określenia, która z testowanych metod daje najlepsze wyniki klasyfikacji wykorzystany zostanie test statystyczny - test Wilcoxona [@NahmFrancis]. Do jego wykonania użyto wartości dokładności uzyskanych dla każdej z badanych metod.
 
 ## Generowanie zbioru treningowego i testowego {#sec:train_test}
 
@@ -291,7 +297,6 @@ W algorytmie walidacji krzyżowej, zbiór dzielony jest losowo na $k$ równych p
 ![Graficzna reprezentacja działania algorytmu walidacji krzyżowej.](./figures/kfoldcross.png){#fig:kfoldcross}
 
 W ramach przeprowadzonych eksperymentów posłużono się funkcją _KFold_ z biblioteki _scikit-learn_ [@scikit_k_fold]. Podobnie jak inne funkcje z tej biblioteki, umożliwia ona zadeklarowanie ziarna losowości, co zapewnia możliwość powtórzenia użyskanych w ten sposób wyników.
-<!-- Drugim sposobem podziału datasetów na zbiór uczący i testowy w przeprowadzonych eksperymentach jest ręczne wydzielenie tego drugiego ze zbioru wszystkich danych. Zbiór taki zawiera się z kilku elementów i posiada jednakową ilość elementów klas nadreprezentowanych i elementów klasy niedostatecznie reprezentowanej. Jest to dopuszczalny zabieg z uwagi na to, że filtrujące metody selekcji użyte w doświadczeniach nie korzystają z klasyfikatora ani zbioru testowego w procesie tworzenia rankingu cech. Niewielki wymiar nie zaburzy więc działania algorytmów a pozwoli określić jak naprawdę radzi sobie klasyfikator po przeprowadzonej selekcji. -->
 
 ## Zbiory danych
 
@@ -306,24 +311,6 @@ Elementy zbioru składają się tylko z danych liczbowych, które są wynikiem t
 ![Dystrybucja klas i danych dla zbioru Credit Card Fraud Detection.](./figures/ccfd_distribution.png){#fig:ccfd_distribution}
 
 Zbiór został pozyskany za pośrednictwem platformy `Kaggle` (`https://www.kaggle.com/`).
-
-<!-- ### Porto Seguro Safe Driver {#sec:pssd}
-
-Zbiór został pierwotnie stworzony w ramach konkursu. Celem wyzwania było przewidywanie prawdopodobieństwa, że kierowca zgłosi roszczenie ubezpieczeniowe co implikuje bardziej sprawiedliwy koszt ubezpieczenia na podstawie indywidualnych nawyków jazdy. Konkurs jest sponsorowany przez Porto Seguro - dużą firmę ubezpieczeniową samochodów i domów w Brazylii [@portoseguros]. Każdy wiersz odpowiada określonemu posiadaczowi polisy, a kolumny opisują ich cechy. Zmienna docelowa jest tu dogodnie nazywana celem (_target_) i wskazuje, czy ubezpieczający złożył w przeszłości roszczenie ubezpieczeniowe.
-
-Kolumny opisane są w enigmatyczny sposób - skrótowcami, a twórcy nie dostarczyli dokumentacji do zbioru. Inspekcja przeprowadzona w ramach przygotowania danych, wskazuje jednak, że:
-
-- Dne treningowe obejmują 59 zmiennych, w tym identyfikator i cel. W niektórych z nich istnieją wartości puste - _NA_.
-- Nazwy cech wskazują, czy są to zmienne binarne (bin) czy kategorialne (cat). Reszta danych ma charakter ciągły.
-- Nazwy cech wskazują na pewne właściwości: "_ind_"  prawdopodobnie odnosi się do osoby lub kierowcy, "_reg_" - do regionu, "_car_" - do samochodu.
-- Istnieją cechy "_ps\_car\_11_" oraz "_ps\_car\_11\_cat_". To jedyny przypadek, w którym numeracja nie jest konsekwentna. Prawdopodobnie jest to spowodowane błędem w skrypcie, który utworzył nazwy zmiennych.
-- Funkcje są zanonimizowane.
-
-Dystrybucja klas oraz danych została ukazana na rysunku @fig:pssd_distribution. W celu ukazania dystrybucji danych na dwuwymiarowym wykresie, zastosowano ekstrakcję cech metodą _2-PCA_.
-
-![Dystrybucja klas i danych dla zbioru Porto Seguro Safe Driver](./figures/pssd_distribution.png){#fig:pssd_distribution}
-
-Zbiór został pozyskany za pośrednictwem platformy `Kaggle` (`https://www.kaggle.com/`). -->
 
 ### Health Insurance Cross Sell {#sec:hics}
 
@@ -404,25 +391,37 @@ Zbiory z bazy danych _KEEL_ zostały przez twórców przygotowane do testów, be
 
 W celu wykonania analizy, przy pomocy bibliotek _scikit-learn_ oraz _pandas_, zaimplementowano metody opisane w rozdziałach @sec:cc - @sec:anova. Algorytmy _ANOVA_, _chi$^2$_ oraz _Information Gain_ mają gotową implementację w bibliotece _scikit-learn_ - kolejno funkcje _f_classif_ [@scikit_f_class], _chi2_ [@scikit_chi2] i _mutual_info_classif_ [@scikit_m_i_classif]. Zostały one wykorzystane w ramach funkcji _SelectKBest_, umożliwiającej zdefiniowanie metody selekcji cech oraz docelowej ilości atrybutów. Algorytm _Relieff_ wdrożony został przy użyciu biblioteki _sklearn_relief_ [@mungo]. Metoda _Correlation Coefficient_ zrealizowana została przy użyciu funkcji _corr_ z pakietu _pandas_, zwracającej korelację Pearsona pomiędzy parami wszystkich kolumn danego zbioru [@pandascorr]. Obie funkcje dostosowano tak, by odpowiadały swoim działaniem pozostałym trzem metodom. Eksperymenty zostały powtórzone kilka razy z różnymi ustawieniami w celu ustalenia optymalnej liczby cech dla każdego zbioru.
 
+W celu ułatwienia sprawnego i obiektywnego porównania wszystkich metod, w ramach pracy stworzono bibliotekę zawierającą fukcje przygotowujące dane, dzielące zbiór na podzbiory, przeprowadzające klasyfikacje oraz wyliczające wyniki eksperymentów. Rezultatem każdego doświadczenia jest plik w formacie _.csv_. Plik ten zawieraja nazwę zbioru użytego do klasyfikacji, nazwę metody selekcji, sumaryczną ilość cech oraz ilość cech po przeprowadzonej selekcji, dokładność, dokładność zbalansowaną, precyzję, czułość, wynik testu _F1 Score_, wartość _FPR_, wartość _TPR_, wartość _TNR_ i macierz konfuzji w 2 wariantach - przed selekcją i po selekcji cech.
+
+![Fragment pliku w formacie _.csv_ zawierającego rezultaty przeprowadzanych eksperymentów.](./figures/csv_res.png){#fig:csv_res}
+
 W czasie pracy wykorzystana została pięciokrotnie powtórzona metoda dwukrotnej walidacji krzyżowej. W ramach wszystkich zbiorów danych przeprowadzony został eksperyment badający skuteczność klasyfikacji bez wykonywania wcześniejszej selekcji cech oraz biorący pod uwagę różną ilość cech w procesie klasyfikacji.
 
-W celu ułatwienia sprawnego i obiektywnego porównania wszystkich metod, w ramach pracy stworzono bibliotekę zawierającą fukcje przygotowujące dane, dzielące zbiór na podzbiory, przeprowadzające klasyfikacje oraz wyliczające wyniki eksperymentów. Rezultatem każdego doświadczenia jest plik w formacie _csv_. Plik ten zawierają nazwę zbioru użytego do klasyfikacji, nazwę metody selekcji sumaryczną ilość cech oraz ilość cech po przeprowadzonej selekcji, oraz dokładność, precyzję, macierz konfuzji, wartość _FPT_, wartość _TPR_ i wynik testu _F1 Score_ w 2 wariantach - przed selekcją i po selekcji cech.
+Liczba cech użyta do eksperymentów została wybrana z pomocą testu Wilcoxona w taki sposób, aby klasyfikacja zbiorów bez użycia selekcji cech i po jej użyciu dawała rezultaty bez zmian statysycznie istotnych.
 
 Łącznie przeprowadzono 690 eksperymentów, po 115 dla każdej opisanej metody selekcji cech. Eksperymenty zawierają każdą permutację z zadanych zagadnień:
 
 * Porównanie wyników dla każdego z 115 zbiorów danych.
-* Porównanie wyników dla danych poddanych selekcji cech i klasyfikacji dla całego zbioru.
 * Porównanie wyników dla każdej z 5 metod selekcji.
+* Porównanie wyników dla danych nie poddanych selekcji cech.
 
-Wyniki eksperymentów opisane zostały w rozdziale +@sec:results - Wyniki.
+Wyniki eksperymentów opisane zostały w rozdziale @sec:results - Wyniki.
 
 \newpage\null\newpage
 
 # Wyniki {#sec:results}
 
-Eksperymenty zostały przeprowadzone zgodnie z zaplanowanym schematem. Dla każdej testowanej metody obliczono precyzję, czułość oraz wynik testu _F1 score_. Dane te policzono __przyjmując jako elementy pozytywne macierzy konfuzji instancje klas mniej licznych__. Dalsza część rozdziału zawiera wykresy oraz tabele porównujące testowane metody.
+Eksperymenty zostały przeprowadzone zgodnie z zaplanowanym schematem. Dla każdej testowanej metody obliczono dokładność zbalansowaną, precyzję, czułość oraz wynik testu _F1 score_. Dane te policzono __przyjmując jako elementy pozytywne macierzy konfuzji instancje klas mniej licznych__. Dalsza część rozdziału zawiera wykresy oraz tabele porównujące testowane metody.
 
-Wyniki _F1 score_ dla poszczególnych algorytmów i zbiorów przedstawione zostały na wykresie @fig:f1_results. Dla pierwszych czterech, opisanych w rozdziałach @sec:ccfd - @sec:custom zbiorów zastosowano klasyfikację dla pięciu gównych cech, z pozostałych zbiorów wybrano trzy cechy. Decyzje taką podjęto po obserwacji wyników - została wybrana liczba cech po podwyższeniu której obserwowano brak poprawy lub pogorszenie jakości klasyfikacji. W ramach eksperymentów wykonano również próbę klasyfikacji na danych niepodlegających wcześniej selekcji cech. Linią czerwoną na wykresie oznaczono wyniki testu _F1_ dla klasyfikacji bez uprzedniej selekcji cech.
+## Badanie optymalnej ilości cech {#sec:feat_num}
+
+Pierwszym krokiem jaki należało podjąć było określeniej właściwej ilości cech dla badanych algorytmów i zbiorów. Dla uproszczenia doświadczeń, zdecydowano się na wybór dwóch wartości - liczby cech najlepiej odpowiadającej dużym zbiorom danych takich jak _CCFD_ lub _Custom_ i ilości atrybutów najlepiej odpowiadającym małym zbiorom danych z biblioteki _KEEL_. W tym celu przeprowadzono szereg obliczeń zakładając kolejno różne wartości liczby cech dla każdej metody, następnie sprawdzając z pomocą testu Wilcoxona, czy istnieje pomiędzy wynikami klasyfikacji z użyciem tej metody i klasyfikacji bez użycia metody redukcji cech istotna statystycznie zmiana. Wyniki tych eksperymentów dla przykładowych zbiorów danych zamieszczono w tabelach:
+
+Przyjęto, że wartość _pvalue_ mnniejsza niż 0.05 oznacza, że można uznać iż porównywane metody są statystycznie różne.
+
+## Porównanie rezultatów
+
+Wyniki _F1 score_ dla poszczególnych algorytmów i zbiorów przedstawione zostały na wykresie @fig:f1_results. Dla pierwszych czterech, opisanych w rozdziałach @sec:ccfd - @sec:custom zbiorów zastosowano klasyfikację dla pięciu gównych cech, z pozostałych zbiorów wybrano trzy cechy. Decyzje taką podjęto po obserwacji wyników - została wybrana liczba cech po podwyższeniu której obserwowano brak poprawy lub pogorszenie jakości klasyfikacji. Etap ten opisany został w @sec:feat_num W ramach eksperymentów wykonano również próbę klasyfikacji na danych niepodlegających wcześniej selekcji cech. Linią czerwoną na wykresie oznaczono wyniki testu _F1_ dla klasyfikacji bez uprzedniej selekcji cech.
 
 ![Porównanie wyników F1 Score dla wszystkich zbiorów danych.](./figures/f1_results.png){#fig:f1_results}
 

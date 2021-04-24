@@ -4,11 +4,11 @@ from sklearn.metrics import confusion_matrix
 from sklearn.metrics import accuracy_score
 import numpy as np
 
-random_state = 10
+RANDOM_STATE = 10
 
 # divide data by sets (Cross-validation)
 def divide_by_sets():
-  return RepeatedStratifiedKFold(n_splits=2, n_repeats=5, random_state=random_state)
+  return RepeatedStratifiedKFold(n_splits=2, n_repeats=5, random_state=RANDOM_STATE)
 
 # create network
 def create_kNN():
@@ -38,50 +38,48 @@ def get_average_score(X, Y):
 
     return np.mean(score), np.mean(confusion, axis=0)
 
-# count average score (without cross validation)
-def get_no_knn_score(X, y, X_test, y_test):
-    score, matrix = makeKNN(X, y, X_test, y_test)
-    return score, matrix
-
-def divide_by_hand(X, XFit, y, numOfFeatures):
-    X_train = X[:len(X - numOfFeatures)]
-    X_Fit_train = XFit[:len(X - numOfFeatures)]
-    y_train = y[:len(X - numOfFeatures)]
-    
-    X_test = X[-numOfFeatures:]
-    X_Fit_test = XFit[-numOfFeatures:]
-    y_test = y[-numOfFeatures:]
-
-    return [X_train, X_Fit_train, y_train, X_test, X_Fit_test, y_test]
-
 # calculate TP, TN, FP, FN
-def calculateConfusionMatrixValuesForClass(matrix):
+def calculateConfusionMatrix(matrix):
     TP = matrix[0][0]
-    matrixTN = matrix[1:,1:]
-    TN = np.sum(matrixTN)
-    matrixFP = matrix[0][1:]
-    FP = np.sum(matrixFP)
-    matrixFN = matrix[1:, 0]
-    FN = np.sum(matrixFN)
+    TN = matrix[1,1]
+    FP = matrix[0][1]
+    FN = matrix[1, 0]
     return TP, TN, FP, FN
 
-# calculating FPT and TPR for creating ROC curve to see Gini coeeficient
-def calculateFPTandTPR(matrix):
-    TP, TN, FP, FN = calculateConfusionMatrixValuesForClass(matrix)
-    FPR = FP/(TN+FP)
-    TPR = TP/(TP+FN)
-    return FPR, TPR
+# reverse confusuion matrix
+def reverseMatrix(matrix):
+    return np.flip(matrix)
+
+# calculating FPT and TPR abd TNR
+def calculateFPR_TPR_TNR(matrix):
+    TP, TN, FP, FN = calculateConfusionMatrix(matrix)
+    tpfn = 0.00001 if ((TP+FN) == 0) else TP + FN
+    tnfp = 0.00001 if ((TN+FP) == 0) else TN + FP
+    TPR = TP/(tpfn)
+    FPR = FP/(tnfp)
+    TNR = TN/(tnfp)
+    return TPR, FPR, TNR
+
+# calculating FPT and TPR
+def calculateBalancedAcc(matrix):
+    TPR, _, TNR = calculateFPR_TPR_TNR(matrix)
+    return (TPR + TNR) / 2
 
 # calculating precision
 def calculatePrecision(matrix):
-    TP, _, FP, _ = calculateConfusionMatrixValuesForClass(matrix)
-    precision = TP/(TP+FP)
-    return precision
+    TP, _, FP, _ = calculateConfusionMatrix(matrix)
+    tpfp = 0.00001 if ((TP+FP) == 0) else TP + FP
+    return TP / tpfp
+
+# calculating recall
+def calculateRecall(matrix):
+    TP, _, _, FN = calculateConfusionMatrix(matrix)
+    tpfn = 0.00001 if ((TP+FN) == 0) else TP + FN
+    return TP / tpfn
 
 # calculating f1
 def calculateF1(matrix):
-    TP, TN, FP, FN = calculateConfusionMatrixValuesForClass(matrix)
-    precision = TP/(TP+FP)
-    reacll = TP/(TP+FN)
-    f1 = (2 * precision * reacll) / (precision + reacll)
-    return f1
+    prec = calculatePrecision(matrix)
+    rec = calculateRecall(matrix)
+    pr =  0.00001 if ((prec+rec) == 0) else prec + rec
+    return (2 * prec * rec) / pr
