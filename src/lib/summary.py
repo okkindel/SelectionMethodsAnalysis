@@ -1,4 +1,4 @@
-from lib.feature_selection import calculatePrecision, calculateFPR_TPR_TNR, calculateF1, calculateRecall, calculateBalancedAcc
+from lib.calculations import calculatePrecision, calculateFPR_TPR_TNR, calculateF1, calculateRecall, calculateBalancedAcc
 from numpy import array2string
 
 class bcolors:

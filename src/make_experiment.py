@@ -1,7 +1,7 @@
 from lib.data_preprocessing import getCcfd, getCustom, getInsurance, getMushroom, getKeel
 from lib.summary import make_simple_summary, get_string_summary, get_header
-from lib.feature_selection import get_average_score, reverseMatrix
 from lib.data_preprocessing import PART_1, PART_2, PART_3, PART_4
+from lib.calculations import get_average_score, reverseMatrix
 
 from lib.methods.information_gain import information_gain
 from lib.methods.correlation_coef import correlation_coef
@@ -9,8 +9,8 @@ from lib.methods.chi_square import chi_square
 from lib.methods.relief import relief
 from lib.methods.anova import anova
 
-FEAT_NUMNER = 3
-PART = 'part1'
+DATA_PART = 'part1'
+FEATS_NUMNER = 3
 
 #-----------------------------------------------------------------------------------
 #-----------------------------------------------------------------------------------
@@ -23,31 +23,31 @@ def make_experiment(file, set, elements):
     make_simple_summary('NO SELECTION', set, X, accuracy, maririx_rev, ['all'])
     file.write(get_string_summary('NO SELECTION', set, X, accuracy, maririx_rev, ['all']))
     
-    X_Fit, scores = anova(X, y, FEAT_NUMNER)
+    X_Fit, scores = anova(X, y, FEATS_NUMNER)
     accuracy, matrix = get_average_score(X_Fit, y)
     maririx_rev = reverseMatrix(matrix)
     make_simple_summary('ANOVA', set, X_Fit, accuracy, maririx_rev, scores)
     file.write(get_string_summary('ANOVA', set, X_Fit, accuracy, maririx_rev, scores))
     
-    X_Fit, scores = relief(X, y, FEAT_NUMNER)
+    X_Fit, scores = relief(X, y, FEATS_NUMNER)
     accuracy, matrix = get_average_score(X_Fit, y)
     maririx_rev = reverseMatrix(matrix)
     make_simple_summary('RELIEF', set, X_Fit, accuracy, maririx_rev, scores)
     file.write(get_string_summary('RELIEF', set, X_Fit, accuracy, maririx_rev, scores))
     
-    X_Fit, scores = information_gain(X, y, FEAT_NUMNER)
+    X_Fit, scores = information_gain(X, y, FEATS_NUMNER)
     accuracy, matrix = get_average_score(X_Fit, y)
     maririx_rev = reverseMatrix(matrix)
     make_simple_summary('INFORATION GAIN', set, X_Fit, accuracy, maririx_rev, scores)
     file.write(get_string_summary('INFORATION GAIN', set, X_Fit, accuracy, maririx_rev, scores))
     
-    X_Fit, scores = chi_square(X, y, FEAT_NUMNER)
+    X_Fit, scores = chi_square(X, y, FEATS_NUMNER)
     accuracy, matrix = get_average_score(X_Fit, y)
     maririx_rev = reverseMatrix(matrix)
     make_simple_summary('CHI SQUARE', set, X_Fit, accuracy, maririx_rev, scores)
     file.write(get_string_summary('CHI SQUARE', set, X_Fit, accuracy, maririx_rev, scores))
     
-    X_Fit, scores = correlation_coef(X, y, FEAT_NUMNER)
+    X_Fit, scores = correlation_coef(X, y, FEATS_NUMNER)
     accuracy, matrix = get_average_score(X_Fit, y)
     maririx_rev = reverseMatrix(matrix)
     make_simple_summary('CORRELATION COEF', set, X_Fit, accuracy, maririx_rev, scores)
@@ -82,7 +82,7 @@ def makePart(part):
 #-----------------------------------------------------------------------------------
 #-----------------------------------------------------------------------------------
 
-file = open(PART + '.csv', 'w')
+file = open(DATA_PART + '.csv', 'w')
 file.write(get_header())
-makePart(PART)
+makePart(DATA_PART)
 file.close()

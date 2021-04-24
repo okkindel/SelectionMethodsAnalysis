@@ -1,4 +1,4 @@
-from lib.parse_data import parseCreditCardData, parseMushroomData, parseInsuranceData, parseKEEL
+from lib.data_parsing import parseCreditCardData, parseMushroomData, parseInsuranceData, parseKEEL
 import pandas as pd
 
 def getCcfd():
