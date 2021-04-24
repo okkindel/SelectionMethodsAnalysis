@@ -3,7 +3,7 @@ import numpy as np
 import math
 
 def correlation_coef(X, Y, num_of_features):
-    corr_col = []
+    scores = []
     corrmat = pd.DataFrame(X).corr()
     rank = []
     for i in range(len(corrmat.columns)):
@@ -15,8 +15,9 @@ def correlation_coef(X, Y, num_of_features):
     rank = [x[1] for x in sorted(rank)]
     rank.reverse()
     for x in rank:
-        if not(x in corr_col):
-            corr_col.append(x)
-    corr_col = corr_col[:num_of_features]
-    x_drop = pd.DataFrame(X)[corr_col]
-    return x_drop.values
+        if not(x in scores):
+            scores.append(x)
+    scores = scores[:num_of_features]
+    x_new = pd.DataFrame(X)[scores]
+    scores.sort()
+    return x_new.values, scores
