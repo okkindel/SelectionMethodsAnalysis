@@ -10,7 +10,7 @@ from lib.methods.chi_square import chi_square
 from lib.methods.relief import relief
 from lib.methods.anova import anova
 
-MODE = 'closest' # closest / best
+MODE = 'best' # closest / best
 DATA_PART = 'part4'
 ALPHA = 0.05
 
@@ -53,8 +53,8 @@ def make_closest(file, method, set, elements, basic_f1):
         file.write(get_string_summary(method, set, X_Fit, accuracy, matrix_rev, scores))
 
 def make_best(file, method, set, elements):
+    best_num_of_feats = 1
     [X, y] = elements
-    best_num_of_feats = 0
     best_f1 = 0
     
     for feats in range (1, X.shape[1]):
@@ -123,7 +123,7 @@ def makePart(part):
 #-----------------------------------------------------------------------------------
 #-----------------------------------------------------------------------------------
 
-file = open('f1_' + MODE + '-' + DATA_PART + '.csv', 'w')
+file = open('f1_' + MODE + '_' + DATA_PART + '.csv', 'w')
 file.write(get_header())
 makePart(DATA_PART)
 file.close()
