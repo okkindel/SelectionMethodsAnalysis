@@ -10,8 +10,8 @@ from lib.methods.chi_square import chi_square
 from lib.methods.relief import relief
 from lib.methods.anova import anova
 
-DATA_PART = 'part0'
-FEATS_NUMNER = 5
+DATA_PART = 'part1'
+FEATS_NUMNER = 3
 
 #-----------------------------------------------------------------------------------
 #-----------------------------------------------------------------------------------

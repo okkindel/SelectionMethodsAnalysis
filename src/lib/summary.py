@@ -8,8 +8,8 @@ class bcolors:
     ENDC = '\033[0m'
 
 def make_simple_summary(method, set, X, accuracy, matrix, scores):
-    print(bcolors.YELLOW + 'SET: '             + str(set)                            + bcolors.ENDC)
-    print(bcolors.YELLOW + 'METHOD: '          + str(method)                         + bcolors.ENDC)
+    print(bcolors.YELLOW + 'SET: '              + str(set)                           + bcolors.ENDC)
+    print(bcolors.YELLOW + 'METHOD: '           + str(method)                        + bcolors.ENDC)
     print(bcolors.GREEN  + 'NB_OF_FEATURES: '   + str(X.shape[1])                    + bcolors.ENDC)
     print(bcolors.GREEN  + 'NB_OF_ELEMENTS: '   + str(X.shape[0])                    + bcolors.ENDC)
     print(bcolors.GREEN  + 'ACCURACY: '         + str(accuracy)                      + bcolors.ENDC)
