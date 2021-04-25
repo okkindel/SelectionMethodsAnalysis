@@ -10,8 +10,8 @@ from lib.methods.chi_square import chi_square
 from lib.methods.relief import relief
 from lib.methods.anova import anova
 
-MODE = 'BEST' # CLOSEST / BEST
-DATA_PART = 'part1'
+MODE = 'closest' # closest / best
+DATA_PART = 'part4'
 ALPHA = 0.05
 
 #-----------------------------------------------------------------------------------
@@ -30,6 +30,7 @@ def get_method(method, elements, feats):
 def make_closest(file, method, set, elements, basic_f1):
     [X, y] = elements
     
+    found = False
     for feats in range (1, X.shape[1]):
         X_Fit, scores = get_method(method, elements, feats)
         accuracy, matrix = get_average_score(X_Fit, y)
@@ -41,7 +42,15 @@ def make_closest(file, method, set, elements, basic_f1):
         if (p < ALPHA):
             print('FOUND - ORIGINAL NB: ' + str(X.shape[1]) + ' - NEW NB: ' + str(X_Fit.shape[1]) + '\n')
             file.write(get_string_summary(method, set, X_Fit, accuracy, matrix_rev, scores))
+            found = True
             break
+    
+    if (not(found)):
+        print('NOT FOUND - ROLLBACK\n')
+        X_Fit, scores = get_method(method, elements, X.shape[1])
+        accuracy, matrix = get_average_score(X_Fit, y)
+        matrix_rev = reverseMatrix(matrix)
+        file.write(get_string_summary(method, set, X_Fit, accuracy, matrix_rev, scores))
 
 def make_best(file, method, set, elements):
     [X, y] = elements
@@ -59,7 +68,7 @@ def make_best(file, method, set, elements):
             best_f1 = new_f1
             best_num_of_feats = feats
     
-    print('\n BEST FOR: ' + str(feats) + '\n')
+    print('\nBEST FOR: ' + str(feats) + '\n')
     X_Fit, scores = get_method(method, elements, best_num_of_feats)
     accuracy, matrix = get_average_score(X_Fit, y)
     matrix_rev = reverseMatrix(matrix)
@@ -78,10 +87,10 @@ def make_experiment(file, set, elements):
     
     ALL_METHODS = ['ANOVA', 'RELIEF', 'INFORATION GAIN', 'CHI SQUARE', 'CORRELATION COEF']
     
-    if (MODE == 'CLOSEST'):
+    if (MODE == 'closest'):
         for method in ALL_METHODS:
             make_closest(file, method, set, elements, basic_f1)
-    elif (MODE == 'BEST'):
+    elif (MODE == 'best'):
         for method in ALL_METHODS:
             make_best(file, method, set, elements)
 
@@ -114,7 +123,7 @@ def makePart(part):
 #-----------------------------------------------------------------------------------
 #-----------------------------------------------------------------------------------
 
-file = open('f1_' + DATA_PART + '.csv', 'w')
+file = open('f1_' + MODE + '-' + DATA_PART + '.csv', 'w')
 file.write(get_header())
 makePart(DATA_PART)
 file.close()

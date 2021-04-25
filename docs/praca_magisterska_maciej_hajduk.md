@@ -399,11 +399,12 @@ W czasie pracy wykorzystana została pięciokrotnie powtórzona metoda dwukrotne
 
 Liczba cech użyta do eksperymentów została wybrana z pomocą testu Wilcoxona w taki sposób, aby klasyfikacja zbiorów bez użycia selekcji cech i po jej użyciu dawała rezultaty bez zmian statysycznie istotnych.
 
-Łącznie przeprowadzono 690 eksperymentów, po 115 dla każdej opisanej metody selekcji cech. Eksperymenty zawierają każdą permutację z zadanych zagadnień:
+Łącznie przeprowadzono około 6900 eksperymentów, po _115_ $x$ _liczba cech zbioru_ dla każdej opisanej metody selekcji cech. Eksperymenty zawierają każdą permutację z zadanych zagadnień:
 
 * Porównanie wyników dla każdego z 115 zbiorów danych.
 * Porównanie wyników dla każdej z 5 metod selekcji.
 * Porównanie wyników dla danych nie poddanych selekcji cech.
+* Porównanie wyników każdej ilości liczby cech w ramach każdej metody.
 
 Wyniki eksperymentów opisane zostały w rozdziale @sec:results - Wyniki.
 
@@ -415,11 +416,25 @@ Eksperymenty zostały przeprowadzone zgodnie z zaplanowanym schematem. Dla każd
 
 ## Badanie optymalnej ilości cech {#sec:feat_num}
 
-Pierwszym krokiem jaki należało podjąć było określeniej właściwej ilości cech dla badanych algorytmów i zbiorów. Dla uproszczenia doświadczeń, zdecydowano się na wybór dwóch wartości - liczby cech najlepiej odpowiadającej dużym zbiorom danych takich jak _CCFD_ lub _Custom_ i ilości atrybutów najlepiej odpowiadającym małym zbiorom danych z biblioteki _KEEL_. W tym celu przeprowadzono szereg obliczeń zakładając kolejno różne wartości liczby cech dla każdej metody, następnie sprawdzając z pomocą testu Wilcoxona, czy istnieje pomiędzy wynikami klasyfikacji z użyciem tej metody i klasyfikacji bez użycia metody redukcji cech istotna statystycznie zmiana. Wyniki tych eksperymentów dla przykładowych zbiorów danych zamieszczono w tabelach:
+Pierwszym krokiem jaki należało podjąć było określeniej właściwej ilości cech dla badanych algorytmów i zbiorów. Zdecydowano się na przeprowadzenie badać w trzech kierunkach:
 
-Przyjęto, że wartość _pvalue_ mnniejsza niż 0.05 oznacza, że można uznać iż porównywane metody są statystycznie różne.
+* Zbadanie każdej kombinacji liczby cech dla każdej metody.
+* Zbadanie, dla jakiej liczby cech metoda jest w stanie uzyskać wynik klasyfikacji podobny do wyniku uzyskanego przeprowadzając klasyfikację na pełnym zbiorze.
+* Zbadanie, jak poszczególne metody radzą sobie w ramach takiej samej, uprzednio wybranej liczby cech.
 
-## Porównanie rezultatów
+Szczegóły dotyczące doświadczeń oraz rezultaty zostały opisane w rozdziałach @sec:best_feats - @sec:const_feats_nb.
+
+## Kombinacja wszystkich metod i każdej możliwej liczby cech {#sec:best_feats}
+
+Celem tego eksperymentu było sprawdzenie, jak każda z badanych metod może poprawić wyniki klasyfikacji. W ramach tego etapu przygotowano program, który dla każdego zbioru i dla każdej metody porównuje wyniki klasyfikacji dla każdej możliwej ilości cech. Po porównaniu wszystkich możliwości, program zapisuje doświadczenie z najlepszym wynikiem. Kryterium obranym przy porównywaniu wyników było _F1 Score_.
+
+## Badanie liczby cech dla której wyniki odpowiadają wynikom klasyfikacji na pełnym zbiorze {#sec:closest_f1}
+
+Celem tego badania było sprawdzenie, jaka ilość cech jest potrzebna poszczególnym metodom, aby wyniki klasyfikacji odpowiadały rezultatom eksperymentów bez przeprowadzonej redukcji atrybutów. Ma to znaczenie szczególnie wtedy, gdy od selekcji cech oczekuje się przede wszystkim zmniejszenia wymiaru wyjściowego zbioru w celu obniżenia kosztów jego archiwizacji i przetwarzania. Metryką na podstawie której badano, czy istnieje pomiędzy takimi wynikami statystycznie istotna zmiana było _F1 Score_. Przyjęto, że różnica wynosząca mniej niż 5% pomiędzy rezultatami obu eksperymentów jest wystarczająca, by uznać taki wyniki za podobne - szczególnie, że test przeprowadzany był z założeniem, że elementy pozytywne macierzy konfuzji to instancje klas mniej licznych, co powoduje, że nawet jedna instancja sklasyfikowana błędnie może znacząco wpłynąć na wynik testu.
+
+## Porównanie metod w ramach ustalonej ilości cech {#sec:const_feats_nb}
+
+Dla uproszczenia doświadczeń, zdecydowano się na wybór dwóch wartości - liczby cech najlepiej odpowiadającej dużym zbiorom danych takich jak _CCFD_ lub _Custom_ i ilości atrybutów najlepiej odpowiadającym małym zbiorom danych z biblioteki _KEEL_. W tym celu przeprowadzono szereg obliczeń zakładając kolejno różne wartości liczby cech dla każdej metody, następnie sprawdzając z pomocą wyniku testu _F1 Score_, czy istnieje pomiędzy wynikami klasyfikacji z użyciem tej metody i klasyfikacji bez użycia metody redukcji cech istotna statystycznie zmiana. Po uśrednieniu wyników doświadczeń zdecydowano się na przeprowadzenie drugiego etapu z użyciem pięciu cech dla dużych zbiorów i trzech - dla małych.
 
 Wyniki _F1 score_ dla poszczególnych algorytmów i zbiorów przedstawione zostały na wykresie @fig:f1_results. Dla pierwszych czterech, opisanych w rozdziałach @sec:ccfd - @sec:custom zbiorów zastosowano klasyfikację dla pięciu gównych cech, z pozostałych zbiorów wybrano trzy cechy. Decyzje taką podjęto po obserwacji wyników - została wybrana liczba cech po podwyższeniu której obserwowano brak poprawy lub pogorszenie jakości klasyfikacji. Etap ten opisany został w @sec:feat_num W ramach eksperymentów wykonano również próbę klasyfikacji na danych niepodlegających wcześniej selekcji cech. Linią czerwoną na wykresie oznaczono wyniki testu _F1_ dla klasyfikacji bez uprzedniej selekcji cech.
 
@@ -431,13 +446,13 @@ Wykres @fig:mean_res ukazuje uśrednione wyniki _F1 score_, precyzji i czułośc
 
 Zaskakujący może wydawać się fakt, że pomimo podobnych wyników precyzji, algorytmy rzadko zgadzały się ze sobą co do pozycji poszczególnych cech w rankingu. Dobrze to obrazuje wykres ukazujący pozycję poszczególnych cech zbioru CCFD, dla poszczególnych algorytmów.
 
-<!-- TODO: Wykres -->
+<!-- TODO: Wykres
 
 W celu dokonania porównania użytych metod selekcji wykorzystany został opisany wyżej test statystyczny Wilcoxona. Test wykonany został dla każdej pary metod selekcji z wykorzystaniem uzyskanych dla nich wyników, co przedstawia poniższa tabela:
 
-<!-- TODO: Tabela -->
+TODO: Tabela
 
-Przyjęto, że wartość _pvalue_ mnniejsza niż 0.05 oznacza, że można uznać iż porównywane metody są statystycznie różne.
+Przyjęto, że wartość _pvalue_ mnniejsza niż 0.05 oznacza, że można uznać iż porównywane metody są statystycznie różne. -->
 
 _TODO: Krzywe roc, testy Wilcoxona, jakieś tabele, przykłady rankingu cech na ccfd, testy statystyczne_
 `https://machinelearningmastery.com/statistical-hypothesis-tests-in-python-cheat-sheet/`
