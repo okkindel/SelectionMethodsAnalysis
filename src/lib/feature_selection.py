@@ -1,3 +1,4 @@
+from scipy.stats import wilcoxon
 import numpy as np
 
 # calculate TP, TN, FP, FN
@@ -45,3 +46,7 @@ def calculateF1(matrix):
     rec = calculateRecall(matrix)
     pr =  0.00001 if ((prec+rec) == 0) else prec + rec
     return (2 * prec * rec) / pr
+
+def calculateWilcoxon(original, new):
+    stat, p = wilcoxon(original, new)
+    return stat, p
