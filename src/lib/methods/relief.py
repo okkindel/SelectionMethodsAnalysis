@@ -1,7 +1,9 @@
 from sklearn.metrics.pairwise import pairwise_distances
 from sklearn.feature_selection import SelectKBest
+import pandas as pd
 import numpy as np
 
+# https://github.com/jundongl/scikit-feature
 def reliefF(X, y, **kwargs):
     if "k" not in kwargs.keys():
         k = 5
@@ -11,7 +13,6 @@ def reliefF(X, y, **kwargs):
 
     # calculate pairwise distances between instances
     distance = pairwise_distances(X, metric='manhattan')
-
     score = np.zeros(n_features)
 
     # the number of sampled instances is equal to the number of total instances
@@ -78,7 +79,9 @@ def reliefF(X, y, **kwargs):
     return score
 
 def relief(X, y, numOfFeatures = 'all'):
-	selector = SelectKBest(score_func=reliefF, k=numOfFeatures).fit(X, y)
+	X_norm = X[:10000] if X.shape[0] > 10000 else X
+	y_norm = y[:10000] if y.shape[0] > 10000 else y
+	selector = SelectKBest(score_func=reliefF, k=numOfFeatures).fit(X_norm, y_norm)
 	cols = selector.get_support(indices = True).tolist()
-	x_new = selector.transform(X)
+	x_new = pd.DataFrame(X).iloc[:, cols].values
 	return x_new, cols
