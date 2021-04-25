@@ -10,8 +10,8 @@ from lib.methods.chi_square import chi_square
 from lib.methods.relief import relief
 from lib.methods.anova import anova
 
-MODE = 'best' # closest / best
-DATA_PART = 'part4'
+MODE = 'closest' # closest / best
+DATA_PART = 'part0'
 ALPHA = 0.05
 
 #-----------------------------------------------------------------------------------
