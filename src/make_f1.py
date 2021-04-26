@@ -10,8 +10,8 @@ from lib.methods.chi_square import chi_square
 from lib.methods.relief import relief
 from lib.methods.anova import anova
 
-MODE = 'closest' # closest / best
-DATA_PART = 'part0'
+MODE = 'best' # closest / best
+DATA_PART = 'part4'
 ALPHA = 0.05
 
 #-----------------------------------------------------------------------------------
@@ -57,7 +57,7 @@ def make_best(file, method, set, elements):
     [X, y] = elements
     best_f1 = 0
     
-    for feats in range (1, X.shape[1]):
+    for feats in range (1, X.shape[1] + 1):
         X_Fit, scores = get_method(method, elements, feats)
         accuracy, matrix = get_average_score(X_Fit, y)
         matrix_rev = reverseMatrix(matrix)
