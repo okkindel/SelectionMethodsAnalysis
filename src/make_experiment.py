@@ -10,8 +10,10 @@ from lib.methods.chi_square import chi_square
 from lib.methods.relief import relief
 from lib.methods.anova import anova
 
+import math
+
 DATA_PART = 'part1'
-FEATS_NUMNER = 3
+FEATS_NUMNER = 1
 
 #-----------------------------------------------------------------------------------
 #-----------------------------------------------------------------------------------
@@ -21,38 +23,42 @@ def make_experiment(file, set, elements):
     
     accuracy, matrix = get_average_score(X, y)
     maririx_rev = reverseMatrix(matrix)
-    make_simple_summary('NO SELECTION', set, X, accuracy, maririx_rev, ['all'])
-    file.write(get_string_summary('NO SELECTION', set, X, accuracy, maririx_rev, ['all']))
+    make_simple_summary('NO SELECTION', set, X, accuracy, maririx_rev, ['all'], 100)
+    file.write(get_string_summary('NO SELECTION', set, X, accuracy, maririx_rev, ['all'], 100))
     
-    X_Fit, scores = anova(X, y, FEATS_NUMNER)
-    accuracy, matrix = get_average_score(X_Fit, y)
-    maririx_rev = reverseMatrix(matrix)
-    make_simple_summary('ANOVA', set, X_Fit, accuracy, maririx_rev, scores)
-    file.write(get_string_summary('ANOVA', set, X_Fit, accuracy, maririx_rev, scores))
+    for iterator in range (1, 5):
+        percent = 100 / 5 * iterator
+        feat_num = math.floor(X.shape[1] / 5 * iterator)
     
-    X_Fit, scores = relief(X, y, FEATS_NUMNER)
-    accuracy, matrix = get_average_score(X_Fit, y)
-    maririx_rev = reverseMatrix(matrix)
-    make_simple_summary('RELIEF', set, X_Fit, accuracy, maririx_rev, scores)
-    file.write(get_string_summary('RELIEF', set, X_Fit, accuracy, maririx_rev, scores))
-    
-    X_Fit, scores = information_gain(X, y, FEATS_NUMNER)
-    accuracy, matrix = get_average_score(X_Fit, y)
-    maririx_rev = reverseMatrix(matrix)
-    make_simple_summary('INFORATION GAIN', set, X_Fit, accuracy, maririx_rev, scores)
-    file.write(get_string_summary('INFORATION GAIN', set, X_Fit, accuracy, maririx_rev, scores))
-    
-    X_Fit, scores = chi_square(X, y, FEATS_NUMNER)
-    accuracy, matrix = get_average_score(X_Fit, y)
-    maririx_rev = reverseMatrix(matrix)
-    make_simple_summary('CHI SQUARE', set, X_Fit, accuracy, maririx_rev, scores)
-    file.write(get_string_summary('CHI SQUARE', set, X_Fit, accuracy, maririx_rev, scores))
-    
-    X_Fit, scores = correlation_coef(X, y, FEATS_NUMNER)
-    accuracy, matrix = get_average_score(X_Fit, y)
-    maririx_rev = reverseMatrix(matrix)
-    make_simple_summary('CORRELATION COEF', set, X_Fit, accuracy, maririx_rev, scores)
-    file.write(get_string_summary('CORRELATION COEF', set, X_Fit, accuracy, maririx_rev, scores))
+        X_Fit, scores = anova(X, y, feat_num)
+        accuracy, matrix = get_average_score(X_Fit, y)
+        maririx_rev = reverseMatrix(matrix)
+        make_simple_summary('ANOVA', set, X_Fit, accuracy, maririx_rev, scores, percent)
+        file.write(get_string_summary('ANOVA', set, X_Fit, accuracy, maririx_rev, scores, percent))
+        
+        X_Fit, scores = relief(X, y, feat_num)
+        accuracy, matrix = get_average_score(X_Fit, y)
+        maririx_rev = reverseMatrix(matrix)
+        make_simple_summary('RELIEF', set, X_Fit, accuracy, maririx_rev, scores, percent)
+        file.write(get_string_summary('RELIEF', set, X_Fit, accuracy, maririx_rev, scores, percent))
+        
+        X_Fit, scores = information_gain(X, y, feat_num)
+        accuracy, matrix = get_average_score(X_Fit, y)
+        maririx_rev = reverseMatrix(matrix)
+        make_simple_summary('INFORATION GAIN', set, X_Fit, accuracy, maririx_rev, scores, percent)
+        file.write(get_string_summary('INFORATION GAIN', set, X_Fit, accuracy, maririx_rev, scores, percent))
+        
+        X_Fit, scores = chi_square(X, y, feat_num)
+        accuracy, matrix = get_average_score(X_Fit, y)
+        maririx_rev = reverseMatrix(matrix)
+        make_simple_summary('CHI SQUARE', set, X_Fit, accuracy, maririx_rev, scores, percent)
+        file.write(get_string_summary('CHI SQUARE', set, X_Fit, accuracy, maririx_rev, scores, percent))
+        
+        X_Fit, scores = correlation_coef(X, y, feat_num)
+        accuracy, matrix = get_average_score(X_Fit, y)
+        maririx_rev = reverseMatrix(matrix)
+        make_simple_summary('CORRELATION COEF', set, X_Fit, accuracy, maririx_rev, scores, percent)
+        file.write(get_string_summary('CORRELATION COEF', set, X_Fit, accuracy, maririx_rev, scores, percent))
 
 #-----------------------------------------------------------------------------------
 #-----------------------------------------------------------------------------------
@@ -83,7 +89,7 @@ def makePart(part):
 #-----------------------------------------------------------------------------------
 #-----------------------------------------------------------------------------------
 
-file = open(DATA_PART + '.csv', 'w')
+file = open('percent_' + DATA_PART + '.csv', 'w')
 file.write(get_header())
 makePart(DATA_PART)
 file.close()

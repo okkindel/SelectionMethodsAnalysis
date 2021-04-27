@@ -11,7 +11,7 @@ from lib.methods.relief import relief
 from lib.methods.anova import anova
 
 MODE = 'best' # closest / best
-DATA_PART = 'part4'
+DATA_PART = 'part0'
 ALPHA = 0.05
 
 #-----------------------------------------------------------------------------------
