@@ -17,15 +17,13 @@ def makeKNN(XTrain, YTrain, XTest, YTest):
     knn = create_kNN()
     knn.fit(XTrain, YTrain)
     predictions = knn.predict(XTest)
-    matrix = confusion_matrix(YTest, predictions)
+    matrix = confusion_matrix(YTest, predictions, labels=['0', '1'])
     accuracy = knn.score(XTest, YTest)
     return accuracy, matrix
 
 # count average score (using cross validation)
 def get_average_score(X, Y):
     rkf = divide_by_sets()
-    confusion = []
-    score = []
 
     for train, test in rkf.split(X, Y):
         x_train, x_test = X[train], X[test]

@@ -24,7 +24,9 @@ def parseKEEL(dataset):
             X_tab[col] = Encoder_X.fit_transform(X_tab[col])
         
     
+    y_tab[y_tab == 'positive'] = 1
     y_tab[y_tab == ' positive'] = 1
+    y_tab[y_tab == 'negative'] = 0
     y_tab[y_tab == ' negative'] = 0
     
     X_res = np.array(X_tab.values, dtype=float)
