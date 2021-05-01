@@ -432,8 +432,6 @@ Ponieważ w przypadku tego eksperymentu każdej metodzie selekcji pozwolono wybr
 
 ![Uśrednione wyniki F1 Score, precyzji i dokładności zbalansowanej dla poszczególnych metod.](./figures/mean_res.png){#fig:mean_res}
 
-Okazało się ponadto, że w 93% przypadków (459 / 490 wyników), selekcja cech pozwoliła uzyskać lepsze wyniki klasyfikacji. W 71% przypadków (351 / 490 wyników), zaledwie połowa oryginalnych cech pozwoliła uzyskać wynik klasyfikacji lepszy od tego, który uzyskał algorytm na pełnym zbiorze. Co zaskakujące, w przypadku aż 218 eksperymentów - czyli dla 44% wyników, rezultat lepszy od bazowego uzyskano wykorzystując zaledwie jedną cechę.
-
 Tabela @tbl:mean_best_feats zawiera porównanie średniej ilości cech w procentach oraz średni wyniki F1 Score i zbalansowanej dokładności dla każdej metody, dla wszystkich badanych zbiorów.
 
 | Nazwa Metody            | Średnia ilość cech | Uśredniony wynik F1 Score | Uśredniona dokładność zbalansowana |
@@ -458,23 +456,36 @@ Badanie powtórzono dla wyników uzyskanych na czterech, największych zbiorach,
 
 Table: Porównanie średniej ilości wybranych cech oraz uśrednionego wyniku F1 Score i zbalansowanej dokładności dla każdej z metod, najobszerniejsze zbiory danych. {#tbl:mean_best_feats_part_0}
 
-Z danych, przedstawionych w tabeli @tbl:mean_best_feats_part_0 wynika, że wszystkie metody uzyskały średnio podobne wyniki, natomiast potrzebowały do tego różnej ilości cech.
-
 ## Badanie liczby cech dla której wyniki odpowiadają wynikom klasyfikacji na pełnym zbiorze {#sec:closest_wilcoxon}
 
 Celem tego badania było sprawdzenie, jaka ilość cech jest potrzebna poszczególnym metodom, aby wyniki klasyfikacji odpowiadały rezultatom eksperymentów bez przeprowadzonej redukcji atrybutów. Ma to znaczenie szczególnie wtedy, gdy od selekcji cech oczekuje się przede wszystkim zmniejszenia wymiaru wyjściowego zbioru w celu obniżenia kosztów jego archiwizacji i przetwarzania. Metryką na podstawie której badano, czy istnieje pomiędzy takimi wynikami statystycznie istotna zmiana było _F1 Score_. Badanie polegało na stworzeniu pięciu różnych losowych podzbiorów każdego oryginalnego zbioru i przeprowadzeniu selekcji cech oraz klasyfikacji na każdym z nich. Korzystając z wyników, zbadano z pomocą testu Wilcoxona różnice statystyczne pomiędzy rezutlatami klasyfikacji bez selekcji cech i dla każdej z metod. Przyjęto, że różnica wynosząca mniej niż 10% pomiędzy rezultatami obu eksperymentów jest wystarczająca, by uznać taki wyniki za podobne - szczególnie, że test przeprowadzany był z założeniem, że elementy pozytywne macierzy konfuzji to instancje klas mniej licznych, co powoduje, że nawet jedna instancja sklasyfikowana błędnie może znacząco wpłynąć na wynik testu. Program napisany w ramach tego etapu bada wszystkie permutacje liczby cech, począwszy od jednej cechy i zapusuje rezultat dla minimalnej liczby cech, dla której klasyfikacja osiąga rezultat porównywalny z założonym celem.
 
 ## Porównanie metod w ramach ustalonej ilości cech {#sec:const_feats_nb}
 
-Dla pełnego obrazu, zdecydowano się na wybór pięciu wartości liczby cech w ramach każdej metody i każdego zbioru. Program napisany podczas eksperymentu przeprowadza test dla 20%, 40%, 60%, 80% i 100% liczby cech każdego zbioru. Pozwoliło to na porównanie, jak poszczególne algorytmy radzą sobie mając do dyspozycji stałą określoną liczbę cech. Badanie pokazało, że nie zawsze większa ilość cech daje lepsze rezultaty - dużo tutaj zależy od zbioru. Wyniki _F1 score_ dla poszczególnych algorytmów i zbiorów przedstawione zostały na wykresie @fig:f1_results.  W ramach eksperymentów wykonano również próbę klasyfikacji na danych niepodlegających wcześniej selekcji cech. Linią czerwoną na wykresie oznaczono wyniki testu _F1_ dla klasyfikacji bez uprzedniej selekcji cech.
+Dla pełnego obrazu, zdecydowano się na wybór czterech wartości liczby cech w dla każdej metody i każdego zbioru. Program napisany w ramach eksperymentu przeprowadza test dla 20%, 40%, 60%, 80% liczby cech. Pozwoliło to na sprawdzenie, jak poszczególne algorytmy radzą sobie mając do dyspozycji stałą, określoną liczbę cech. Badanie pokazało, że nie zawsze większa ilość cech daje lepsze rezultaty - dużo zależy od zbioru. Wyniki _F1 Score_ dla poszczególnych metod (rezultaty dla 20% i 60% cech) i części zbiorów danych (stopień niezbalansowania pomiędzy 1:1.5 a 1:9) przedstawione zostały na wykresie @fig:f1_results_part_1. W ramach eksperymentu wykonano również próbę klasyfikacji na danych niepodlegających wcześniej selekcji cech. Linią czerwoną na wykresie oznaczono wyniki testu _F1_ dla klasyfikacji bez uprzedniej selekcji cech.
+
+![Porównanie wyników F1 Score dla części zbiorów danych (stopień niezbalansowania pomiędzy 1:1.5 a 1:9) - 20% i 60% cech.](./figures/f1_results_part_1.png){#fig:f1_results_part_1}
+
+Rezultaty podobnego eksperymentu, dla zbiorów o stopniu niezbalasowania wynoszącym od 1:20 do 1:100 przedstawiono na wykresie @fig:f1_results_part_3.
+
+![Porównanie wyników F1 Score dla części zbiorów danych (stopień niezbalansowania pomiędzy 1:20 a 1:100) - 20% i 60% cech.](./figures/f1_results_part_3.png){#fig:f1_results_part_3}
+
+Jak widać, w przypadku tak mocno niezbalansowanych zbiorów, mała liczba cech często nie pozwala na poprawną klasyfikację danych mniejszościowych - co tłumaczy duża ilość wyników równych zero, szczególnie dla przypadku dwudziestoprocentowego. Wyraźnie słabiej radzi sobie w tym przypadku również algorytm _Correlation Coefficient_, czego nie zaobserowowano na poprzednim wykresie.
+
+Ponownie, badania powtórzono dla największych zbiorów danycg - _CCFD_, _Mushroom_ oraz _Custom_. Ponieważ posiadają one znaczną ilość atrybutów oraz znacznie większy wymiar, istnieje możlowość, że metody selekcji cech lepiej dostosują się do danych. Wykres @fig:f1_results_part_0 zawiera porównanie wyników testu F1 Score dla tych zbiorów, z uwzględnieniem pozostałych eksperymentów (40% i 80% cech).
+
+![Porównanie wyników F1 Score dla zbiorów _CCFD_, _Mushroom_ oraz _Custom_ - 20%, 40%, 60% i 80% cech.](./figures/f1_results_part_0.png){#fig:f1_results_part_0}
+
+Selekcja cech praktycznie w każdym przypadku pozwoliła uzyskać lepsze rezultaty klasyfikacji. Ponownie wyróżniającą się metodą jest _Correlation Coefficient_, jednak słabe wyniki uzyskuje on tylko w przypadku niewielkiej liczby cech, w zestawie _Custom_ natomiast, radzi sobie najlepiej, co jest prawdopodobnie podyktowane silnie skorelowanymi instancjami klas mniejszościowych w tym zbiorze.
 
 <!-- Przeprowadzono szereg obliczeń zakładając kolejno różne wartości liczby cech dla każdej metody, następnie sprawdzając z pomocą wyniku testu _F1 Score_, czy istnieje pomiędzy wynikami klasyfikacji z użyciem tej metody i klasyfikacji bez użycia metody redukcji cech istotna statystycznie zmiana. Po uśrednieniu wyników doświadczeń zdecydowano się na przeprowadzenie drugiego etapu z użyciem pięciu cech dla dużych zbiorów i trzech - dla małych.
 
 Wyniki _F1 score_ dla poszczególnych algorytmów i zbiorów przedstawione zostały na wykresie @fig:f1_results. Dla pierwszych czterech, opisanych w rozdziałach @sec:ccfd - @sec:custom zbiorów zastosowano klasyfikację dla pięciu gównych cech, z pozostałych zbiorów wybrano trzy cechy. Decyzje taką podjęto po obserwacji wyników - została wybrana liczba cech po podwyższeniu której obserwowano brak poprawy lub pogorszenie jakości klasyfikacji. Etap ten opisany został w @sec:feat_num W ramach eksperymentów wykonano również próbę klasyfikacji na danych niepodlegających wcześniej selekcji cech. Linią czerwoną na wykresie oznaczono wyniki testu _F1_ dla klasyfikacji bez uprzedniej selekcji cech. -->
 
-![Porównanie wyników F1 Score dla wszystkich zbiorów danych.](./figures/f1_results.png){#fig:f1_results}
 
-Zaskakujący może wydawać się fakt, że pomimo podobnych wyników precyzji, algorytmy rzadko zgadzały się ze sobą co do pozycji poszczególnych cech w rankingu. Dobrze to obrazuje wykres ukazujący pozycję poszczególnych cech zbioru CCFD, dla poszczególnych algorytmów.
+
+<!-- Z danych, przedstawionych w tabeli @tbl:mean_best_feats_part_0 wynika, że wszystkie metody uzyskały średnio podobne wyniki, natomiast potrzebowały do tego różnej ilości cech. Zaskakujący może wydawać się fakt, że pomimo podobnych wyników, algorytmy rzadko zgadzały się ze sobą co do poszczególnych cech w rankingu. Dobrze to obrazuje wykres ukazujący pozycję poszczególnych cech zbioru CCFD, dla poszczególnych algorytmów. -->
+
 
 <!-- TODO: Wykres
 
@@ -484,11 +495,11 @@ TODO: Tabela
 
 Przyjęto, że wartość _pvalue_ mnniejsza niż 0.05 oznacza, że można uznać iż porównywane metody są statystycznie różne. -->
 
-_TODO: Krzywe roc, testy Wilcoxona, jakieś tabele, przykłady rankingu cech na ccfd, testy statystyczne_
+<!-- _TODO: Krzywe roc, testy Wilcoxona, jakieś tabele, przykłady rankingu cech na ccfd, testy statystyczne_
 `https://machinelearningmastery.com/statistical-hypothesis-tests-in-python-cheat-sheet/`
 `makrouśrednianie`
 _A practical tutorial on the use of nonparametric statistical tests as a methodology for comparing evolutionary and swarm intelligence algorithms_
-_Statistical Comparisons of Classifiers over Multiple Data Sets_
+_Statistical Comparisons of Classifiers over Multiple Data Sets_ -->
 
 \newpage\null\newpage
 
