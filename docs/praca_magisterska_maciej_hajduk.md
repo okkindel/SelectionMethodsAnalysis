@@ -428,6 +428,38 @@ Szczegóły dotyczące doświadczeń oraz rezultaty zostały opisane w rozdział
 
 Celem tego eksperymentu było sprawdzenie, jak każda z badanych metod może poprawić wyniki klasyfikacji. W ramach tego etapu przygotowano program, który dla każdego zbioru i dla każdej metody porównuje wyniki klasyfikacji dla każdej możliwej ilości cech. Po porównaniu wszystkich możliwości, program zapisuje doświadczenie z najlepszym wynikiem. Kryterium obranym przy porównywaniu wyników było _F1 Score_.
 
+Ponieważ w przypadku tego eksperymentu każdej metodzie selekcji pozwolono wybrać najoptymalniejszą według niej ilość cech i najlepsze według niej cechy, a także wszystkie metody trenowano na tych samych zbiorach, można pokusić się o porównanie ich uśrednionych wyników. Wykres @fig:mean_res ukazuje uśrednione wyniki _F1 score_, precyzji i czułości dla każdej z metod, dla wszystkich 115 zbiorów. Kolorem czerwonym oznaczono rezultat uzyskany dla klasyfikacji bez użycia żadnych metod selekcji cech.
+
+![Uśrednione wyniki F1 Score, precyzji i dokładności zbalansowanej dla poszczególnych metod.](./figures/mean_res.png){#fig:mean_res}
+
+Okazało się ponadto, że w 93% przypadków (459 / 490 wyników), selekcja cech pozwoliła uzyskać lepsze wyniki klasyfikacji. W 71% przypadków (351 / 490 wyników), zaledwie połowa oryginalnych cech pozwoliła uzyskać wynik klasyfikacji lepszy od tego, który uzyskał algorytm na pełnym zbiorze. Co zaskakujące, w przypadku aż 218 eksperymentów - czyli dla 44% wyników, rezultat lepszy od bazowego uzyskano wykorzystując zaledwie jedną cechę.
+
+Tabela @tbl:mean_best_feats zawiera porównanie średniej ilości cech w procentach oraz średni wyniki F1 Score i zbalansowanej dokładności dla każdej metody, dla wszystkich badanych zbiorów.
+
+| Nazwa Metody            | Średnia ilość cech | Uśredniony wynik F1 Score | Uśredniona dokładność zbalansowana |
+|-------------------------|--------------------|---------------------------|------------------------------------|
+| Anova                   | 34.3%              | 0.497                     | 0.782                              |
+| ReliefF                 | 36.4%              | 0.472                     | 0.765                              |
+| Information Gain        | 34.4%              | 0.481                     | 0.765                              |
+| Chi Square              | 36.3%              | 0.498                     | 0.778                              |
+| Correlation Coefficient | 39.5%              | 0.432                     | 0.767                              |
+
+Table: Porównanie średniej ilości wybranych cech oraz uśrednionego wyniku F1 Score i zbalansowanej dokładności dla każdej z metod, wszystkie zbiory danych. {#tbl:mean_best_feats}
+
+Badanie powtórzono dla wyników uzyskanych na czterech, największych zbiorach, opisanych w rozdziałach @sec:ccfd - @sec:custom. Zbiory te posiadały znacznie większą ilość atrybutów, a większy ich wymiar pozwala przypuszczać, że metody mogły lepiej dostosować się do danych. Wyniki tego badania prezentuje tabela @tbl:mean_best_feats_part_0.
+
+| Nazwa Metody            | Średnia ilość cech | Uśredniony wynik F1 Score | Uśredniona dokładność zbalansowana |
+|-------------------------|--------------------|---------------------------|------------------------------------|
+| Anova                   | 60.8%              | 0.709                     | 0.893                              |
+| ReliefF                 | 21.9%              | 0.705                     | 0.878                              |
+| Information Gain        | 25.7%              | 0.742                     | 0.897                              |
+| Chi Square              | 47.4%              | 0.716                     | 0.894                              |
+| Correlation Coefficient | 45.1%              | 0.730                     | 0.894                              | 
+
+Table: Porównanie średniej ilości wybranych cech oraz uśrednionego wyniku F1 Score i zbalansowanej dokładności dla każdej z metod, najobszerniejsze zbiory danych. {#tbl:mean_best_feats_part_0}
+
+Z danych, przedstawionych w tabeli @tbl:mean_best_feats_part_0 wynika, że wszystkie metody uzyskały średnio podobne wyniki, natomiast potrzebowały do tego różnej ilości cech.
+
 ## Badanie liczby cech dla której wyniki odpowiadają wynikom klasyfikacji na pełnym zbiorze {#sec:closest_wilcoxon}
 
 Celem tego badania było sprawdzenie, jaka ilość cech jest potrzebna poszczególnym metodom, aby wyniki klasyfikacji odpowiadały rezultatom eksperymentów bez przeprowadzonej redukcji atrybutów. Ma to znaczenie szczególnie wtedy, gdy od selekcji cech oczekuje się przede wszystkim zmniejszenia wymiaru wyjściowego zbioru w celu obniżenia kosztów jego archiwizacji i przetwarzania. Metryką na podstawie której badano, czy istnieje pomiędzy takimi wynikami statystycznie istotna zmiana było _F1 Score_. Badanie polegało na stworzeniu pięciu różnych losowych podzbiorów każdego oryginalnego zbioru i przeprowadzeniu selekcji cech oraz klasyfikacji na każdym z nich. Korzystając z wyników, zbadano z pomocą testu Wilcoxona różnice statystyczne pomiędzy rezutlatami klasyfikacji bez selekcji cech i dla każdej z metod. Przyjęto, że różnica wynosząca mniej niż 10% pomiędzy rezultatami obu eksperymentów jest wystarczająca, by uznać taki wyniki za podobne - szczególnie, że test przeprowadzany był z założeniem, że elementy pozytywne macierzy konfuzji to instancje klas mniej licznych, co powoduje, że nawet jedna instancja sklasyfikowana błędnie może znacząco wpłynąć na wynik testu. Program napisany w ramach tego etapu bada wszystkie permutacje liczby cech, począwszy od jednej cechy i zapusuje rezultat dla minimalnej liczby cech, dla której klasyfikacja osiąga rezultat porównywalny z założonym celem.
@@ -441,10 +473,6 @@ Dla pełnego obrazu, zdecydowano się na wybór pięciu wartości liczby cech w 
 Wyniki _F1 score_ dla poszczególnych algorytmów i zbiorów przedstawione zostały na wykresie @fig:f1_results. Dla pierwszych czterech, opisanych w rozdziałach @sec:ccfd - @sec:custom zbiorów zastosowano klasyfikację dla pięciu gównych cech, z pozostałych zbiorów wybrano trzy cechy. Decyzje taką podjęto po obserwacji wyników - została wybrana liczba cech po podwyższeniu której obserwowano brak poprawy lub pogorszenie jakości klasyfikacji. Etap ten opisany został w @sec:feat_num W ramach eksperymentów wykonano również próbę klasyfikacji na danych niepodlegających wcześniej selekcji cech. Linią czerwoną na wykresie oznaczono wyniki testu _F1_ dla klasyfikacji bez uprzedniej selekcji cech. -->
 
 ![Porównanie wyników F1 Score dla wszystkich zbiorów danych.](./figures/f1_results.png){#fig:f1_results}
-
-Wykres @fig:mean_res ukazuje uśrednione wyniki _F1 score_, precyzji i czułości dla każdej z metod, dla wszystkich 115 zbiorów. Kolorem czerwonym oznaczono rezultat uzyskany dla klasyfikacji bez użycia żadnych metod selekcji cech.
-
-![Uśrednione wyniki F1 Score, precyzji i czułości dla poszczególnych metod.](./figures/mean_res.png){#fig:mean_res}
 
 Zaskakujący może wydawać się fakt, że pomimo podobnych wyników precyzji, algorytmy rzadko zgadzały się ze sobą co do pozycji poszczególnych cech w rankingu. Dobrze to obrazuje wykres ukazujący pozycję poszczególnych cech zbioru CCFD, dla poszczególnych algorytmów.
 

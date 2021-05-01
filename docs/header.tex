@@ -38,6 +38,13 @@
 \newcommand\promotor[1]{\renewcommand\@promotor{#1}}
 \newcommand\@promotor{}
 
+\def\blankpage{%
+      \clearpage%
+      \thispagestyle{empty}%
+      \addtocounter{page}{-1}%
+      \null%
+      \clearpage}
+
 \title{Analiza porównawcza wybranych metod selekcji cech w zadaniu klasyfikacji danych niezbalansowanych.}
 \titleEN{Comparative analysis of feature selection techniques in inbalanced data classification problems.}
 \author{Maciej Hajduk}
@@ -95,5 +102,7 @@
 }
 \normalfont
 \cleardoublepage
+
+\blankpage
 
 \end{document}
