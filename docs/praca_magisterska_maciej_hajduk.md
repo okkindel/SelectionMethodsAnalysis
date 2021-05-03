@@ -123,7 +123,7 @@ Problem nierównoważnego rozkładu przyciąga w ostatnim czasie zainteresowanie
 
 ### Metody na poziomie danych
 
-Metody na poziomie danych (Data-level methods), modyfikują dostępne instancje problemu w celu jego zbalansowania. Można je dalej podzielić na podgrupy: metody próbkowania danych (data-sampling) i metody wyboru cech (feature selection methods) [@Leevy2018]. Metody nadpróbkowania i podpróbkowania stanowią dwie podgrupy metod próbkowania danych, w których próbkowanie danych z danego zbioru danych odbywa się losowo lub z wykorzystaniem określonego algorytmu. W procesie oversamplingu (nadpróbkowania) do danego zbioru danych dodawane są instancje klasy mniejszościowej (poprzez replikację), gdzie replikacja odbywa się losowo lub z wykorzystaniem algorytmów takich jak ADASYN [@adasyn]. W procesie undersamplingu (podpróbkowania) natomiast, większość wystąpień klasy zostanie usuniętych z danego zbioru danych, a usuwanie odbywa się w dużej mierze losowo. SMOTE (Synthetic Minority Over-Sampling), to technika próbkowania polegająca na sztucznym ponownym próbkowaniu zbioru danych. Końcowym jej wynikiem jest zbiór danych o zrównoważonym rozkładzie [@smote]. Chociaż metoda te może skutkować znacznie lepszymi wynikami w porównaniu z oryginalnym zestawem danych, istnieją poważne problemy związane z jej wykorzystaniem [@weissgary2003]. Po pobraniu zbyt małej liczby próbek wydajność klasyfikatora może ulec pogorszeniu z powodu potencjalnej utraty przydatnych przykładów klasy większościowej. Podobnie dodatkowe przypadki szkoleniowe wprowadzone przez nadmierne próbkowanie mogą zwiększyć złożoność obliczeniową klasyfikatora. W najgorszym przypadku dokładne kopie przykładów po nadmiernym próbkowaniu mogą prowadzić do nadmiernego dopasowania klasyfikatora [@Leevy2018]. Chociaż metody selekcji cech są powszechnie stosowane w celu poprawy wyników klasyfikacji, mogą one również pomóc w wyborze najbardziej wpływowych cech w celu wygenerowania unikalnej wiedzy w ramach klasyfikacji. Zmniejsza to niekorzystny wpływ nierównowagi klas na wyniki klasyfikacji [@Leevy2018].
+Metody na poziomie danych (Data-level methods), modyfikują dostępne instancje problemu w celu jego zbalansowania. Można je dalej podzielić na podgrupy: metody próbkowania danych (data-sampling) i metody wyboru cech (feature selection methods) [@Leevy2018]. Metody nadpróbkowania i podpróbkowania stanowią dwie podgrupy metod próbkowania danych, w których próbkowanie danych z danego zbioru danych odbywa się losowo lub z wykorzystaniem innego, określonego algorytmu. W procesie oversamplingu (nadpróbkowania) do danego zbioru danych dodawane są instancje klasy mniejszościowej (poprzez replikację), gdzie replikacja odbywa się losowo lub z wykorzystaniem algorytmów takich jak ADASYN [@adasyn]. W procesie undersamplingu (podpróbkowania) natomiast, większość wystąpień klasy zostanie usuniętych z danego zbioru danych, a usuwanie odbywa się w dużej mierze losowo. SMOTE (Synthetic Minority Over-Sampling), to technika próbkowania polegająca na sztucznym ponownym próbkowaniu zbioru danych. Końcowym jej wynikiem jest zbiór danych o zrównoważonym rozkładzie [@smote]. Chociaż metoda te może skutkować znacznie lepszymi wynikami w porównaniu z oryginalnym zestawem danych, istnieją poważne problemy związane z jej wykorzystaniem [@weissgary2003]. Po pobraniu zbyt małej liczby próbek wydajność klasyfikatora może ulec pogorszeniu z powodu potencjalnej utraty przydatnych przykładów klasy większościowej. Podobnie dodatkowe przypadki szkoleniowe wprowadzone przez nadmierne próbkowanie mogą zwiększyć złożoność obliczeniową klasyfikatora. W najgorszym przypadku dokładne kopie przykładów po nadmiernym próbkowaniu mogą prowadzić do nadmiernego dopasowania klasyfikatora [@Leevy2018]. Chociaż metody selekcji cech są powszechnie stosowane w celu poprawy wyników klasyfikacji, mogą one również pomóc w wyborze najbardziej wpływowych cech w celu wygenerowania unikalnej wiedzy w ramach klasyfikacji. Zmniejsza to niekorzystny wpływ nierównowagi klas na wyniki klasyfikacji [@Leevy2018].
 
 ### Metody na poziomie algorytmów
 
@@ -338,7 +338,7 @@ Zbiór custom został wygenerowany sztucznie z pomocą funkcji _make_classificat
 
 ![Dystrybucja klas i danych dla zbioru Custom.](./figures/custom_distribution.png){#fig:custom_distribution}
 
-### Inne zbiory danych {#sec:inne}
+### Pozostałe zbiory danych {#sec:inne}
 
 W celu poprawnego i obiektywnego porównania wszystkich metod selekcji wykonano eksperymenty na dodatkowych 111 zbiorach udostępnionych przez platformę KEEL [@sci2s]. W tym celu stworzono program automatycznie importujący i przygotowujący zbiór do wykorzystania przez testowane algorytmy. Każdy ze zbiorów posiada pewne cechy wspólne - wszystkie one zostały stworzone w podobnym formacie, zawierają w większości cechy opisane numerycznie i jedynie dwie klasy - opisane za pomocą etykiet "_positive_" oraz "_negative_". Ponadto, klasą mniejszościową jest zawsze klasa "_positive_".
 
@@ -426,11 +426,13 @@ Szczegóły dotyczące doświadczeń oraz rezultaty zostały opisane w rozdział
 
 ## Kombinacja wszystkich metod i każdej możliwej liczby cech {#sec:best_feats}
 
-Celem tego eksperymentu było sprawdzenie, jak każda z badanych metod może poprawić wyniki klasyfikacji. W ramach tego etapu przygotowano program, który dla każdego zbioru i dla każdej metody porównuje wyniki klasyfikacji dla każdej możliwej ilości cech. Po porównaniu wszystkich możliwości, program zapisuje doświadczenie z najlepszym wynikiem. Kryterium obranym przy porównywaniu wyników było _F1 Score_.
+Celem tego eksperymentu było sprawdzenie, jak każda z badanych metod może poprawić wyniki klasyfikacji. W ramach tego etapu przygotowano program, który dla każdego zbioru i dla każdej metody porównuje wyniki klasyfikacji dla każdej możliwej ilości cech. Po porównaniu wszystkich możliwości, program zapisuje doświadczenie z najlepszym wynikiem. Kryterium obranym przy porównywaniu wyników było _F1 Score_. Wyniki, jakie zostało się uzyskać dla każdego zbioru przedstawione zostały na rysunku @fig:f1_best_all. Jak można zaobserwować - selekcja cech poprawiła wyniki klasyfikacji w przypadku praktycznie każdego zbioru.
+
+![Wyniki F1 Score, jakie udało się uzyskać dla poszczególnych metod i zbiorów.](./figures/f1_best_all.png){#fig:f1_best_all}
 
 Ponieważ w przypadku tego eksperymentu każdej metodzie selekcji pozwolono wybrać najoptymalniejszą według niej ilość cech i najlepsze według niej cechy, a także wszystkie metody trenowano na tych samych zbiorach, można pokusić się o porównanie ich uśrednionych wyników. Wykres @fig:mean_res ukazuje uśrednione wyniki _F1 score_, precyzji i czułości dla każdej z metod, dla wszystkich 115 zbiorów. Kolorem czerwonym oznaczono rezultat uzyskany dla klasyfikacji bez użycia żadnych metod selekcji cech.
 
-![Uśrednione wyniki F1 Score, precyzji i dokładności zbalansowanej dla poszczególnych metod.](./figures/mean_res.png){#fig:mean_res}
+![Uśrednione wyniki F1 Score, precyzji i dokładności zbalansowanej wszystkich zbiorów dla poszczególnych metod.](./figures/mean_res.png){#fig:mean_res}
 
 Tabela @tbl:mean_best_feats zawiera porównanie średniej ilości cech w procentach oraz średni wyniki F1 Score i zbalansowanej dokładności dla każdej metody, dla wszystkich badanych zbiorów.
 
@@ -455,6 +457,10 @@ Badanie powtórzono dla wyników uzyskanych na czterech, największych zbiorach,
 | Correlation Coefficient | 45.1%              | 0.730                     | 0.894                              | 
 
 Table: Porównanie średniej ilości wybranych cech oraz uśrednionego wyniku F1 Score i zbalansowanej dokładności dla każdej z metod, najobszerniejsze zbiory danych. {#tbl:mean_best_feats_part_0}
+
+Z danych, przedstawionych w tabeli @tbl:mean_best_feats_part_0 wynika, że wszystkie metody uzyskały średnio podobne wyniki, natomiast potrzebowały do tego różnej ilości cech.
+
+Okazało się, że w 93% przypadków (459 / 490 wyników), selekcja cech pozwoliła uzyskać lepsze wyniki klasyfikacji. W 71% przypadków (351 / 490 wyników), zaledwie połowa oryginalnych cech pozwoliła uzyskać wynik klasyfikacji lepszy od tego, który uzyskał algorytm na pełnym zbiorze. Co zaskakujące, w przypadku aż 218 eksperymentów - czyli dla 44% wyników, rezultat lepszy od bazowego uzyskano wykorzystując zaledwie jedną cechę.
 
 ## Badanie liczby cech dla której wyniki odpowiadają wynikom klasyfikacji na pełnym zbiorze {#sec:closest_wilcoxon}
 
@@ -504,6 +510,18 @@ _Statistical Comparisons of Classifiers over Multiple Data Sets_ -->
 \newpage\null\newpage
 
 # Wnioski
+
+Przeprowadzone eksperymenty częściowo potwierdzają założoną hipotezę. Przy odpoowiednio dobranej liczbie cech wszystkie metody poradziły sobie dobrze z powierzonym zadaniem, a żaden algorytm nie odbiegał znacznie od pozostałych. Świadczy to o tym, że selekcja cech jest ważnym krokiem w procesie zadania klasyfkikacji.
+
+Ekpseryment @sec:best_feats pokazał, że reduckja atrybutów może mieć bardzo pozytywny wpływ na wyniki klasyfikacji danych. Wśród rezultatów, w przypadku niektórych zbiorów zaobserwować można nawet trzydziestoprocentową poprawę jakości klasyfikacji dla danych mniejszościowych, a sama selekcja cech pozwoliła poprawić wyniki klasyfikacji w 95% przypadków.. Nie mniej istotnym aspektem jest ilość cech, jaka konieczna była do uzyskania takich wyników. W 44% przypadków, eksperyment wykazał wynik klasyfikacji taki sam lub lepszy już po użyciu jednej cechy. Pokazuje to, że istnieje możlowość zmniejszenia wymiarowości istniejących baz danych, co przekłada się bezpośrednio na krótszy czas klasyfikacji oraz mniejszą ilość miejsca zajmowanego na dyskach.
+
+Doświadczenia opisane w rozdziale @sec:const_feats_nb dostyczą bezpośrednio hipotezy postawionej na początku pracy.
+
+Najważniejszym jednak wnioskiem, wynikającym ze wszystkich przeprowadzonych eksperymentów jest opisany już przez autorów innych, wymienionych w przeglądzie literatury fakt, że wśród popularnych metod - nie tylko selekcji cech, nie da się w łatwy sposób wybrać lepszych oraz gorszych. **Do każdego zbioru danych należy podejść indywidualnie**, i to w sporej części wiedza dziedzinowa - dotycząca wartości w zbiorze, pozwoli na wybór najlepszych narzędzi do pracy, co za tym idzie - uzyskanie najlepszych wyników.
+
+## Dalsze możlowości rozwoju
+
+## Praktyczne zastosowanie eksperymentów
 
 \newpage\null\newpage
 
