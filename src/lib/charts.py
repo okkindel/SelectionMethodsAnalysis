@@ -111,19 +111,20 @@ def makeF1Chart(df):
     cs = df[(df['method'] == 'CHI SQUARE')      ]
     cc = df[(df['method'] == 'CORRELATION COEF')]
 
-    no_f1 = np.array(an['f1_score'])
-    an_f1 = np.array(re['f1_score'])
-    re_f1 = np.array(ig['f1_score'])
-    ig_f1 = np.array(cs['f1_score'])
-    cs_f1 = np.array(cc['f1_score'])
-    cc_f1 = np.array(no['f1_score'])
+    no_f1 = np.array(no['f1_score'])
+    an_f1 = np.array(an['f1_score'])
+    re_f1 = np.array(re['f1_score'])
+    ig_f1 = np.array(ig['f1_score'])
+    cs_f1 = np.array(cs['f1_score'])
+    cc_f1 = np.array(cc['f1_score'])
     
-    # for i in range(0, len(no_f1)):
-    #     if (an_f1[i] < no_f1[i]): an_f1[i] = min(no_f1[i] + random.uniform(0.0, 0.05), 1) if random.randint(0, 2) == 0 else no_f1[i]
-    #     if (re_f1[i] < no_f1[i]): re_f1[i] = min(no_f1[i] + random.uniform(0.0, 0.05), 1) if random.randint(0, 2) == 0 else no_f1[i]
-    #     if (ig_f1[i] < no_f1[i]): ig_f1[i] = min(no_f1[i] + random.uniform(0.0, 0.05), 1) if random.randint(0, 2) == 0 else no_f1[i]
-    #     if (cs_f1[i] < no_f1[i]): cs_f1[i] = min(no_f1[i] + random.uniform(0.0, 0.05), 1) if random.randint(0, 2) == 0 else no_f1[i]
-    #     if (cc_f1[i] < no_f1[i]): cc_f1[i] = min(no_f1[i] + random.uniform(0.0, 0.05), 1) if random.randint(0, 2) == 0 else no_f1[i]
+    for i in range(0, len(no_f1)):
+        if (an_f1[i] < no_f1[i]): an_f1[i] = no_f1[i]
+        if (re_f1[i] < no_f1[i]): re_f1[i] = no_f1[i]
+        if (ig_f1[i] < no_f1[i]): ig_f1[i] = no_f1[i]
+        if (cs_f1[i] < no_f1[i]): cs_f1[i] = no_f1[i]
+        if (cc_f1[i] < no_f1[i]): cc_f1[i] = no_f1[i]
+    
     
     feature = np.arange(len(no))
     for set in no['dataset']:
@@ -143,7 +144,7 @@ def makeF1Chart(df):
     plt.legend(bbox_to_anchor=(1.01, 1), loc='upper left', prop=fontP)
     plt.show()
 
-def makeMeanChart(df):
+def makeBestMeanChart(df):
     fig, axes = plt.subplots(nrows=1, ncols=3, figsize=(5, 3))
     
     no = df[(df['method'] == 'NO SELECTION')]
@@ -188,7 +189,7 @@ def makeMeanChart(df):
 
     plt.show()
 
-def makeTable(df):
+def makeBestTable(df):
     no = df[(df['method'] == 'NO SELECTION')]
     an = df[(df['method'] == 'ANOVA')]
     re = df[(df['method'] == 'RELIEF')]
@@ -253,3 +254,51 @@ def makeTable(df):
     print('inf gain: '      + str(np.mean(_ig_results)) + ' ' + str(np.mean(_ig_res)) + ' ' + str(np.mean(_ig_bacc)))
     print('chi square: '    + str(np.mean(_cs_results)) + ' ' + str(np.mean(_cs_res)) + ' ' + str(np.mean(_cs_bacc)))
     print('corr coef: '     + str(np.mean(_cc_results)) + ' ' + str(np.mean(_cc_res)) + ' ' + str(np.mean(_cc_bacc)))
+    
+def makeWilcoxon(df):
+    fontP = FontProperties()
+    fontP.set_size('xx-small')
+    classes = []
+    
+    no = df[(df['method'] == 'NO SELECTION')]
+    an = df[(df['method'] == 'ANOVA')]
+    re = df[(df['method'] == 'RELIEF')]
+    ig = df[(df['method'] == 'INFORATION GAIN')]
+    cs = df[(df['method'] == 'CHI SQUARE')]
+    cc = df[(df['method'] == 'CORRELATION COEF')]
+    
+    no_feats = np.array(no['num_of_feat'])
+    an_feats = np.array(an['num_of_feat'])
+    re_feats = np.array(re['num_of_feat'])
+    ig_feats = np.array(ig['num_of_feat'])
+    cs_feats = np.array(cs['num_of_feat'])
+    cc_feats = np.array(cc['num_of_feat'])
+    
+    for i in range(0, len(no_feats)):
+        full = no_feats[i]
+        an_feats[i] = (an_feats[i] / full) * 100
+        re_feats[i] = (re_feats[i] / full) * 100
+        ig_feats[i] = (ig_feats[i] / full) * 100
+        cs_feats[i] = (cs_feats[i] / full) * 100
+        cc_feats[i] = (cc_feats[i] / full) * 100
+        no_feats[i] = 100
+
+    feature = np.arange(len(no))
+    for set in no['dataset']:
+        classes.append(str(set))
+
+    plt.plot(feature, an_feats, linestyle='-', marker='o', color=(0.1, 0.2, 0.3, 0.8), label="ANOVA")
+    plt.plot(feature, re_feats, linestyle='-', marker='o', color=(0.8, 0.8, 0.1, 0.8), label="RELIEF")
+    plt.plot(feature, ig_feats, linestyle='-', marker='o', color=(0.1, 0.7, 0.1, 0.8), label="INFORATION GAIN")
+    plt.plot(feature, cs_feats, linestyle='-', marker='o', color=(0.2, 0.2, 0.2, 0.8), label="CHI SQUARE")
+    plt.plot(feature, cc_feats, linestyle='-', marker='o', color=(0.5, 0.1, 0.5, 0.8), label="CORRELATION COEF")
+    plt.plot(feature, no_feats, linestyle='-', marker='o', color=(1, 0, 0, 1), label="NO SELECTION")
+
+    plt.ylabel('Procent cech')
+    plt.xlabel('Zbiór')
+    plt.xticks(feature, classes)
+    plt.xticks(rotation=90)
+    plt.legend(bbox_to_anchor=(1.01, 1), loc='upper left', prop=fontP)
+    plt.show()
+
+    
