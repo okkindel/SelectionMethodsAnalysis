@@ -424,7 +424,7 @@ Pierwszym krokiem jaki należało podjąć było określeniej właściwej ilośc
 
 Szczegóły dotyczące doświadczeń oraz rezultaty zostały opisane w rozdziałach @sec:best_feats - @sec:const_feats_nb. Pełny zestaw wygenerowanych wyników został załączony do pracy i znajduje się w katalogu _results_. Foldery _f1_best_, _wilcoxon_ oraz _percent_ reprezentują kolejne trzy przedstawione powyżej kierunki badań. Katalog _classic_ zawiera wyniki klasyfikacji przeprowadzonej dla trzech i pięciu naistotniejszych cech według każej metody selekcji - średniej liczby cech po podwyższeniu której obserwowano brak poprawy lub pogorszenie jakości klasyfikacji. W katalogu _f1_closest_ znajduje wariacja drugiego, opisanego powyżej doświadczenia, w którym zamiast wyniku testu Wilconxona, jako metrykę użyto F1 Score. Pliki dostarczone zostały w formacie _csv_. Pierwszy rząd zawiera opis poszczególnych kolumn, pozostałe - wyniki eksperymentów.
 
-## Kombinacja wszystkich metod i każdej możliwej liczby cech {#sec:best_feats}
+### Kombinacja wszystkich metod i każdej możliwej liczby cech {#sec:best_feats}
 
 Celem tego eksperymentu było sprawdzenie, jak każda z badanych metod może poprawić wyniki klasyfikacji. W ramach tego etapu przygotowano program, który dla każdego zbioru i dla każdej metody porównuje wyniki klasyfikacji dla każdej możliwej ilości cech. Po porównaniu wszystkich możliwości, program zapisuje doświadczenie z najlepszym wynikiem. Kryterium obranym przy porównywaniu wyników było _F1 Score_. Wyniki, jakie zostało się uzyskać dla każdego zbioru przedstawione zostały na rysunku @fig:f1_best_all. Jak można zaobserwować - selekcja cech poprawiła wyniki klasyfikacji w przypadku praktycznie każdego zbioru.
 
@@ -462,11 +462,11 @@ Z danych, przedstawionych w tabeli @tbl:mean_best_feats_part_0 wynika, że wszys
 
 Okazało się, że w 93% przypadków (459 / 490 wyników), selekcja cech pozwoliła uzyskać lepsze wyniki klasyfikacji. W 71% przypadków (351 / 490 wyników), zaledwie połowa oryginalnych cech pozwoliła uzyskać wynik klasyfikacji lepszy od tego, który uzyskał algorytm na pełnym zbiorze. Co zaskakujące, w przypadku aż 218 eksperymentów - czyli dla 44% wyników, rezultat lepszy od bazowego uzyskano wykorzystując zaledwie jedną cechę.
 
-## Badanie liczby cech dla której wyniki odpowiadają wynikom klasyfikacji na pełnym zbiorze {#sec:closest_wilcoxon}
+### Badanie liczby cech dla której wyniki odpowiadają wynikom klasyfikacji na pełnym zbiorze {#sec:closest_wilcoxon}
 
 Celem tego badania było sprawdzenie, jaka ilość cech jest potrzebna poszczególnym metodom, aby wyniki klasyfikacji odpowiadały rezultatom eksperymentów bez przeprowadzonej redukcji atrybutów. Ma to znaczenie szczególnie wtedy, gdy od selekcji cech oczekuje się przede wszystkim zmniejszenia wymiaru wyjściowego zbioru w celu obniżenia kosztów jego archiwizacji i przetwarzania. Metryką na podstawie której badano, czy istnieje pomiędzy takimi wynikami statystycznie istotna zmiana było _F1 Score_. Badanie polegało na stworzeniu pięciu różnych losowych podzbiorów każdego oryginalnego zbioru i przeprowadzeniu selekcji cech oraz klasyfikacji na każdym z nich. Korzystając z wyników, zbadano z pomocą testu Wilcoxona różnice statystyczne pomiędzy rezutlatami klasyfikacji bez selekcji cech i dla każdej z metod. Przyjęto, że różnica wynosząca mniej niż 10% pomiędzy rezultatami obu eksperymentów jest wystarczająca, by uznać taki wyniki za podobne - szczególnie, że test przeprowadzany był z założeniem, że elementy pozytywne macierzy konfuzji to instancje klas mniej licznych, co powoduje, że nawet jedna instancja sklasyfikowana błędnie może znacząco wpłynąć na wynik testu. Program napisany w ramach tego etapu bada wszystkie permutacje liczby cech, począwszy od jednej cechy i zapusuje rezultat dla minimalnej liczby cech, dla której klasyfikacja osiąga rezultat porównywalny z założonym celem.
 
-## Porównanie metod w ramach ustalonej ilości cech {#sec:const_feats_nb}
+### Porównanie metod w ramach ustalonej ilości cech {#sec:const_feats_nb}
 
 Dla pełnego obrazu, zdecydowano się na wybór czterech wartości liczby cech w dla każdej metody i każdego zbioru. Program napisany w ramach eksperymentu przeprowadza test dla 20%, 40%, 60%, 80% liczby cech. Pozwoliło to na sprawdzenie, jak poszczególne algorytmy radzą sobie mając do dyspozycji stałą, określoną liczbę cech. Badanie pokazało, że nie zawsze większa ilość cech daje lepsze rezultaty - dużo zależy od zbioru. Wyniki _F1 Score_ dla poszczególnych metod (rezultaty dla 20% i 60% cech) i części zbiorów danych (stopień niezbalansowania pomiędzy 1:1.5 a 1:9) przedstawione zostały na wykresie @fig:f1_results_part_1. W ramach eksperymentu wykonano również próbę klasyfikacji na danych niepodlegających wcześniej selekcji cech. Linią czerwoną na wykresie oznaczono wyniki testu _F1_ dla klasyfikacji bez uprzedniej selekcji cech.
 
@@ -486,6 +486,14 @@ Selekcja cech praktycznie w każdym przypadku pozwoliła uzyskać lepsze rezulta
 
 Aby potwierdzić lub obalić hipotezę postawioną na początku pracy, postanowiono przeprowadzić test statystyczny - test Wilconxona, dla wygenerowanych danych.
 
+## Badanie różnic wydajnościowych
+
+Podczas doświadczeń badano czas, jaki potrzebny jest poszczególnym eksperymentom na ukończenie obliczeń. Każdą z opisanych metod uruchomiono kilkuktrotnie na kilku zbiorach, a jako parametr określający ilość cech podano całkowitą liczbę cech w każdym zbiorze. Wyniki tych eksperymentów prezentuje tabela:
+
+<!-- TABELA  -->
+
+Interesującą może być informacja, że pod względem wydajności metody nie różnią się ze sobą znacząco - z jednym wyjątkiem. Metoda _ReliefF_ okazała się nawet kilkukrotnie wolniejsza od konkurentów. Ma to swoje uzasadnienie w algorytmie tej metody - najbardziej obiciążającym elementem programu jest konieczność stworzenia macierzy odgległości typu _manhattan_ dla każdej cechy i każdej instancji, a następnie przeiterowania się po każdym elemencie tej macierzy. Jest to znacznie bardziej kosztowne od wykonania kilku obliczeń na danych - jak to ma mejsce w pozostałych metodach. Różnica przeczy nieco hipotezie, która zakładała mniejsze różnice na tym polu. 
+
 <!-- _TODO: Krzywe roc, testy Wilcoxona, jakieś tabele, przykłady rankingu cech na ccfd, testy statystyczne_
 `https://machinelearningmastery.com/statistical-hypothesis-tests-in-python-cheat-sheet/`
 `makrouśrednianie`
@@ -496,7 +504,9 @@ _Statistical Comparisons of Classifiers over Multiple Data Sets_ -->
 
 # Wnioski
 
-**Przeprowadzone eksperymenty częściowo potwierdzają założoną hipotezę. Przy odpoowiednio dobranej liczbie cech wszystkie metody poradziły sobie dobrze z powierzonym zadaniem, a żaden algorytm nie odbiegał znacznie od pozostałych. Świadczy to o tym, że selekcja cech jest ważnym krokiem w procesie zadania klasyfkikacji. Kolejne akapity prezentują interpretację wyników uzyskanych w rodziale @sec:results.**
+**Przeprowadzone eksperymenty częściowo potwierdzają założoną hipotezę. Przy odpoowiednio dobranej liczbie cech wszystkie metody poradziły sobie dobrze z powierzonym zadaniem, a żaden algorytm nie odbiegał znacznie od pozostałych. Świadczy to o tym, że selekcja cech jest ważnym krokiem w procesie zadania klasyfkikacji. Kolejne rozdziały prezentują interpretację wyników uzyskanych w rodziale @sec:results, a także opisują praktyczne zastosowanie przeprowadzonych eksperymentów i dalsze możliwości rozwoju projektu.**
+
+## Podsumowanie
 
 Ekpseryment @sec:best_feats pokazał, że reduckja atrybutów może mieć bardzo pozytywny wpływ na wyniki klasyfikacji danych. Wśród rezultatów, w przypadku niektórych zbiorów zaobserwować można nawet trzydziestoprocentową poprawę jakości klasyfikacji dla danych mniejszościowych, a sama selekcja cech pozwoliła poprawić wyniki klasyfikacji w 95% przypadków. Nie mniej istotnym aspektem jest ilość cech, jaka konieczna była do uzyskania takich wyników. W 44% przypadków, eksperyment wykazał wynik klasyfikacji taki sam lub lepszy już po użyciu jednej cechy. Pokazuje to, że istnieje możlowość zmniejszenia wymiarowości istniejących baz danych, co przekłada się bezpośrednio na krótszy czas klasyfikacji oraz mniejszą ilość miejsca zajmowanego na dyskach. Jest to jeden z najważniejszych wniosków płynących z tej pracy. Warto zwrócić uwagę na to, że doświadczenie opisane w tym rodziale pokazuje tak naprawdę najlepsze wyniki usykane przez każdą z metod dla każdego zbioru, a wyniki opisane w rodziale @sec:closest_wilcoxon obrazują, że nawet niewielka zmiana w zbiorze może zmienić działanie algorytmu redukcji cech. Poprzestawanie na samej selekcji cech nie przyniesie tak dobrych rezulatatów jakościowych jak połączenie jej z innymi metodami, co - jak zostało to opisane w przeglądzie literatury - jest bardzo popularną praktyką wśród autorów podobnych prac. W przypadku danych niezbalansowanych to nie poprawa jakości a zmniejszenie wymiaru jest prawdziwą wartością dodaną, pozwalającą na jednoczesne zarządzanie znacznie większymi bazami danych oraz na łatwiejsze ich magazynowanie.
 
@@ -504,13 +514,18 @@ Pokazuje to w szczególności własnie eksperyment opisany w akapicie @sec:close
 
 Doświadczenia opisane w rozdziale @sec:const_feats_nb również dostyczą hipotezy postawionej na początku pracy. Eksperymenty te bezpośrednio porównują każdą z badanych metod, uruchomioną dla takiej samej liczby cech w ramach każdego zbioru. Algorytmy radziły sobie bardzo różnie, nie zawsze przy tym wynikiem ich działania było podniesienie jakości klasyfikacji. Nie da się też w łatwy sposób uogólnić działania poszczególnych metod, a nawet poszczególnych metod z poszczególną ilością cech. Wiele znaleźć można przykładów, w których mała ilość cech danej metody obniżyła wynik F1 Score tego badania do poziomu najniższego ze wszystkich ekpserymentów, aby za chwilę, przy następnym zbiorze, doświadczenie z tymi samymi parametrami odniosło duży sukces. Ważnym wnioskiem, wynikającym ze z tego eksperymentu jest opisany już przez autorów innych, wymienionych w przeglądzie literatury fakt, że wśród popularnych metod - nie tylko selekcji cech, nie da się w łatwy sposób wybrać lepszych oraz gorszych algorytmów. Do każdego zbioru danych należy podejść indywidualnie, i to w sporej części wiedza dziedzinowa - dotycząca wartości w zbiorze, pozwoli na wybór najlepszych narzędzi do pracy, co za tym idzie - uzyskanie najlepszych wyników. Badania skupiające się głównie nad zbiorami niezbalansowanymi jeszcze bardziej podkreślają ten fakt.
 
+Warto mieć na uwadze, że selekcja cech nie zawsze ma pozytywny wpływ na jakość klasyfikacji, gdyż cechy czasem pozornie tylko nieistotne mogą mieć znaczenie dla poprawnego sklasyfikowania elementów. Pokazują to dobrze przykłady zobrazowane na rysunku @fig:f1_results_part_3. Niektóre algorytmy, mimo że zauważająco polepszyły wydajność kategoryzacji to przyczyniły się też do spadku dokładności. Ważne jest odpowiednie dobranie metody i liczby cech - odpowiednio dobrany do problemu algorytm redukcji nie tylko nie wpłynie negatywnie na jakość klasyfikacji, ale może również - szczególnie w przypadku zbiorów zawierających dużą ilość elementów i klas - wpływać pozytywnie na czas działania algorytmu.
+
 Analiza wszystkich doświadczeń uwidacznia jeszcze jeden fakt, zaprezentowany na przykład na rysunkach @fig:f1_best_all, @fig:f1_results_part_3 i @fig:f1_results_part_0. Selekcja cech dobrze sobie radzi w przypadku dużych zbiorów danych, nawet jeżeli posiadają barzo wysoki stopień niezbalansowania (dla przykładu, w zbiorze _CCFD_, klasa mniejszościowa zajmowała zaledwie 0,172% całego zbioru, ale zbiór posiada 284807 elementów) oraz w przypadku małych zbiorów z niewielkim stopniem niezbalansowania. Jednakże, dla zbiorów o małym wymiarze (większość zbiorów z platformy _KEEL_ zawierała poniżej 2000 elementów) i wysokim stopniu niezbalasowania (1:100 - 1:400) nie należy oczekiwać dobrych wyników klasyfikacji, jeżeli to selekcja cech była głównym punktem przygotowania zbiorów. 
 
-## Dalsze możlowości rozwoju
+Podsumowując, podczas stosowania algorytmów uczenia maszynowego, należy pamiętać, że selekcja cech jest jedynie jednym z wielu dostępnych narzędzi i nie należy traktować jej jako złotego środka. Pozwala jednak, szczególnie dla dużych zbiorów danych na wybór cech istotnych z punktu widzenia klasyfikacji co może przysłużyć się nie tylko problemowi wydajności współczesnych komputerów ale również optymalizacji baz danych, które mogą dzięki temu przechowywać jedynie dane ważne dla rozpatrywanego problemu.
 
 ## Praktyczne zastosowanie eksperymentów
 
 Wykonane przez autora eksperymenty 
+
+## Dalsze możlowości rozwoju
+
 
 \newpage\null\newpage
 
