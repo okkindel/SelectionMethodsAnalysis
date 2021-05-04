@@ -20,9 +20,6 @@ def make_simple_summary(method, set, X, accuracy, matrix, scores, wilcoxon = 0, 
     print(bcolors.GREEN  + 'TPR FPR TNR: '      + str(calculateFPR_TPR_TNR(matrix))  + bcolors.ENDC)
     print(bcolors.GREEN  + 'MATRIX: '           + str(matrix).replace('\n', '')      + bcolors.ENDC)
     print(bcolors.GREEN  + 'SCORES: '           + str(scores)                        + bcolors.ENDC)
-    print(bcolors.BOLD   + 'WILCOXON_P: '       + str(wilcoxon)                      + bcolors.ENDC)
-    print(bcolors.GREEN  + 'ORIGINAL_RES: '     + str(original)                      + bcolors.ENDC)
-    print(bcolors.GREEN  + 'NEW_RES     : '     + str(new)                           + bcolors.ENDC)
     print('\n')
 
 def get_string_summary(method, set, X, accuracy, matrix, scores):
@@ -45,13 +42,21 @@ def get_header():
 
 # WILCOXON
 
-def wicloxon_string_summary(method, set, X, scores, wilcoxon, results):
+def make_wilcoxon_summary(method, set, lenght, wilcoxon, original, new):
+    print(bcolors.YELLOW + 'SET: '              + str(set)                           + bcolors.ENDC)
+    print(bcolors.YELLOW + 'METHOD: '           + str(method)                        + bcolors.ENDC)
+    print(bcolors.GREEN  + 'NB_OF_FEATURES: '   + str(lenght)                        + bcolors.ENDC)
+    print(bcolors.BOLD   + 'WILCOXON_P: '       + str(wilcoxon)                      + bcolors.ENDC)
+    print(bcolors.GREEN  + 'ORIGINAL_RES: '     + str(original)                      + bcolors.ENDC)
+    print(bcolors.GREEN  + 'NEW_RES     : '     + str(new)                           + bcolors.ENDC)
+    print('\n')
+
+def wicloxon_string_summary(method, set, lenght, wilcoxon, results):
     return (set
         + '; ' + method
-        + '; ' + str(X.shape[1])
+        + '; ' + str(lenght)
         + '; ' + str(wilcoxon)
         + '; ' + str(results).replace(' ', '')
-        + '; ' + str(scores).replace(' ', '')
         + '\n')
 
 def wilcoxon_header():

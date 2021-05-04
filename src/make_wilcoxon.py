@@ -1,5 +1,5 @@
 from lib.data_preprocessing import getCcfd, getCustom, getInsurance, getMushroom, getKeel
-from lib.summary import make_simple_summary, wicloxon_string_summary, wilcoxon_header
+from lib.summary import make_wilcoxon_summary, wicloxon_string_summary, wilcoxon_header
 from lib.feature_selection import reverseMatrix, calculateF1, calculateWilcoxon
 from lib.data_preprocessing import PART_1, PART_2, PART_3, PART_4
 from lib.classification import get_average_score
@@ -12,6 +12,9 @@ from lib.methods.correlation_coef import correlation_coef
 from lib.methods.chi_square import chi_square
 from lib.methods.relief import relief
 from lib.methods.anova import anova
+
+import warnings
+warnings.filterwarnings("ignore")
 
 DATA_PART = 'part4'
 ALPHA = 0.1
@@ -47,17 +50,17 @@ def make_closest(file, method, set, subsets, results, set_len):
         try: _, p = calculateWilcoxon(results, custom_res)
         except ValueError: p = 0
         
-        make_simple_summary(method, set, X_Fit, accuracy, matrix_rev, scores, wilcoxon=p, original=results, new=custom_res)
+        make_wilcoxon_summary(method, set, X_Fit.shape[1], p, results, custom_res)
         
         if (p < ALPHA):
             print('FOUND - ORIGINAL NB: ' + str(set_len) + ' - NEW NB: ' + str(feats) + '\n')
-            file.write(wicloxon_string_summary(method, set, X_Fit, scores, p, custom_res))
+            file.write(wicloxon_string_summary(method, set, X_Fit.shape[1], p, custom_res))
             found = True
             break
     
     if (not(found)):
         print('NOT FOUND - ROLLBACK\n')
-        file.write(wicloxon_string_summary(method, set, X_Fit, scores, 0, results))
+        file.write(wicloxon_string_summary(method, set, set_len, 0, results))
 
 def make_experiment(file, set, elements):
     [X, y] = elements
@@ -72,7 +75,7 @@ def make_experiment(file, set, elements):
 
 
     random_subset0 = [X, y]
-    random_subset1 = [X[0:get_part_of_set(X, 0.4)], y[0:get_part_of_set(y, 0.4)]]
+    random_subset1 = [X[get_part_of_set(X, 0.4):len(X)], y[get_part_of_set(y, 0.4):len(X)]]
     random_subset2 = [X[get_part_of_set(X, 0.2):len(X)], y[get_part_of_set(y, 0.2):len(X)]]
     random_subset3 = [X[0::2], y[0::2]]
     random_subset4 = [X[0::3], y[0::3]]
@@ -85,7 +88,7 @@ def make_experiment(file, set, elements):
         matrix_rev = reverseMatrix(matrix)
         results.append(calculateF1(matrix_rev))
 
-    file.write(wicloxon_string_summary('NO SELECTION', set, X, ['all'], 0, results))
+    file.write(wicloxon_string_summary('NO SELECTION', set, X.shape[1], 'null', results))
 
     ALL_METHODS = ['ANOVA', 'RELIEF', 'INFORATION GAIN', 'CHI SQUARE', 'CORRELATION COEF']
     
