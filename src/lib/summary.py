@@ -60,4 +60,4 @@ def wicloxon_string_summary(method, set, lenght, wilcoxon, results):
         + '\n')
 
 def wilcoxon_header():
-    return ('dataset; method; num_of_feat; wilcoxon_p; f1_results; scores\n')
+    return ('dataset; method; num_of_feat; wilcoxon_p; f1_results\n')

@@ -16,7 +16,7 @@ from lib.methods.anova import anova
 import warnings
 warnings.filterwarnings("ignore")
 
-DATA_PART = 'part0'
+DATA_PART = 'part4'
 ALPHA = 0.05
 
 #-----------------------------------------------------------------------------------
@@ -48,7 +48,7 @@ def make_closest(file, method, set, subsets, results, set_len):
             custom_res.append(calculateF1(matrix_rev))
 
         try: _, p = calculateWilcoxon(results, custom_res)
-        except ValueError: p = 0
+        except ValueError: p = 1
         
         make_wilcoxon_summary(method, set, X_Fit.shape[1], p, results, custom_res)
         
