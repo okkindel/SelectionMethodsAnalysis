@@ -16,8 +16,8 @@ from lib.methods.anova import anova
 import warnings
 warnings.filterwarnings("ignore")
 
-DATA_PART = 'part4'
-ALPHA = 0.1
+DATA_PART = 'part0'
+ALPHA = 0.05
 
 #-----------------------------------------------------------------------------------
 #-----------------------------------------------------------------------------------
@@ -52,7 +52,7 @@ def make_closest(file, method, set, subsets, results, set_len):
         
         make_wilcoxon_summary(method, set, X_Fit.shape[1], p, results, custom_res)
         
-        if (p < ALPHA):
+        if (p > ALPHA):
             print('FOUND - ORIGINAL NB: ' + str(set_len) + ' - NEW NB: ' + str(feats) + '\n')
             file.write(wicloxon_string_summary(method, set, X_Fit.shape[1], p, custom_res))
             found = True
@@ -75,12 +75,15 @@ def make_experiment(file, set, elements):
 
 
     random_subset0 = [X, y]
-    random_subset1 = [X[get_part_of_set(X, 0.4):len(X)], y[get_part_of_set(y, 0.4):len(X)]]
-    random_subset2 = [X[get_part_of_set(X, 0.2):len(X)], y[get_part_of_set(y, 0.2):len(X)]]
-    random_subset3 = [X[0::2], y[0::2]]
-    random_subset4 = [X[0::3], y[0::3]]
+    random_subset1 = [X[1::2], y[1::2]]
+    random_subset2 = [X[0::2], y[0::2]]
+    random_subset3 = [X[0::3], y[0::3]]
+    random_subset4 = [X[1::3], y[1::3]]
+    random_subset5 = [X[2::3], y[2::3]]
+    random_subset6 = [X[get_part_of_set(X, 0.4):len(X)], y[get_part_of_set(y, 0.4):len(X)]]
+    random_subset7 = [X[get_part_of_set(X, 0.2):(len(X) - 2)], y[get_part_of_set(y, 0.2):(len(X) - 2)]]
     
-    subsets = [random_subset0, random_subset1, random_subset2, random_subset3, random_subset4]
+    subsets = [random_subset0, random_subset1, random_subset2, random_subset3, random_subset4, random_subset5, random_subset6, random_subset7]
     results = []
 
     for subset in subsets:
