@@ -444,33 +444,45 @@ Aby móc określić, ktora z badanych metod radzi sobie najlepiej, koniecznym kr
 
 Rysunek @fig:wilcoxon_best potwierdza to, co można było przypuszczać już analizując rysunki @fig:f1_best_all oraz @fig:mean_best_rank - metody selekcji cech pozwalają na uzyskanie statystycznie podobnych wyników, a duże różnice istnieją jedynie pomiędzy wynikami klasyfikacji z użyciem dowolnej z metod a wynikami klasyfikacji bez redukcji cech. Wyniki testu Wilcoxona dla poszczególnych metod wskazują, że rezultaty uzyskane przez te metody nie wykazują znacznych różnic statystycznych, żaden z wyników nie uzyskuje zwyczajowej wartości $0.05$ uznawanej za próg, po którym można uznać, że rezultaty eksperymentów pochodzą z różnych rozkładów. Z tego powodu, nie można z całą pewnością stwierdzić, która metoda daje najlepsze wyniki.
 
-Tabela @tbl:mean_best_feats zawiera porównanie średniej ilości cech w procentach oraz średni wyniki F1 Score i zbalansowanej dokładności dla każdej metody, dla wszystkich badanych zbiorów.
+Tabela @tbl:mean_best_feats_part_1 zawiera porównanie średniej ilości cech w procentach oraz średni wyniki F1 Score dla każdej metody, dla części badanych zbiorów (stopień niezbalansowania pomiędzy 1:1.5 a 1:9). Czcionką pogrubioną zaznaczono na tabeli wartości skrajne liczby cech. 
 
-| Nazwa Metody            | Średnia liczba cech | Uśredniony wynik F1 Score | Uśredniona dokładność zbalansowana |
-|-------------------------|--------------------|---------------------------|------------------------------------|
-| Anova                   | 34.3%              | 0.497                     | 0.782                              |
-| ReliefF                 | 36.4%              | 0.472                     | 0.765                              |
-| Information Gain        | 34.4%              | 0.481                     | 0.765                              |
-| Chi Square              | 36.3%              | 0.498                     | 0.778                              |
-| Correlation Coefficient | 39.5%              | 0.432                     | 0.767                              |
+| Nazwa Metody            | Średnia liczba cech | Uśredniony wynik F1 Score |
+|-------------------------|-------------------- |--------------------------- |
+| Anova                   | 49.3%               | 0.739                      | 
+| ReliefF                 | 63.3%               | 0.705                      | 
+| Information Gain        | **47.8%**           | 0.711                      | 
+| Chi Square              | 56.6%               | 0.732                      | 
+| Correlation Coefficient | **67.5%**           | 0.680                      | 
 
-Table: Porównanie średniej ilości wybranych cech oraz uśrednionego wyniku F1 Score i zbalansowanej dokładności dla każdej z metod, wszystkie zbiory danych. {#tbl:mean_best_feats}
+Table: Porównanie średniej ilości wybranych cech oraz uśrednionego wyniku F1 Score dla każdej z metod, dla części zbiorów (stopień niezbalansowania pomiędzy 1:1.5 a 1:9). {#tbl:mean_best_feats_part_1}
 
 Badanie powtórzono dla wyników uzyskanych na czterech, największych zbiorach, opisanych w rozdziałach @sec:ccfd - @sec:custom. Zbiory te posiadały znacznie większą liczba atrybutów, a większy ich wymiar pozwala przypuszczać, że metody mogły lepiej dostosować się do danych. Wyniki tego badania prezentuje tabela @tbl:mean_best_feats_part_0.
 
-| Nazwa Metody            | Średnia liczba cech | Uśredniony wynik F1 Score | Uśredniona dokładność zbalansowana |
-|-------------------------|--------------------|---------------------------|------------------------------------|
-| Anova                   | 60.8%              | 0.709                     | 0.893                              |
-| ReliefF                 | 21.9%              | 0.705                     | 0.878                              |
-| Information Gain        | 25.7%              | 0.742                     | 0.897                              |
-| Chi Square              | 47.4%              | 0.716                     | 0.894                              |
-| Correlation Coefficient | 45.1%              | 0.730                     | 0.894                              | 
+| Nazwa Metody            | Średnia liczba cech | Uśredniony wynik F1 Score |
+|-------------------------|-------------------- |--------------------------- |
+| Anova                   | **60.8%**           | 0.709                      |
+| ReliefF                 | **21.9%**           | 0.705                      |
+| Information Gain        | 25.7%               | 0.742                      |
+| Chi Square              | 47.4%               | 0.716                      |
+| Correlation Coefficient | 45.1%               | 0.730                      |
 
-Table: Porównanie średniej ilości wybranych cech oraz uśrednionego wyniku F1 Score i zbalansowanej dokładności dla każdej z metod, najobszerniejsze zbiory danych. {#tbl:mean_best_feats_part_0}
+Table: Porównanie średniej ilości wybranych cech oraz uśrednionego wyniku F1 Score dla każdej z metod, najobszerniejsze zbiory danych. {#tbl:mean_best_feats_part_0}
 
-Z danych, przedstawionych w tabeli @tbl:mean_best_feats_part_0 wynika, że wszystkie metody uzyskały średnio podobne wyniki, natomiast potrzebowały do tego różnej ilości cech.
+Z danych, przedstawionych w tabelach @tbl:mean_best_feats_part_1 oraz @tbl:mean_best_feats_part_0 wynika, że w celu uzyskania podobnych wyników etykietowania metody potrzebowały średnio różnej ilości cech. Różnice te sięgają nawet czterdziestu punktów procentowych. Może to oznaczać, że to nie jakość klasyfikacji a liczba cech potrzeba do osiągniecia jej zadowalającego poziomu powinna być wyznacznikiem przy doborze odpowiedniej metody selekcji.
 
-Okazało się, że w 93% przypadków (459 / 490 wyników), selekcja cech pozwoliła uzyskać lepsze wyniki klasyfikacji. W 71% przypadków (351 / 490 wyników), zaledwie połowa oryginalnych cech pozwoliła uzyskać wynik klasyfikacji lepszy od tego, który uzyskał algorytm na pełnym zbiorze. Co zaskakujące, w przypadku aż 218 eksperymentów - czyli dla 44% wyników, rezultat lepszy od bazowego uzyskano wykorzystując zaledwie jedną cechę.
+Tabela @tbl:mean_best_feats prezentuje podobne badanie, tym razem z użyciem wszystkich zbiorów danch. Przy zastosowaniu większej, reprezentatywnej ilości zbiorów, dane dotyczące liczby cech dla różnych metod nie odbiegają od siebie znacznie. Oznacza to, że i pod tym wględem nie da się wskazać metody najlepszej - co potwierdza zakładaną początkowo hipotezę.
+
+| Nazwa Metody            | Średnia liczba cech | Uśredniony wynik F1 Score |
+|-------------------------|-------------------- |---------------------------|
+| Anova                   | 34.3%               | 0.497                     |
+| ReliefF                 | 36.4%               | 0.472                     |
+| Information Gain        | 34.4%               | 0.481                     |
+| Chi Square              | 36.3%               | 0.498                     |
+| Correlation Coefficient | 39.5%               | 0.432                     |
+
+Table: Porównanie średniej ilości wybranych cech oraz uśrednionego wyniku F1 Score i zbalansowanej dokładności dla każdej z metod, wszystkie zbiory danych. {#tbl:mean_best_feats}
+
+Ponadto okazało się, że w 93% przypadków (459 / 490 wyników), selekcja cech pozwoliła uzyskać lepsze wyniki klasyfikacji. W 71% przypadków (351 / 490 wyników), zaledwie połowa oryginalnych cech pozwoliła uzyskać wynik klasyfikacji lepszy od tego, który uzyskał algorytm na pełnym zbiorze. Co zaskakujące, w przypadku aż 218 eksperymentów - czyli dla 44% wyników, rezultat lepszy od bazowego uzyskano wykorzystując zaledwie jedną cechę.
 
 ### Badanie liczby cech dla której wyniki odpowiadają wynikom klasyfikacji na pełnym zbiorze {#sec:closest_wilcoxon}
 
@@ -509,9 +521,9 @@ Selekcja cech praktycznie w każdym przypadku pozwoliła uzyskać lepsze rezulta
 
 Aby potwierdzić lub obalić hipotezę postawioną na początku pracy, postanowiono przeprowadzić test statystyczny - test Wilconxona, dla wygenerowanych danych. Rysunek @fig:wilcoxon_percent prezentuje macierz prezentującą te wyniki. Pokazuje ona prawdopodobieństwo, że rezultaty uzyskane dla każdej pary eksperymentów pochodzą z tej samej dystrybucji. Poszczególne komórki zawierają wynik _pvalue_, wartość mniejsza niż $0.05$ potwierdza hipotezę o statystycznej różnicy otrzymanych rezultatów.
 
-Obserwując wykres, można generalizować, że różnice statystyczne pomiędzy metodami maleją wraz ze wzrostem liczby cech. Użycie już 40% cech odrzuca hipotezę o niezależnych dystrybucjach, potwierdzając niejako, że każda z użytych metod skutkuje podobnymi wynikami. Ponadto, rezultaty przedstawione na rysunkach @fig:f1_results_part_1 - @fig:f1_results_part_0 dowodzą, że 20% to zazwyczaj liczba zbyt mała liczba cech do uzyskania stabilnych, dobrych wyników klasyfikacji. Wyniki eksperymentu świadczą za hipotezą postawioną na początku pracy. 
-
 ![Macierz prezentująca wyniki testu Wilcoxona objaśniające różnice statystyczne pomiędzy metodami z różną liczbą cech.](./figures/wilcoxon_percent.png){#fig:wilcoxon_percent}
+
+Obserwując wykres, można generalizować, że różnice statystyczne pomiędzy metodami maleją wraz ze wzrostem liczby cech. Użycie już 40% cech odrzuca hipotezę o niezależnych dystrybucjach, potwierdzając niejako, że każda z użytych metod skutkuje podobnymi wynikami. Ponadto, rezultaty przedstawione na rysunkach @fig:f1_results_part_1 - @fig:f1_results_part_0 dowodzą, że 20% to zazwyczaj liczba zbyt mała liczba cech do uzyskania stabilnych, dobrych wyników klasyfikacji. Wyniki eksperymentu świadczą za hipotezą postawioną na początku pracy. 
 
 ## Badanie różnic wydajnościowych
 

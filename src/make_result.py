@@ -10,9 +10,9 @@ import pandas as pd
 # df1 = pd.read_csv("../results/percent/percent_part1.csv", sep="; ", engine='python')
 # df3 = pd.read_csv("../results/percent/percent_part3.csv", sep="; ", engine='python')
 # df4 = pd.read_csv("../results/percent/percent_part4.csv", sep="; ", engine='python')
-df = pd.read_csv("../results/f1_best/f1_best_part0.csv", sep="; ", engine='python')
+df = pd.read_csv("../results/f1_best/f1_best_all.csv", sep="; ", engine='python')
 # res = pd.concat([df0, df1])
-best_feat_table(df)
+best_wilcoxon(df)
 
 # df = pd.read_csv("../results/f1_wilcoxon/wilcoxon_part1.csv", sep="; ", engine='python')
 # makeWilcoxon(df)
