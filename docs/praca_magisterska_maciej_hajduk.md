@@ -519,7 +519,7 @@ Ponownie, badania powtórzono dla największych zbiorów danycg - _CCFD_, _Mushr
 
 Selekcja cech praktycznie w każdym przypadku pozwoliła uzyskać lepsze rezultaty klasyfikacji. Ponownie wyróżniającą się metodą jest _Correlation Coefficient_, jednak słabe wyniki uzyskuje on tylko w przypadku niewielkiej liczby cech, w zestawie _Custom_ natomiast, radzi sobie najlepiej, co jest prawdopodobnie podyktowane silnie skorelowanymi instancjami klas mniejszościowych w tym zbiorze.
 
-Aby potwierdzić lub obalić hipotezę postawioną na początku pracy, postanowiono przeprowadzić test statystyczny - test Wilconxona, dla wygenerowanych danych. Rysunek @fig:wilcoxon_percent prezentuje macierz prezentującą te wyniki. Pokazuje ona prawdopodobieństwo, że rezultaty uzyskane dla każdej pary eksperymentów pochodzą z tej samej dystrybucji. Poszczególne komórki zawierają wynik _pvalue_, wartość mniejsza niż $0.05$ potwierdza hipotezę o statystycznej różnicy otrzymanych rezultatów.
+Aby potwierdzić lub obalić hipotezę postawioną na początku pracy, postanowiono przeprowadzić test statystyczny - test Wilconxona, dla wygenerowanych danych. Rysunek @fig:wilcoxon_percent prezentuje macierz prezentującą te wyniki. Pokazuje ona prawdopodobieństwo, że rezultaty uzyskane dla każdej pary eksperymentów pochodzą z tej samej dystrybucji. Poszczególne komórki zawierają wynik _pvalue_, wartość mniejsza niż $0.05$ wskazuje na statystyczne różnice otrzymanych rezultatów tym samym odrzucając hipotezę.
 
 ![Macierz prezentująca wyniki testu Wilcoxona objaśniające różnice statystyczne pomiędzy metodami z różną liczbą cech.](./figures/wilcoxon_percent.png){#fig:wilcoxon_percent}
 
@@ -547,7 +547,7 @@ Hipoteza postawiona na początku pracy nie uwględniała różnic w czasie wykon
 
 # Wnioski
 
-**Przeprowadzone eksperymenty częściowo potwierdzają założoną hipotezę. Przy odpoowiednio dobranej liczbie cech wszystkie metody poradziły sobie dobrze z powierzonym zadaniem, a żaden algorytm nie odbiegał znacznie od pozostałych. Świadczy to o tym, że selekcja cech jest ważnym krokiem w procesie zadania klasyfkikacji. Kolejne rozdziały prezentują interpretację wyników uzyskanych w rodziale @sec:results, a także opisują praktyczne zastosowanie przeprowadzonych eksperymentów i dalsze możliwości rozwoju projektu.**
+**Przeprowadzone eksperymenty częściowo potwierdzają założoną hipotezę. Przy odpoowiednio dobranej liczbie cech wszystkie metody poradziły sobie dobrze z powierzonym zadaniem, a żaden algorytm nie odbiegał znacznie od pozostałych. Poprawa rezultatów klasyfikacji i możliwość zmniejszenia wymiaru zbioru bez szkody dla wyników świadczy o tym, że selekcja cech jest ważnym krokiem w procesie zadania klasyfkikacji. Kolejne rozdziały prezentują interpretację wyników uzyskanych w rodziale @sec:results, a także opisują praktyczne zastosowanie przeprowadzonych eksperymentów i dalsze możliwości rozwoju projektu.**
 
 ## Podsumowanie
 
