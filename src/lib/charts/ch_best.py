@@ -1,3 +1,5 @@
+from matplotlib.font_manager import FontProperties
+from scipy.stats import wilcoxon
 import matplotlib.pyplot as plt
 from operator import itemgetter
 import numpy as np
@@ -126,7 +128,7 @@ def mean_chart(df):
 # -----------------------------------------------------------------------------------------------------------------
 
 def best_rank_charts(df):
-    fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(5, 3))
+    fig, axes = plt.subplots(nrows=1, ncols=3, figsize=(5, 3))
     
     no = df[(df['method'] == 'NO SELECTION')]
     an = df[(df['method'] == 'ANOVA')]
@@ -185,7 +187,7 @@ def best_rank_charts(df):
     
     axes[0].grid()
     axes[0].bar(height=np.mean(f1_no_res), edgecolor='black', color='red', x="NO SELECTION")
-    axes[0].bar(height=np.mean(f1_an_res), edgecolor='black', color='azure', x="ANOVA")
+    axes[0].bar(height=np.mean(f1_an_res), edgecolor='black', color='lightblue', x="ANOVA")
     axes[0].bar(height=np.mean(f1_re_res), edgecolor='black', color='aqua', x="RELIEF")
     axes[0].bar(height=np.mean(f1_ig_res), edgecolor='black', color='grey', x="INFORATION GAIN")
     axes[0].bar(height=np.mean(f1_cs_res), edgecolor='black', color='teal', x="CHI SQUARE")
@@ -244,7 +246,7 @@ def best_rank_charts(df):
     
     axes[1].grid()
     axes[1].bar(height=np.mean(feats_no_res), edgecolor='black', color='red', x="NO SELECTION")
-    axes[1].bar(height=np.mean(feats_an_res), edgecolor='black', color='azure', x="ANOVA")
+    axes[1].bar(height=np.mean(feats_an_res), edgecolor='black', color='lightblue', x="ANOVA")
     axes[1].bar(height=np.mean(feats_re_res), edgecolor='black', color='aqua', x="RELIEF")
     axes[1].bar(height=np.mean(feats_ig_res), edgecolor='black', color='grey', x="INFORATION GAIN")
     axes[1].bar(height=np.mean(feats_cs_res), edgecolor='black', color='teal', x="CHI SQUARE")
@@ -253,4 +255,73 @@ def best_rank_charts(df):
     axes[1].tick_params(labelrotation=40)
     axes[1].set_ylim([0, 2])
     
+    f1_res = [np.mean(f1_no_res), np.mean(f1_an_res), np.mean(f1_re_res), np.mean(f1_ig_res), np.mean(f1_cs_res), np.mean(f1_cc_res)]
+    feats_res = [np.mean(feats_no_res), np.mean(feats_an_res), np.mean(feats_re_res), np.mean(feats_ig_res), np.mean(feats_cs_res), np.mean(feats_cc_res)]
+    _methods = ['NO SELECTION', 'ANOVA', 'RELIEF', 'INFORATION GAIN', 'CHI SQUARE', 'CORRELATION COEF']
+    _markers = ['o', 'v', '^', '>', 's', 'd']
+    _colors = ['red', 'lightblue', 'aqua', 'grey', 'teal', 'aquamarine']
+
+    axes[2].grid()
+    for i in range(0, len(_methods)):
+        axes[2].plot(f1_res[i], feats_res[i], _markers[i], label=_methods[i], color=_colors[i])
+    axes[2].legend(numpoints=1)
+    axes[2].set_title('Stosunek rangi F1 Score do rangi liczby cech')
+    axes[2].set_xlabel('Ranga F1 Score')
+    axes[2].set_ylabel('Ranga liczby cech')
+    
+    plt.show()
+
+# -----------------------------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------------------------------
+
+def best_wilcoxon(df):
+    fontP = FontProperties()
+    fontP.set_size('xx-small')
+    classes = []
+    
+    no = df[(df['method'] == 'NO SELECTION')]
+    an = df[(df['method'] == 'ANOVA')]
+    re = df[(df['method'] == 'RELIEF')]
+    ig = df[(df['method'] == 'INFORATION GAIN')]
+    cs = df[(df['method'] == 'CHI SQUARE')]
+    cc = df[(df['method'] == 'CORRELATION COEF')]
+    
+    f1_no = (list(itertools.chain(*(no[['f1_score']].values))))
+    f1_an = (list(itertools.chain(*(an[['f1_score']].values))))
+    f1_re = (list(itertools.chain(*(re[['f1_score']].values))))
+    f1_ig = (list(itertools.chain(*(ig[['f1_score']].values))))
+    f1_cs = (list(itertools.chain(*(cs[['f1_score']].values))))
+    f1_cc = (list(itertools.chain(*(cc[['f1_score']].values))))
+    
+    _methods = ['NO SELECTION', 'ANOVA', 'RELIEF', 'INFORATION GAIN', 'CHI SQUARE', 'CORRELATION COEF']
+    _list = [f1_no, f1_an, f1_re, f1_ig, f1_cs, f1_cc]
+    res = []
+    
+    for i in range(0, len(_list)):
+        res.append([])
+        for j in range (0, len(_list)):
+            if (i != j):
+                _, p = wilcoxon(_list[i], _list[j])
+                print(p)
+                res[i].append(p)
+            else:
+                res[i].append(-1)
+                
+    fi_matrix = np.array(res)
+    
+    fig, ax = plt.subplots()
+    im = ax.imshow(fi_matrix)
+    
+    ax.set_xticks(np.arange(len(_methods)))
+    ax.set_yticks(np.arange(len(_methods)))
+    ax.set_xticklabels(_methods)
+    ax.set_yticklabels(_methods)
+    
+    plt.setp(ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor")
+    
+    for i in range(len(_methods)):
+        for j in range(len(_methods)):
+            text = ax.text(j, i, '' if fi_matrix[i, j] == -1 else "{:.2f}".format(round(fi_matrix[i, j], 2)), ha="center", va="center", color="black")
+    
+    fig.tight_layout()
     plt.show()
