@@ -7,7 +7,7 @@ class bcolors:
     BOLD = '\033[1m'
     ENDC = '\033[0m'
 
-def make_simple_summary(method, set, X, accuracy, matrix, scores, wilcoxon = 0, original = [], new  = []):
+def make_simple_summary(method, set, X, accuracy, matrix, scores):
     print(bcolors.YELLOW + 'SET: '              + str(set)                           + bcolors.ENDC)
     print(bcolors.YELLOW + 'METHOD: '           + str(method)                        + bcolors.ENDC)
     print(bcolors.GREEN  + 'NB_OF_FEATURES: '   + str(X.shape[1])                    + bcolors.ENDC)

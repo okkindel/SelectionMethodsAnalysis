@@ -422,7 +422,7 @@ Pierwszym krokiem jaki należało podjąć było określeniej właściwej ilośc
 * Zbadanie, dla jakiej liczby cech metoda jest w stanie uzyskać wynik klasyfikacji podobny do wyniku uzyskanego przeprowadzając klasyfikację na pełnym zbiorze.
 * Zbadanie, jak poszczególne metody radzą sobie w ramach takiej samej, uprzednio wybranej liczby cech.
 
-Szczegóły dotyczące doświadczeń oraz rezultaty zostały opisane w rozdziałach @sec:best_feats - @sec:const_feats_nb. Pełny zestaw wygenerowanych wyników został załączony do pracy i znajduje się w katalogu _results_. Foldery _f1_best_, _f1_wilcoxon_ oraz _percent_ reprezentują kolejne trzy przedstawione powyżej kierunki badań. Katalog _classic_ zawiera wyniki klasyfikacji przeprowadzonej dla trzech i pięciu naistotniejszych cech według każej metody selekcji - średniej liczby cech po podwyższeniu której obserwowano brak poprawy lub pogorszenie jakości klasyfikacji. W katalogu _f1_closest_ znajduje wariacja drugiego, opisanego powyżej doświadczenia, w którym zamiast wyniku testu Wilconxona, jako metrykę użyto _F1 Score_. Pliki dostarczone zostały w formacie _csv_. Pierwszy rząd zawiera opis poszczególnych kolumn, pozostałe - wyniki eksperymentów.
+Szczegóły dotyczące doświadczeń oraz rezultaty zostały opisane w rozdziałach @sec:best_feats - @sec:const_feats_nb. Pełny zestaw wygenerowanych wyników został załączony do pracy i znajduje się w katalogu _results_. Foldery _f1_best_, _f1_wilcoxon_ oraz _percent_ reprezentują kolejne trzy przedstawione powyżej kierunki badań. Katalog _classic_ zawiera wyniki klasyfikacji przeprowadzonej dla trzech i pięciu naistotniejszych cech według każej metody selekcji - średniej liczby cech po podwyższeniu której obserwowano brak poprawy lub pogorszenie jakości klasyfikacji. W katalogu _f1_closest_ znajduje wariacja drugiego, opisanego powyżej doświadczenia, w którym zamiast wyniku testu Wilconxona, jako metrykę użyto _F1 Score_. Folder _time_ prezentuje wyniki pomiarów czasu dla poszczególnych eksperymentów. Pliki dostarczone zostały w formacie _csv_. Pierwszy rząd zawiera opis poszczególnych kolumn, pozostałe - wyniki eksperymentów.
 
 ### Kombinacja wszystkich metod i każdej możliwej liczby cech {#sec:best_feats}
 
@@ -442,7 +442,7 @@ Aby móc określić, ktora z badanych metod radzi sobie najlepiej, koniecznym kr
 
 ![Macierz prezentująca wyniki testu Wilcoxona objaśniające różnice statystyczne pomiędzy najlepszymi wynikami wszystkich metod.](./figures/wilcoxon_best.png){#fig:wilcoxon_best}
 
-Rysunek @fig:wilcoxon_best potwierdza to, co można było przypuszczać już analizując rysunki @fig:f1_best_all oraz @fig:mean_best_rank - metody selekcji cech pozwalają na uzyskanie statystycznie podobnych wyników, a duże różnice istnieją jedynie pomiędzy wynikami klasyfikacji z użyciem dowolnej z metod a wynikami klasyfikacji bez redukcji cech. Wyniki testu Wilcoxona dla poszczególnych metod wskazują, że rezultaty uzyskane przez te metody nie wykazują znacznych różnic statystycznych, żaden z wyników nie uzyskuje zwyczajowej wartości $0.05$ uznawanej za próg, po którym można uznać, że rezultaty eksperymentów pochodzą z różnych rozkładów. Z tego powodu, nie można z całą pewnością stwierdzić, która metoda daje najlepsze wyniki.
+Rysunek @fig:wilcoxon_best potwierdza to, co można było przypuszczać już analizując rysunki @fig:f1_best_all oraz @fig:mean_best_rank - wszystkie metody selekcji cech pozwalają na uzyskanie statystycznie podobnych wyników, a duże różnice istnieją jedynie pomiędzy wynikami klasyfikacji z użyciem dowolnej z metod a wynikami klasyfikacji bez redukcji cech. Wyniki testu Wilcoxona dla poszczególnych metod wskazują, że rezultaty uzyskane przez te metody nie wykazują znacznych różnic statystycznych, żaden z wyników nie uzyskuje zwyczajowej wartości $0.05$ uznawanej za próg, po którym można uznać, że rezultaty eksperymentów pochodzą z różnych rozkładów. Z tego powodu, nie można z całą pewnością stwierdzić, która metoda daje najlepsze wyniki.
 
 Tabela @tbl:mean_best_feats_part_1 zawiera porównanie średniej ilości cech w procentach oraz średni wyniki F1 Score dla każdej metody, dla części badanych zbiorów (stopień niezbalansowania pomiędzy 1:1.5 a 1:9). Czcionką pogrubioną zaznaczono na tabeli wartości skrajne liczby cech. 
 
@@ -527,18 +527,21 @@ Obserwując wykres, można generalizować, że różnice statystyczne pomiędzy 
 
 ## Badanie różnic wydajnościowych
 
-Podczas doświadczeń badano czas, jaki potrzebny jest poszczególnym eksperymentom na ukończenie obliczeń. Każdą z opisanych metod uruchomiono kilkuktrotnie na kilku zbiorach, a jako parametr określający liczba cech podano całkowitą liczbę cech w każdym zbiorze. Wyniki tych eksperymentów prezentuje tabela:
+Podczas doświadczeń badano czas, jaki potrzebny jest poszczególnym eksperymentom na ukończenie obliczeń. Każdą z opisanych metod uruchomiono kilkuktrotnie na kilku zbiorach, a jako parametr określający liczba cech podano całkowitą liczbę cech w każdym zbiorze. Wyniki tych eksperymentów prezentuje tabela @tbl:time_table:
 
-<!-- TABELA  -->
+| Nazwa Metody            | Średni czas wykonywania  | Średni czas / (liczba cech * liczba elementów) | Złożoność czasowa       |
+|-------------------------|------------------------- |----------------------------------------------- |------------------------ |
+| Anova                   | 0.00086405               | 0.0000002                                      | $O(n)$                  |
+| ReliefF                 | 2.62687309               | 0.0001468                                      | $O(n^2 * a)$            |
+| Information Gain        | 0.07214137               | 0.0000094                                      | $O(m * n)$              |
+| Chi Square              | 0.00167353               | 0.0000004                                      | $O(n)$                  |
+| Correlation Coefficient | 0.00315445               | 0.0000006                                      | $O(n)$                  |
 
-Interesującą może być informacja, że pod względem wydajności metody nie różnią się ze sobą znacząco - z jednym wyjątkiem. Metoda _ReliefF_ okazała się nawet kilkukrotnie wolniejsza od konkurentów. Ma to swoje uzasadnienie w algorytmie tej metody - najbardziej obiciążającym elementem programu jest konieczność stworzenia macierzy odgległości typu _manhattan_ dla każdej cechy i każdej instancji, a następnie przeiterowania się po każdym elemencie tej macierzy. Jest to znacznie bardziej kosztowne od wykonania kilku obliczeń na danych - jak to ma mejsce w pozostałych metodach. Różnica przeczy nieco hipotezie, która zakładała mniejsze różnice na tym polu. Zgadza się też to ze złożonościami obliczeniowymi, które oblicztli naukowcy dla tych metod: wszystkie metody posiadają złożoność obliczeniową rzędu $O(n)$, poza ReliefF, który posiada złożoność $O(n^2 * a)$, gdzie $n$ jest liczbą instancji, natomiast $a$ - liczbą cech @reliefbased. 
+Table: Uśredniony czas wykonywania poszczególnych algorytmów oraz ich deklarowane złożoności czasowe. {#tbl:time_table}
 
+Pod względem wydajności metody nie różnią się ze sobą znacząco - z dwoma wyjątkami. Metoda _ReliefF_ okazała się kilkusetkrotnie wolniejsza od konkurentów. Ma to swoje uzasadnienie w algorytmie tej metody - najbardziej obiciążającym elementem programu jest konieczność stworzenia macierzy odgległości typu _manhattan_ dla każdej cechy i każdej instancji, a następnie przeiterowania się po każdym elemencie tej macierzy. Zgadza się to z wyliczeniami twórców tego algorytmu - według nich _ReliefF_, posiada złożoność $O(n^2 * a)$, gdzie $n$ jest liczbą instancji, natomiast $a$ - liczbą cech @reliefbased. Drugim wyjątkiem jest metoda _Information Gain_, która przez konieczność maksymalizowania "zysku" osiąga złożoność $O(m * n)$, gdzie $m$ to liczba instancji, natomiast $n$ - liczba cech @RaschkaMirjalili2019 @fastdecisiontreelearning. Pozostałe algorytmy posiadają deklarowaną złożoność obliczeniową rzędu $O(n)$, co zgadza się z wynikami otrzymanymi w doświadczeniach @jcp1010011.
 
-<!-- _TODO: Krzywe roc, testy Wilcoxona, jakieś tabele, przykłady rankingu cech na ccfd, testy statystyczne_
-`https://machinelearningmastery.com/statistical-hypothesis-tests-in-python-cheat-sheet/`
-`makrouśrednianie`
-_A practical tutorial on the use of nonparametric statistical tests as a methodology for comparing evolutionary and swarm intelligence algorithms_
-_Statistical Comparisons of Classifiers over Multiple Data Sets_ -->
+Hipoteza postawiona na początku pracy nie uwględniała różnic w czasie wykonywania algorytmu, ale jest to element na który zdecydowanie warto zwrócić uwagę decydując się na pracę z daną metodą.
 
 \newpage\null\newpage
 
