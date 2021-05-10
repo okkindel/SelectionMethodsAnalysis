@@ -1,4 +1,5 @@
 from matplotlib.font_manager import FontProperties
+from scikit_posthocs import posthoc_wilcoxon
 from scipy.stats import wilcoxon
 import matplotlib.pyplot as plt
 import numpy as np
@@ -75,6 +76,8 @@ def f1_percent_chart(df):
 # -----------------------------------------------------------------------------------------------------------------
 # -----------------------------------------------------------------------------------------------------------------
 
+# https://scikit-posthocs.readthedocs.io/en/latest/generated/scikit_posthocs.posthoc_wilcoxon/
+
 def percent_wilcoxon(df):
     fontP = FontProperties()
     fontP.set_size('xx-small')
@@ -134,21 +137,32 @@ def percent_wilcoxon(df):
              f1_an_40, f1_re_40, f1_ig_40, f1_cs_40, f1_cc_40,
              f1_an_60, f1_re_60, f1_ig_60, f1_cs_60, f1_cc_60,
              f1_an_80, f1_re_80, f1_ig_80, f1_cs_80, f1_cc_80,
-             f1_no, f1_no, f1_no, f1_no, f1_no]
+             f1_no]
     res = []
     
-    for i in range(0, len(_list)):
-        res.append([])
-        for j in range (0, len(_list)):
-            if (i != j):
-                try: _, p = wilcoxon(_list[i], _list[j])
-                except ValueError: p = 1
-                print(p)
-                res[i].append(p)
-            else:
-                res[i].append(-1)
+    res = posthoc_wilcoxon(_list, zero_method='wilcox', p_adjust=None)
+    
+    for i in range (22, 26):
+        res[i] = res[21]    
+    for i in range (22, 26):
+        res.loc[i] = res.loc[21]
+    for i in range (1, 26):
+        res.at[i, i] = -1
+
+    
+    # for i in range(0, len(_list)):
+    #     res.append([])
+    #     for j in range (0, len(_list)):
+    #         if (i != j):
+    #             try: _, p = wilcoxon(_list[i], _list[j])
+    #             except ValueError: p = 1
+    #             res[i].append(p)
+    #         else:
+    #             res[i].append(-1)
+
+    print(res)
                 
-    fi_matrix = np.array(res)
+    fi_matrix = np.array(res.values)
     
     fig, ax = plt.subplots()
     im = ax.imshow(fi_matrix)

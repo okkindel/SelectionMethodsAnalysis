@@ -1,5 +1,5 @@
 from matplotlib.font_manager import FontProperties
-from scipy.stats import wilcoxon
+from scipy.stats import wilcoxon, stats
 import matplotlib.pyplot as plt
 from operator import itemgetter
 import numpy as np
@@ -325,3 +325,45 @@ def best_wilcoxon(df):
     
     fig.tight_layout()
     plt.show()
+
+# -----------------------------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------------------------------
+
+def best_percent_table(df):
+    no = df[(df['method'] == 'NO SELECTION')]
+    an = df[(df['method'] == 'ANOVA')]
+    re = df[(df['method'] == 'RELIEF')]
+    ig = df[(df['method'] == 'INFORATION GAIN')]
+    cs = df[(df['method'] == 'CHI SQUARE')]
+    cc = df[(df['method'] == 'CORRELATION COEF')]
+
+    _no = (list(itertools.chain(*(no[['num_of_feat']].values))))
+    _an = (list(itertools.chain(*(an[['num_of_feat']].values))))
+    _re = (list(itertools.chain(*(re[['num_of_feat']].values))))
+    _ig = (list(itertools.chain(*(ig[['num_of_feat']].values))))
+    _cs = (list(itertools.chain(*(cs[['num_of_feat']].values))))
+    _cc = (list(itertools.chain(*(cc[['num_of_feat']].values))))
+    
+    _an_feats = [i / j for i, j in zip(_an , _no)]
+    _re_feats = [i / j for i, j in zip(_re , _no)]
+    _ig_feats = [i / j for i, j in zip(_ig , _no)]
+    _cs_feats = [i / j for i, j in zip(_cs , _no)]
+    _cc_feats = [i / j for i, j in zip(_cc , _no)]
+    
+    _an_f1 = (list(itertools.chain(*(an[['f1_score']].values))))
+    _re_f1 = (list(itertools.chain(*(re[['f1_score']].values))))
+    _ig_f1 = (list(itertools.chain(*(ig[['f1_score']].values))))
+    _cs_f1 = (list(itertools.chain(*(cs[['f1_score']].values))))
+    _cc_f1 = (list(itertools.chain(*(cc[['f1_score']].values))))
+
+    _an_iqr = stats.iqr(_an_f1, interpolation = 'midpoint')
+    _re_iqr = stats.iqr(_re_f1, interpolation = 'midpoint')
+    _ig_iqr = stats.iqr(_ig_f1, interpolation = 'midpoint')
+    _cs_iqr = stats.iqr(_cs_f1, interpolation = 'midpoint')
+    _cc_iqr = stats.iqr(_cc_f1, interpolation = 'midpoint')
+    
+    print('anova: '         + str(np.mean(_an_feats)) + ' ' + str(np.mean(_an_f1)) + ' ' + str(_an_iqr))
+    print('relief: '        + str(np.mean(_re_feats)) + ' ' + str(np.mean(_re_f1)) + ' ' + str(_re_iqr))
+    print('inf gain: '      + str(np.mean(_ig_feats)) + ' ' + str(np.mean(_ig_f1)) + ' ' + str(_ig_iqr))
+    print('chi square: '    + str(np.mean(_cs_feats)) + ' ' + str(np.mean(_cs_f1)) + ' ' + str(_cs_iqr))
+    print('corr coef: '     + str(np.mean(_cc_feats)) + ' ' + str(np.mean(_cc_f1)) + ' ' + str(_cc_iqr))

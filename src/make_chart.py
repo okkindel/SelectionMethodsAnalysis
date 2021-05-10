@@ -1,4 +1,4 @@
-from lib.charts.ch_best import best_feat_table, best_mean_chart, best_rank_charts, best_wilcoxon
+from lib.charts.ch_best import best_feat_table, best_mean_chart, best_rank_charts, best_wilcoxon, best_percent_table
 from lib.charts.ch_percent import f1_percent_chart, percent_wilcoxon
 from lib.charts.ch_wilcoxon import feats_num_wilcoxon
 from lib.charts.ch_f1score import f1score_chart
@@ -14,6 +14,6 @@ df4 = pd.read_csv("../results/percent/percent_part4.csv", sep="; ", engine='pyth
 
 combine = pd.concat([df0, df1])
 
-df = pd.read_csv("../results/time/time_all.csv", sep="; ", engine='python')
+# df = pd.read_csv("../results/time/time_all.csv", sep="; ", engine='python')
 
-time_table(df)
+percent_wilcoxon(combine)
