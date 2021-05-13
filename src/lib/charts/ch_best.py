@@ -1,4 +1,5 @@
 from matplotlib.font_manager import FontProperties
+from scikit_posthocs import posthoc_wilcoxon
 from scipy.stats import wilcoxon, stats
 import matplotlib.pyplot as plt
 from operator import itemgetter
@@ -277,7 +278,6 @@ def best_rank_charts(df):
 def best_wilcoxon(df):
     fontP = FontProperties()
     fontP.set_size('xx-small')
-    classes = []
     
     no = df[(df['method'] == 'NO SELECTION')]
     an = df[(df['method'] == 'ANOVA')]
@@ -295,17 +295,21 @@ def best_wilcoxon(df):
     
     _methods = ['NO SELECTION', 'ANOVA', 'RELIEF', 'INFORATION GAIN', 'CHI SQUARE', 'CORRELATION COEF']
     _list = [f1_no, f1_an, f1_re, f1_ig, f1_cs, f1_cc]
-    res = []
+    res = posthoc_wilcoxon(_list, zero_method='wilcox', p_adjust='hommel')
     
-    for i in range(0, len(_list)):
-        res.append([])
-        for j in range (0, len(_list)):
-            if (i != j):
-                _, p = wilcoxon(_list[i], _list[j])
-                print(p)
-                res[i].append(p)
-            else:
-                res[i].append(-1)
+    
+    for i in range (1, len(_list) + 1):
+        res.at[i, i] = -1
+    
+    # for i in range(0, len(_list)):
+    #     res.append([])
+    #     for j in range (0, len(_list)):
+    #         if (i != j):
+    #             _, p = wilcoxon(_list[i], _list[j])
+    #             print(p)
+    #             res[i].append(p)
+    #         else:
+    #             res[i].append(-1)
                 
     fi_matrix = np.array(res)
     

@@ -438,13 +438,15 @@ Ponieważ w przypadku tego eksperymentu każdej metodzie selekcji pozwolono wybr
 
 ![Uśrednione rangi F1 Score i liczby cech dla wszystkich zbiorów, dla poszczególnych metod.](./figures/mean_best_rank.png){#fig:mean_best_rank}
 
-Aby móc określić, ktora z badanych metod radzi sobie najlepiej, koniecznym krokiem było porównanie wyników tych metod z pomocą testu statystycznego, w celu określenia, czy pomiędzy rezultatami eksperymentów dla różnych metod występują istotne różnice statystyczne. Testem statystycznym użytym w badaniu był test Wilcoxona. Macierz prezentująca wyniki tego testu została przedstawiona na rysunku @fig:wilcoxon_best. Metryką użytą do sprawdzenia różnic statystycznych zostało _F1 Score_, natomiast metryką objaśniającą różnice statystyczne zostało _pvalue_.
+Aby móc określić, ktora z badanych metod radzi sobie najlepiej, koniecznym krokiem było porównanie wyników tych metod z pomocą testu statystycznego, w celu określenia, czy pomiędzy rezultatami eksperymentów dla różnych metod występują istotne różnice statystyczne. Testem statystycznym użytym w badaniu był test Wilcoxona. Macierz prezentująca wyniki tego testu została przedstawiona na rysunku @fig:wilcoxon_best. Metryką użytą do sprawdzenia różnic statystycznych zostało _F1 Score_, natomiast metryką objaśniającą różnice statystyczne zostało _pvalue_. Aby uniknąć problemu porównań wielokrotnych wynikającego z jednoczesnego wykonywania wielu porównań z tej samej grupy hipotez zdecydowano się na skorzystanie z _metody Hommmela_, która przeciwdziała temu problemowi zmniejszając nominalny poziom dokładności każdego z testowanych zbiorów @hommelcomp. Metoda ta oparta jest na wskaźniku _FWER_ (family-wise error rate) i jest szeroko stosowana, zwłaszcza gdy tylko kilka hipotez jest testowanych jednocześnie.
 
 ![Macierz prezentująca wyniki testu Wilcoxona objaśniające różnice statystyczne pomiędzy najlepszymi wynikami wszystkich metod.](./figures/wilcoxon_best.png){#fig:wilcoxon_best}
 
 Rysunek @fig:wilcoxon_best potwierdza to, co można było przypuszczać już analizując rysunki @fig:f1_best_all oraz @fig:mean_best_rank - wszystkie metody selekcji cech pozwalają na uzyskanie statystycznie podobnych wyników, a duże różnice istnieją jedynie pomiędzy wynikami klasyfikacji z użyciem dowolnej z metod a wynikami klasyfikacji bez redukcji cech. Wyniki testu Wilcoxona dla poszczególnych metod wskazują, że rezultaty uzyskane przez te metody nie wykazują znacznych różnic statystycznych, żaden z wyników nie uzyskuje zwyczajowej wartości $0.05$ uznawanej za próg, po którym można uznać, że rezultaty eksperymentów pochodzą z różnych rozkładów. Z tego powodu, nie można z całą pewnością stwierdzić, która metoda daje najlepsze wyniki.
 
-Tabela @tbl:mean_best_feats_part_1 zawiera porównanie średniej liczby cech w procentach oraz średni wyniki F1 Score dla każdej metody, dla części badanych zbiorów (stopień niezbalansowania pomiędzy 1:1.5 a 1:9). Czcionką pogrubioną zaznaczono na tabeli wartości skrajne liczby cech. 
+Odchylenie ćwiartkowe należy do pozycyjnych miar zmienności wyników. Definiuje się je jako połowę różnicy między kwartylem trzecim $Q_3$ i pierwszym $Q_1$. Interpretuje się je jako przeciętne zróżnicowanie badanych jednostek wokół mediany @domański2001metody. 
+
+Tabela @tbl:mean_best_feats_part_1 zawiera porównanie średniej liczby cech w procentach, średni wyniki _F1 Score_ dla każdej metody oraz odchylenie ćwiartkowe wyników _F1 Score_, dla części badanych zbiorów (stopień niezbalansowania pomiędzy 1:1.5 a 1:9). Czcionką pogrubioną zaznaczono na tabeli wartości skrajne liczby cech. 
 
 | Nazwa Metody            | Średnia liczba cech | Uśredniony wynik F1 Score  | Odchylenie ćwiartkowe wyników |
 |-------------------------|-------------------- |--------------------------- |------------------------------ |
@@ -454,7 +456,7 @@ Tabela @tbl:mean_best_feats_part_1 zawiera porównanie średniej liczby cech w p
 | Chi Square              | 56.6%               | 0.732                      | 0.20135                       | 
 | Correlation Coefficient | **67.5%**           | 0.680                      | 0.26457                       | 
 
-Table: Porównanie średniej liczby wybranych cech oraz uśrednionego wyniku F1 Score dla każdej z metod, dla części zbiorów (stopień niezbalansowania pomiędzy 1:1.5 a 1:9). {#tbl:mean_best_feats_part_1}
+Table: Porównanie średniej liczby wybranych cech, uśrednionego wyniku F1 Score oraz ochylenia ćwiarkowego wyników dla każdej z metod, dla części zbiorów (stopień niezbalansowania pomiędzy 1:1.5 a 1:9). {#tbl:mean_best_feats_part_1}
 
 Badanie powtórzono dla wyników uzyskanych na czterech, największych zbiorach, opisanych w rozdziałach @sec:ccfd - @sec:custom. Zbiory te posiadały znacznie większą liczba atrybutów, a większy ich wymiar pozwala przypuszczać, że metody mogły lepiej dostosować się do danych. Wyniki tego badania prezentuje tabela @tbl:mean_best_feats_part_0.
 
@@ -466,7 +468,7 @@ Badanie powtórzono dla wyników uzyskanych na czterech, największych zbiorach,
 | Chi Square              | 47.4%               | 0.716                      | 0.42321                       |
 | Correlation Coefficient | 45.1%               | 0.730                      | 0.49723                       |
 
-Table: Porównanie średniej liczby wybranych cech oraz uśrednionego wyniku F1 Score dla każdej z metod, najobszerniejsze zbiory danych. {#tbl:mean_best_feats_part_0}
+Table: Porównanie średniej liczby wybranych cech, uśrednionego wyniku F1 Score oraz odchylenia ćwiartkowego wyników dla każdej z metod, najobszerniejsze zbiory danych. {#tbl:mean_best_feats_part_0}
 
 Z danych, przedstawionych w tabelach @tbl:mean_best_feats_part_1 oraz @tbl:mean_best_feats_part_0 wynika, że w celu uzyskania podobnych wyników etykietowania metody potrzebowały średnio różnej liczby cech. Różnice te sięgają nawet czterdziestu punktów procentowych. Może to oznaczać, że to nie jakość klasyfikacji a liczba cech potrzeba do osiągniecia jej zadowalającego poziomu powinna być wyznacznikiem przy doborze odpowiedniej metody selekcji.
 
@@ -480,7 +482,7 @@ Tabela @tbl:mean_best_feats prezentuje podobne badanie, tym razem z użyciem wsz
 | Chi Square              | 36.3%               | 0.498                      | 0.85783                       |
 | Correlation Coefficient | 39.5%               | 0.432                      | 0.81990                       |
 
-Table: Porównanie średniej liczby wybranych cech oraz uśrednionego wyniku F1 Score i zbalansowanej dokładności dla każdej z metod, wszystkie zbiory danych. {#tbl:mean_best_feats}
+Table: Porównanie średniej liczby wybranych cech, uśrednionego wyniku F1 Score oraz odchylenia ćwiartkowego wyników dla każdej z metod, wszystkie zbiory danych. {#tbl:mean_best_feats}
 
 Ponadto okazało się, że w 93% przypadków (459 / 490 wyników), selekcja cech pozwoliła uzyskać lepsze wyniki klasyfikacji. W 71% przypadków (351 / 490 wyników), zaledwie połowa oryginalnych cech pozwoliła uzyskać wynik klasyfikacji lepszy od tego, który uzyskał algorytm na pełnym zbiorze. Co zaskakujące, w przypadku aż 218 eksperymentów - czyli dla 44% wyników, rezultat lepszy od bazowego uzyskano wykorzystując zaledwie jedną cechę.
 
@@ -519,11 +521,11 @@ Ponownie, badania powtórzono dla największych zbiorów danycg - _CCFD_, _Mushr
 
 Selekcja cech praktycznie w każdym przypadku pozwoliła uzyskać lepsze rezultaty klasyfikacji. Ponownie wyróżniającą się metodą jest _Correlation Coefficient_, jednak słabe wyniki uzyskuje on tylko w przypadku niewielkiej liczby cech, w zestawie _Custom_ natomiast, radzi sobie najlepiej, co jest prawdopodobnie podyktowane silnie skorelowanymi instancjami klas mniejszościowych w tym zbiorze.
 
-Aby potwierdzić lub obalić hipotezę postawioną na początku pracy, postanowiono przeprowadzić test statystyczny - test Wilconxona, dla wygenerowanych danych. Rysunek @fig:wilcoxon_percent prezentuje macierz prezentującą te wyniki. Pokazuje ona prawdopodobieństwo, że rezultaty uzyskane dla każdej pary eksperymentów pochodzą z tej samej dystrybucji. Poszczególne komórki zawierają wynik _pvalue_, wartość mniejsza niż $0.05$ wskazuje na statystyczne różnice otrzymanych rezultatów tym samym odrzucając hipotezę.
+Aby potwierdzić lub obalić hipotezę postawioną na początku pracy, postanowiono przeprowadzić test statystyczny - test Wilconxona, dla wygenerowanych danych. Rysunek @fig:wilcoxon_percent prezentuje macierz prezentującą te wyniki. Pokazuje ona prawdopodobieństwo, że rezultaty uzyskane dla każdej pary eksperymentów pochodzą z tej samej dystrybucji. Poszczególne komórki zawierają wynik _pvalue_, wartość mniejsza niż $0.05$ wskazuje na statystyczne różnice otrzymanych rezultatów tym samym odrzucając hipotezę. Podobnie jak w doświadczeniu opisanym w rodziale @sec:best_feats, podczas wykonywania testów skorzystano z poprawki przeciwdziałającej problemowi porównań wielokrotnych. Uważa się jednak, że _FWER_ jest zbyt konserwatywny w przypadkach, gdy liczba jednocześnie testowanych hipotez sięga już kilkuset @hommelcomp. Z uwagi na dużą ilość porównywanych zbiorów zdecydowano się na _metodę Benjamini i Yekutieli_, bazującą na innym wskaźniku - _FDR_ (false discovery rate), który jest mniej rygorystyczny i używa się go podczas testowania dużej liczby hipotez @hommelcomp.
 
 ![Macierz prezentująca wyniki testu Wilcoxona objaśniające różnice statystyczne pomiędzy metodami z różną liczbą cech.](./figures/wilcoxon_percent.png){#fig:wilcoxon_percent}
 
-Obserwując wykres, można generalizować, że różnice statystyczne pomiędzy metodami maleją wraz ze wzrostem liczby cech. Użycie już 40% cech odrzuca hipotezę o niezależnych dystrybucjach, potwierdzając niejako, że każda z użytych metod skutkuje podobnymi wynikami. Ponadto, rezultaty przedstawione na rysunkach @fig:f1_results_part_1 - @fig:f1_results_part_0 dowodzą, że 20% to zazwyczaj liczba zbyt mała liczba cech do uzyskania stabilnych, dobrych wyników klasyfikacji. Wyniki eksperymentu świadczą za hipotezą postawioną na początku pracy. 
+Obserwując wykres, można generalizować, że różnice statystyczne pomiędzy metodami maleją wraz ze wzrostem liczby cech. Użycie już 40% cech odrzuca definitywnie hipotezę o niezależnych dystrybucjach, potwierdzając niejako, że każda z użytych metod skutkuje podobnymi wynikami. Ponadto, rezultaty przedstawione na rysunkach @fig:f1_results_part_1 - @fig:f1_results_part_0 dowodzą, że 20% to zazwyczaj liczba zbyt mała liczba cech do uzyskania stabilnych, dobrych wyników klasyfikacji. Wyniki eksperymentu świadczą za hipotezą postawioną na początku pracy. 
 
 ## Badanie różnic wydajnościowych
 
