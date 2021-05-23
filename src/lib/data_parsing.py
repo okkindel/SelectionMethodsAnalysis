@@ -2,7 +2,6 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import RobustScaler
 import pandas as pd
 import numpy as np
-import math
 
 def parseKEEL(dataset):
     from_file = []
