@@ -252,7 +252,7 @@ def best_rank_charts(df):
     axes[1].bar(height=np.mean(feats_ig_res), edgecolor='black', color='grey', x="INFORATION GAIN")
     axes[1].bar(height=np.mean(feats_cs_res), edgecolor='black', color='teal', x="CHI SQUARE")
     axes[1].bar(height=np.mean(feats_cc_res), edgecolor='black', color='aquamarine', x="CORRELATION COEF")
-    axes[1].set_title('Średnia ranga według ilości cech')
+    axes[1].set_title('Średnia ranga według liczby cech')
     axes[1].tick_params(labelrotation=40)
     axes[1].set_ylim([0, 2])
     
