@@ -456,51 +456,53 @@ Ponieważ w przypadku tego eksperymentu każdej metodzie selekcji pozwolono wybr
 
 ![Uśrednione rangi F1 Score i liczby cech dla wszystkich zbiorów, dla poszczególnych metod.](./figures/mean_best_rank.png){#fig:mean_best_rank}
 
-Aby móc określić, ktora z badanych metod radzi sobie najlepiej, koniecznym krokiem było porównanie wyników z pomocą testu statystycznego, w celu określenia, czy pomiędzy rezultatami eksperymentów dla różnych metod występują istotne różnice statystyczne. Testem statystycznym użytym w badaniu był test Wilcoxona. Macierz prezentująca wyniki tego testu została przedstawiona na rysunku @fig:wilcoxon_best. Metryką użytą do sprawdzenia różnic statystycznych zostało _F1 Score_, natomiast metryką objaśniającą różnice statystyczne zostało _pvalue_. Aby uniknąć problemu porównań wielokrotnych wynikającego z jednoczesnego wykonywania wielu porównań z tej samej grupy hipotez zdecydowano się na skorzystanie z _metody Hommmela_, która przeciwdziała temu problemowi zmniejszając nominalny poziom dokładności każdego z testowanych zbiorów @hommelcomp. Metoda ta oparta jest na wskaźniku _FWER_ (family-wise error rate) i jest szeroko stosowana, zwłaszcza gdy tylko kilka hipotez jest testowanych jednocześnie.
+Aby móc określić, ktora z badanych metod radzi sobie najlepiej, koniecznym krokiem było porównanie wyników z pomocą testu statystycznego, w celu określenia, czy pomiędzy rezultatami eksperymentów dla różnych metod występują istotne różnice statystyczne. Testem statystycznym użytym w badaniu był test Wilcoxona. Macierz prezentująca wyniki tego testu została przedstawiona na rysunku @fig:wilcoxon_best.
 
 ![Macierz prezentująca wyniki testu Wilcoxona objaśniające różnice statystyczne pomiędzy najlepszymi wynikami wszystkich metod.](./figures/wilcoxon_best.png){#fig:wilcoxon_best}
+
+Metryką użytą do sprawdzenia różnic statystycznych zostało _F1 Score_, natomiast metryką objaśniającą różnice statystyczne zostało _pvalue_. Aby uniknąć problemu porównań wielokrotnych wynikającego z jednoczesnego wykonywania wielu porównań z tej samej grupy hipotez zdecydowano się na skorzystanie z _metody Hommmela_, która przeciwdziała temu problemowi zmniejszając nominalny poziom dokładności każdego z testowanych zbiorów @hommelcomp. Metoda ta oparta jest na wskaźniku _FWER_ (family-wise error rate) i jest szeroko stosowana, zwłaszcza gdy tylko kilka hipotez jest testowanych jednocześnie.
 
 Rysunek @fig:wilcoxon_best potwierdza to, co można było przypuszczać analizując rysunki @fig:f1_best_all oraz @fig:mean_best_rank - wszystkie metody selekcji cech pozwalają na uzyskanie statystycznie podobnych wyników, a duże różnice istnieją jedynie pomiędzy wynikami klasyfikacji z użyciem dowolnej z metod a wynikami klasyfikacji bez redukcji cech. Wyniki testu Wilcoxona dla poszczególnych metod wskazują, że rezultaty uzyskane przez te metody nie wykazują znacznych różnic statystycznych. Żaden z wyników nie uzyskuje zwyczajowej wartości $0.05$ uznawanej za próg, po którym można uznać, że rezultaty eksperymentów pochodzą z różnych rozkładów. Z tego powodu, nie można z całą pewnością stwierdzić, która metoda daje najlepsze wyniki.
 
 Odchylenie ćwiartkowe należy do pozycyjnych miar zmienności wyników. Definiuje się je jako połowę różnicy między kwartylem trzecim $Q_3$ i pierwszym $Q_1$. Interpretuje się je jako przeciętne zróżnicowanie badanych jednostek wokół mediany @domański2001metody. 
 
-Tablica @tbl:mean_best_feats_part_1 zawiera porównanie średniej liczby cech w procentach, średni wyniki _F1 Score_ dla każdej metody oraz odchylenie ćwiartkowe wyników _F1 Score_, dla części badanych zbiorów (stopień niezbalansowania pomiędzy 1:1.5 a 1:9). Czcionką pogrubioną zaznaczono na tablicy wartości skrajne liczby cech. 
+Tablica @tbl:mean_best_feats_part_1 zawiera porównanie średniej liczby cech w procentach dla każdej metody oraz odchylenie ćwiartkowe wyników _F1 Score_, dla części badanych zbiorów (stopień niezbalansowania pomiędzy 1:1.5 a 1:9). Czcionką pogrubioną zaznaczono na tablicy wartości skrajne liczby cech. 
 
-| Nazwa Metody            | Średnia liczba cech | Uśredniony wynik F1 Score  | Odchylenie ćwiartkowe wyników |
-|-------------------------|-------------------- |--------------------------- |------------------------------ |
-| Anova                   | 49.3%               | 0.739                      | 0.20758                       | 
-| ReliefF                 | 63.3%               | 0.705                      | 0.16780                       | 
-| Information Gain        | **47.8%**           | 0.711                      | 0.19409                       | 
-| Chi Square              | 56.6%               | 0.732                      | 0.20135                       | 
-| Correlation Coefficient | **67.5%**           | 0.680                      | 0.26457                       | 
+| Nazwa Metody            | Średnia liczba cech | Odchylenie ćwiartkowe wyników |
+|-------------------------|-------------------- |------------------------------ |
+| Anova                   | 49.3%               | 0.20758                       | 
+| ReliefF                 | 63.3%               | 0.16780                       | 
+| Information Gain        | **47.8%**           | 0.19409                       | 
+| Chi Square              | 56.6%               | 0.20135                       | 
+| Correlation Coefficient | **67.5%**           | 0.26457                       | 
 
-Table: Porównanie średniej liczby wybranych cech, uśrednionego wyniku F1 Score oraz ochylenia ćwiarkowego wyników dla każdej z metod, dla części zbiorów (stopień niezbalansowania pomiędzy 1:1.5 a 1:9). {#tbl:mean_best_feats_part_1}
+Table: Porównanie średniej liczby wybranych cech oraz ochylenia ćwiarkowego wyników dla każdej z metod, dla części zbiorów (stopień niezbalansowania pomiędzy 1:1.5 a 1:9). {#tbl:mean_best_feats_part_1}
 
 Badanie powtórzono dla wyników uzyskanych na czterech, największych zbiorach, opisanych w rozdziałach @sec:ccfd - @sec:custom. Zbiory te posiadały znacznie większą liczba atrybutów, a większy ich wymiar pozwala przypuszczać, że metody mogły lepiej dostosować się do danych. Wyniki tego badania prezentuje tablica @tbl:mean_best_feats_part_0.
 
-| Nazwa Metody            | Średnia liczba cech | Uśredniony wynik F1 Score  | Odchylenie ćwiartkowe wyników |
-|-------------------------|-------------------- |--------------------------- |------------------------------ |
-| Anova                   | **60.8%**           | 0.709                      | 0.41904                       |
-| ReliefF                 | **21.9%**           | 0.705                      | 0.55568                       |
-| Information Gain        | 25.7%               | 0.742                      | 0.47614                       |
-| Chi Square              | 47.4%               | 0.716                      | 0.42321                       |
-| Correlation Coefficient | 45.1%               | 0.730                      | 0.49723                       |
+| Nazwa Metody            | Średnia liczba cech | Odchylenie ćwiartkowe wyników |
+|-------------------------|-------------------- |------------------------------ |
+| Anova                   | **60.8%**           | 0.41904                       |
+| ReliefF                 | **21.9%**           | 0.55568                       |
+| Information Gain        | 25.7%               | 0.47614                       |
+| Chi Square              | 47.4%               | 0.42321                       |
+| Correlation Coefficient | 45.1%               | 0.49723                       |
 
-Table: Porównanie średniej liczby wybranych cech, uśrednionego wyniku F1 Score oraz odchylenia ćwiartkowego wyników dla każdej z metod, najobszerniejsze zbiory danych. {#tbl:mean_best_feats_part_0}
+Table: Porównanie średniej liczby wybranych cech oraz odchylenia ćwiartkowego wyników dla każdej z metod, najobszerniejsze zbiory danych. {#tbl:mean_best_feats_part_0}
 
 Z danych, przedstawionych w tablicach @tbl:mean_best_feats_part_1 oraz @tbl:mean_best_feats_part_0 wynika, że w celu uzyskania podobnych wyników etykietowania metody potrzebowały średnio różnej liczby cech. Różnice te sięgają nawet czterdziestu punktów procentowych. Może to oznaczać, że nie jakość klasyfikacji a liczba cech potrzeba do osiągniecia jej zadowalającego poziomu powinna być wyznacznikiem przy doborze odpowiedniej metody selekcji.
 
 Tablica @tbl:mean_best_feats prezentuje podobne badanie, tym razem z użyciem wszystkich zbiorów danch. Przy zastosowaniu większej, reprezentatywnej liczby zbiorów, dane dotyczące liczby cech dla różnych metod nie odbiegają od siebie. Oznacza to, że i pod tym wględem nie da się wskazać metody najlepszej - co potwierdza zakładaną początkowo hipotezę.
 
-| Nazwa Metody            | Średnia liczba cech | Uśredniony wynik F1 Score  | Odchylenie ćwiartkowe wyników |
-|-------------------------|-------------------- |--------------------------- |------------------------------ |
-| Anova                   | 34.3%               | 0.497                      | 0.86015                       |
-| ReliefF                 | 36.4%               | 0.472                      | 0.84210                       |
-| Information Gain        | 34.4%               | 0.481                      | 0.85889                       |
-| Chi Square              | 36.3%               | 0.498                      | 0.85783                       |
-| Correlation Coefficient | 39.5%               | 0.432                      | 0.81990                       |
+| Nazwa Metody            | Średnia liczba cech | Odchylenie ćwiartkowe wyników |
+|-------------------------|-------------------- |------------------------------ |
+| Anova                   | 34.3%               | 0.86015                       |
+| ReliefF                 | 36.4%               | 0.84210                       |
+| Information Gain        | 34.4%               | 0.85889                       |
+| Chi Square              | 36.3%               | 0.85783                       |
+| Correlation Coefficient | 39.5%               | 0.81990                       |
 
-Table: Porównanie średniej liczby wybranych cech, uśrednionego wyniku F1 Score oraz odchylenia ćwiartkowego wyników dla każdej z metod, wszystkie zbiory danych. {#tbl:mean_best_feats}
+Table: Porównanie średniej liczby wybranych cech oraz odchylenia ćwiartkowego wyników dla każdej z metod, wszystkie zbiory danych. {#tbl:mean_best_feats}
 
 Ponadto okazało się, że w 93% przypadków (459 / 490 wyników), selekcja cech pozwoliła uzyskać lepsze wyniki klasyfikacji. W 71% przypadków (351 / 490 wyników), zaledwie połowa oryginalnych cech pozwoliła uzyskać wynik klasyfikacji lepszy od tego, który uzyskał algorytm na pełnym zbiorze. Co zaskakujące, w przypadku aż 218 eksperymentów - czyli dla 44% wyników, rezultat lepszy od bazowego uzyskano wykorzystując zaledwie jedną cechę.
 
